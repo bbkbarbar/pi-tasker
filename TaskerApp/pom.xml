@@ -43,7 +43,7 @@
     
     <dependency>
     	<groupId>hu.barbar.comm</groupId>
-    	<artifactId>util</artifactId>
+    	<artifactId>util.tasker-comm</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
     

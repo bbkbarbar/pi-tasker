@@ -6,10 +6,10 @@ import java.util.Date;
 
 import hu.barbar.comm.server.MultiThreadServer;
 import hu.barbar.comm.util.BaseCommands;
-import hu.barbar.comm.util.Commands;
 import hu.barbar.comm.util.Msg;
-import hu.barbar.comm.util.PWMMessage;
-import hu.barbar.comm.util.RGBMessage;
+import hu.barbar.comm.util.tasker_comm.Commands;
+import hu.barbar.comm.util.tasker_comm.PWMMessage;
+import hu.barbar.comm.util.tasker_comm.RGBMessage;
 import hu.barbar.tasker.log.EventLogger;
 import hu.barbar.tasker.log.IOLogger;
 import hu.barbar.tasker.todo.Worker;
