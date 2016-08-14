@@ -1,0 +1,76 @@
+package hu.barbar.tasker.todo.items;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+
+import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
+import hu.barbar.tasker.util.Config;
+import hu.barbar.tasker.util.Env;
+import hu.barbar.tasker.util.TemperatureResult;
+import hu.barbar.util.FileHandler;
+import hu.barbar.util.logger.Log;
+
+public class TempLogger extends TempRelatedToDoItemBase {
+
+	private String temperatureLogFile = null;
+	
+	private SimpleDateFormat sdf = null;
+	
+	protected static final String PATTERN_OF_TEMPLOG_LINES = "yyyy.MM.dd HH:mm";
+	
+	private String DEFAULT_FILENAME_OF_TEMP_LOG_FILE = "temp.log";
+	
+	
+	
+	public TempLogger() {
+		super();
+		
+		HashMap<String, String> config = Config.readBaseConfig();
+		String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		if(tempLogPath.charAt(tempLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
+			tempLogPath += Env.getPathSeparator();
+		}
+		this.temperatureLogFile = tempLogPath + DEFAULT_FILENAME_OF_TEMP_LOG_FILE;
+		
+		sdf = new SimpleDateFormat(TempLogger.PATTERN_OF_TEMPLOG_LINES);
+		
+	}
+	
+	
+	@Override
+	public String getClassTitle() {
+		return "Temperature logger";
+	}
+
+	@Override
+	public void execute() {
+		//Sample: 
+		// "2016-07-12 12:29, 74\n" +
+		String line = "\"" + sdf.format(new Date());
+		line += ", ";
+		
+		float tempValue = readTemperature().getTempOfAir();
+		if( TemperatureResult.isValueInvalid(tempValue)){
+			Log.w("TempLogger (ToDoItem: "
+					+ getId()
+					+ ") Invalid temp value has been read: " + tempValue);
+			return;
+		}
+		
+		line += String.format("%.2f", tempValue).replace(",", ".") + "\\n\"";
+		
+		if(FileHandler.appendToFile(this.temperatureLogFile, line)){
+			// Success, do nothing
+		}else{
+			Log.e("TempLogger :: Error while try to write temp log to file: " + temperatureLogFile);
+		}
+		
+	}
+
+	@Override
+	public boolean needToRun() {
+		return true;
+	}
+
+}
