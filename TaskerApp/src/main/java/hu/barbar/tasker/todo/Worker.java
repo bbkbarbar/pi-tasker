@@ -28,7 +28,7 @@ public class Worker extends Thread {
 	/**
 	 *  Common list of all worker instances
 	 */
-	private static ArrayList<Worker> workerList = new ArrayList<>();
+	private static ArrayList<Worker> workerList = new ArrayList<Worker>();
 
 	
 	/*
