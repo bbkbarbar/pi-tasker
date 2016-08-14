@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home: Info</title>
+        <meta http-equiv="refresh" content="120">
+        <link rel="shortcut icon" type="image/png" href="icon.png"/>
+        <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
+        <style>
+            html,body { width: 100%; height: 100%; }
+        </style>
+        <script 
+            type="text/javascript"
+            src="dygraph-combined-dev.js">
+        </script>
+        <style>
+          .graph {
+            float: left;
+            margin: 5px;
+            padding: 15px;
+            min-width: 640px;
+            max-width: 660px;
+            height: 420px;
+            border: 1px dashed orange;
+            background-color:light-gray;
+          } 
+        </style>
+        <style>
+          .data {
+            float: left;
+            margin: 5px;
+            padding: 5px;
+            min-width: 240px;
+            max-width: 250px;
+            height: 130px;
+            border: 1px dashed orange;
+            background-color:gray;
+          } 
+        </style>
+        <style id="awcc1468315617359" class="aw-widget-current"  data-locationkey="187423" data-unit="c" data-language="hu" data-useip="false" data-uid="awcc1468315617359">
+          .weather {
+            float: left;
+            margin: 5px;
+            padding: 5px;
+            width: 205px;
+            height: 175px;
+            border: 1px dashed orange;
+            background-color:gray;
+          } 
+        </style>
+    </head>
+    <body 
+        style="
+            background-color: #1B191A;
+            background-image: url(bg.png);
+            background-size:fill;
+            background-repeat: no-repeat;
+            background-position: center center;
+            overflow:hidden;
+    ">
+        
+     
+        <div class="data">
+        	<font color="#00bfff">
+                <h1 style="color: #00bfff;"><strong>Air: 24,94&deg;C</strong></h1>
+                <h1 style="color: #00bfff;"><strong>Water: 24,75&deg;C</strong></h1>
+        	</font>
+        </div>
+
+        <a href="http://www.accuweather.com/hu/hu/budapest/187423/weather-forecast/187423" class="aw-widget-legal"></a>
+        <div style="position: absolute; right: 5px;" id="awcc1468315617359" class="aw-widget-current"  data-locationkey="187423" data-unit="c" data-language="hu" data-useip="false" data-uid="awcc1468315617359"></div>
+        <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+
+
+
+
+        <div class="graph">
+        <div id="graphdiv"></div>
+        <script 
+            type="text/javascript"
+        >
+          g = new Dygraph(
+
+            // containing div
+            document.getElementById("graphdiv"),
+
+            // CSV or path to a CSV file.
+            "Date,Air,Water\n" +
+            "2016-07-17 08:33, 24.94, 29.81\n" +
+            "2016-07-17 08:37, 24.94, 26.13\n" +
+            "2016-07-17 08:39, 24.94, 25.50\n" +
+            "2016-07-17 08:41, 24.94, 25.13\n" +
+            "2016-07-17 08:43, 24.94, 24.94\n" +
+            "2016.07.17 08:45, 24.94, 24.81\n"
+
+          );
+        </script>
+        </div>
+
+
+        <div style="position: absolute; bottom: 5px; background-color: green">
+            Last update: 08:46:44
+        
+</div>
+
+    </body>
+</html>

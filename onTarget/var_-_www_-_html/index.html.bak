@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home: Info</title>
+        <link rel="shortcut icon" type="image/png" href="icon.png"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            html,body { width: 100%; height: 100%; }
+        </style>
+        <script 
+            type="text/javascript"
+            src="dygraph-combined-dev.js">
+        </script>
+    </head>
+    <body 
+        style="
+            background-color: #1B191A;
+            background-image: url(bg.png);
+            background-size:fill;
+            background-repeat: no-repeat;
+            background-position: center center;
+            overflow:hidden;
+    ">
+        
+     
+
+    	<font color="#00bfff">
+
+<!-- ==================================  End 0  ================================== -->
+<!-- ================================== Begin 1 ================================== -->
+
+            <h1 style="color: #00bfff;"><strong>Temp: [X].[Y]&deg;C</strong>
+
+<!-- ==================================  End 1  ================================== -->
+<!-- ================================== Begin 2 ================================== -->
+
+        </font>
+
+        <a href="http://www.accuweather.com/hu/hu/budapest/187423/weather-forecast/187423" class="aw-widget-legal"></a>
+        <div style="position: absolute; right: 5px;" id="awcc1468315617359" class="aw-widget-current"  data-locationkey="187423" data-unit="c" data-language="hu" data-useip="false" data-uid="awcc1468315617359"></div>
+        <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+
+
+
+
+        <div id="graphdiv"></div>
+        <script 
+            type="text/javascript"
+        >
+          g = new Dygraph(
+
+            // containing div
+            document.getElementById("graphdiv"),
+
+            // CSV or path to a CSV file.
+            "Date,Temperature\n" +
+
+<!-- ==================================  End 2  ================================== -->
+<!-- ================================== Begin 3 ================================== -->
+
+            "2016-07-13 2:42, 28.19\n" +
+            "2016-07-13 2:43, 28.06\n" +
+            "2016-07-13 2:46, 27.93\n" +
+            "2016-07-13 3:46, 27.70\n" +
+            "2016-07-13 2:53, 28.19\n" +
+            "2016-07-13 5:23, 28.00\n"
+
+<!-- ==================================  End 3  ================================== -->
+<!-- ================================== Begin 4 ================================== -->
+
+
+          );
+        </script>
+
+
+        <div style="position: absolute; bottom: 5px; background-color: green">
+
+<!-- ==================================  End 4  ================================== -->
+<!-- ================================== Begin 5 ================================== -->
+
+            Last update: [dateTimeOfUpdate]
+
+<!-- ==================================  End 5  ================================== -->
+<!-- ================================== Begin 6 ================================== -->
+
+</div>
+
+    </body>
+</html>
+
+<!-- ==================================  End 6  ================================== -->

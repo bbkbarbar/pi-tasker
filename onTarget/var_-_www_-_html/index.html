@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home: Info</title>
+        <meta http-equiv="refresh" content="120">
+        <link rel="shortcut icon" type="image/png" href="icon.png"/>
+        <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
+        <style>
+            html,body { width: 100%; height: 100%; }
+        </style>
+        <style>
+          .graph {
+            float: left;
+            margin: 5px;
+            padding: 15px;
+            min-width: 640px;
+            max-width: 660px;
+            height: 480px;
+            border: 1px dashed orange;
+            background-color:light-gray;
+          } 
+        </style>
+        <script 
+            type="text/javascript"
+            src="dygraph-combined-dev.js">
+        </script>
+    </head>
+    <body 
+        style="
+            background-color: #1B191A;
+            background-image: url(bg.png);
+            background-size:fill;
+            background-repeat: no-repeat;
+            background-position: center center;
+            overflow:hidden;
+    ">
+        
+     
+
+    	<font color="#00bfff">
+            <h1 style="color: #00bfff;"><strong>Air: 26,69&deg;C</strong></h1>
+            <h1 style="color: #00bfff;"><strong>Water: 24,94&deg;C</strong></h1>
+    	</font>
+
+        <a href="http://www.accuweather.com/hu/hu/budapest/187423/weather-forecast/187423" class="aw-widget-legal"></a>
+        <div style="position: absolute; right: 5px;" id="awcc1468315617359" class="aw-widget-current"  data-locationkey="187423" data-unit="c" data-language="hu" data-useip="false" data-uid="awcc1468315617359"></div>
+        <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+
+        <img src="res/cooler_NOT_active.png" alt="Cooler active" style="width:64px;height:64px;">
+
+
+        <div id="graphdiv"></div>
+        <script 
+            type="text/javascript"
+        >
+          g = new Dygraph(
+
+            // containing div
+            document.getElementById("graphdiv"),
+
+"2016-08-03 05:30, 27.31, 25.75\n" +
+"2016-08-03 05:56, 27.31, 25.75\n" +
+"2016-08-03 06:12, 27.31, 25.81\n" +
+"2016-08-03 06:28, 27.38, 25.81\n" +
+"2016-08-03 06:53, 27.44, 25.81\n" +
+"2016-08-03 08:19, 26.81, 25.56\n" +
+"2016-08-03 08:47, 26.63, 25.38\n" +
+"2016-08-03 08:55, 26.63, 25.31\n" +
+"2016-08-03 09:35, 26.50, 24.75\n" +
+"2016-08-03 10:00, 26.69, 24.88\n"
+          );
+        </script>
+
+
+        <div style="position: absolute; bottom: 5px; background-color: green">
+            Last update: 10:34:05
+        </div>
+
+    </body>
+</html>
