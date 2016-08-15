@@ -2,6 +2,7 @@ package hu.barbar.tasker.todo.items;
 
 import java.util.Comparator;
 
+import hu.barbar.tasker.todo.items.tempcontrol.TempController;
 import hu.barbar.tasker.todo.items.tempcontrol.TempController.RuleItem;
 
 /**
@@ -11,8 +12,7 @@ import hu.barbar.tasker.todo.items.tempcontrol.TempController.RuleItem;
  */
 public class RuleItemComparator implements Comparator<RuleItem> {
 
-	@Override
-	public int compare(RuleItem o1, RuleItem o2) {
+	public int compare(TempController.RuleItem o1, RuleItem o2) {
 		
 		if(o1.getLimitValue() < o2.getLimitValue()){
 			return -1;

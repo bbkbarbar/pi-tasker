@@ -60,4 +60,9 @@ public class TempOnColors extends TempRelatedToDoItemBase {
 		return true;
 	}
 
+	@Override
+	public String getClassName() {
+		return "TempOnColors";
+	}
+
 }

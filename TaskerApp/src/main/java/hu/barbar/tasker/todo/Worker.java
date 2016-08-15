@@ -60,7 +60,7 @@ public class Worker extends Thread {
 	
 	
 	private void init(String title, long delayInSeconds){
-		items = new ArrayList<>();
+		items = new ArrayList<ToDoItemBase>();
 		this.delayInSec = delayInSeconds;
 		this.title = title;
 		Worker.workerList.add(this);

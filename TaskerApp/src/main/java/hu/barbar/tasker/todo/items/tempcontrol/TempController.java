@@ -114,9 +114,9 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		
 		public String getLine(boolean isUsedForCooler){
 			if(isUsedForCooler)
-				return "\t\t[" + String.format("%.2f", this.getLimitValue()) + " - " + String.format("%.2f", (this.getLimitValue() - this.getThreshold())) + "]�C >> " + this.getOutputValue() + "%";
+				return "\t\t[" + String.format("%.2f", this.getLimitValue()) + " - " + String.format("%.2f", (this.getLimitValue() - this.getThreshold())) + "]°C >> " + this.getOutputValue() + "%";
 			else
-				return "\t\t[" + String.format("%.2f", this.getLimitValue()) + " - " + String.format("%.2f", (this.getLimitValue() + this.getThreshold())) + "]�C >> " + this.getOutputValue() + "%";
+				return "\t\t[" + String.format("%.2f", this.getLimitValue()) + " - " + String.format("%.2f", (this.getLimitValue() + this.getThreshold())) + "]°C >> " + this.getOutputValue() + "%";
 		}
 		
 		public float getLimitValue() {
@@ -473,7 +473,6 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public JSONObject getAsJSON() {
 		
 		JSONObject json = new JSONObject();

@@ -82,6 +82,7 @@ public abstract class TempRelatedToDoItemBase extends ToDoItemBase{
 		
 		return temperature;
 	}
-	
 
+	public abstract String getClassName();
+	
 }

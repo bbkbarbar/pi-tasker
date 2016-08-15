@@ -146,4 +146,9 @@ public class TempExceeds extends TempRelatedToDoItemBase {
 		return true;
 	}
 
+	@Override
+	public String getClassName() {
+		return "TempExceeds";
+	}
+
 }

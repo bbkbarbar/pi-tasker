@@ -17,7 +17,7 @@ public class TempReader extends ToDoItemBase {
 	public static final int SENSOR_DEFAULT = SENSOR_AIR;
 	
 	private float relevantDifference = 0;
-	
+
 	
 	public TempReader(float minRelevantDifferene) {
 		super();
@@ -77,4 +77,14 @@ public class TempReader extends ToDoItemBase {
 		return (a>b)?(a-b):(b-a);
 	}
 	
+	public static String getSensorTypeAsHumen(int observedSensor) {
+		switch (observedSensor) {
+			case SENSOR_AIR:
+				return "Air";
+			case SENSOR_WATER:
+				return "Water";
+		}
+		return "Unknown";
+	}
+
 }

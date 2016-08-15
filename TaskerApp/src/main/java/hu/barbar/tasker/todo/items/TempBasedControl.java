@@ -201,4 +201,9 @@ public class TempBasedControl extends TempRelatedToDoItemBase {
 		return (true && this.initialized);
 	}
 
+	@Override
+	public String getClassName() {
+		return "TempBasedControl";
+	}
+
 }

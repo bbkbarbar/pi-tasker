@@ -4,12 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.simple.JSONObject;
+
 import hu.barbar.comm.server.MultiThreadServer;
 import hu.barbar.comm.util.BaseCommands;
 import hu.barbar.comm.util.Msg;
-import hu.barbar.comm.util.tasker_comm.Commands;
-import hu.barbar.comm.util.tasker_comm.PWMMessage;
-import hu.barbar.comm.util.tasker_comm.RGBMessage;
+import hu.barbar.comm.util.tasker.Commands;
+import hu.barbar.comm.util.tasker.PWMMessage;
+import hu.barbar.comm.util.tasker.RGBMessage;
 import hu.barbar.tasker.log.EventLogger;
 import hu.barbar.tasker.log.IOLogger;
 import hu.barbar.tasker.todo.Worker;
@@ -33,7 +35,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 75;
+	private static final int buildNum = 76;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -161,7 +163,7 @@ public class Tasker {
 			myWorker.addToDoItem(tbc);
 			/**/
 			
-			ArrayList<TempController.RuleItem> rules = new ArrayList<>();
+			ArrayList<TempController.RuleItem> rules = new ArrayList<TempController.RuleItem>();
 			TempController.RuleItem ri = new TempController.RuleItem(25.70f, 0.25f, 32);
 			//FileHandler.storeJSON( Env.getDataFolderPath() + "test.json", ri.getAsJSON());
 			
@@ -179,16 +181,21 @@ public class Tasker {
 			
 			
 			//CoolerController cc = new CoolerController(Config.readOutputConfig(true).get(Config.KEY_OUTPUT_OF_COOLER), "Aquarium cooler", TempReader.SENSOR_WATER, rules);
-			CoolerController cc = new CoolerController(Config.readOutputConfig(true).get(Config.KEY_OUTPUT_OF_COOLER), FileHandler.readJSON(Env.getDataFolderPath() + "cc3.json"));
-			cc.setEnabled(false);
-
-			//JSONObject ccJson = cc.getAsJSON();
-			//FileHandler.storeJSON(Env.getDataFolderPath() + "cc2.json", ccJson);
+			JSONObject ccJson = FileHandler.readJSON(Env.getDataFolderPath() + "cc3.json");
+			if(ccJson != null){
+				CoolerController cc = new CoolerController(Config.readOutputConfig(true).get(Config.KEY_OUTPUT_OF_COOLER), ccJson);
+				cc.setEnabled(false);
+	
+				//JSONObject ccJson = cc.getAsJSON();
+				//FileHandler.storeJSON(Env.getDataFolderPath() + "cc2.json", ccJson);
+				
+				myWorker.addToDoItem(cc);
+			}else{
+				Log.w("CoolerController can not be initialited because can not read \"cc3.json\".");
+			}
 			
-			myWorker.addToDoItem(cc);
 			
-			
-			ArrayList<TempController.RuleItem> rules2 = new ArrayList<>();
+			ArrayList<TempController.RuleItem> rules2 = new ArrayList<TempController.RuleItem>();
 			rules2.add( new TempController.RuleItem(25.70f, 0.05f, 12) );
 			rules2.add( new TempController.RuleItem(28.00f, 0.05f, 80) );
 			rules2.add( new TempController.RuleItem(26.00f, 0.1f, 30) );
@@ -197,7 +204,7 @@ public class Tasker {
 			cc2.setEnabled(true);
 			myWorker.addToDoItem(cc2);
 			
-			ArrayList<TempController.RuleItem> rulesForHeaterController = new ArrayList<>();
+			ArrayList<TempController.RuleItem> rulesForHeaterController = new ArrayList<TempController.RuleItem>();
 			rulesForHeaterController.add( new TempController.RuleItem(24.80f, 0.10f, 100) );
 			HeaterController hc = new HeaterController(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_HEATER), "Aquarium heater", TempReader.SENSOR_WATER, rulesForHeaterController);
 			hc.setEnabled(true);
@@ -217,8 +224,13 @@ public class Tasker {
 			wth.addRecipient("baboshenrietta@gmail.com");
 			FileHandler.storeJSON(Env.getDataFolderPath() + "TempWarningSample.json", wth.getAsJSON());	//TODO: testing only
 			/**/
-			TempWarning wth = new TempWarning(FileHandler.readJSON(Env.getDataFolderPath() + "TempWarningSample.json"));
-			myWorker.addToDoItem(wth);
+			JSONObject twJson = FileHandler.readJSON(Env.getDataFolderPath() + "TempWarningSample.json");
+			if(twJson != null){
+				TempWarning wth = new TempWarning(twJson);
+				myWorker.addToDoItem(wth);
+			}else{
+				Log.w("TempWarning can not be initialited because can not read \"TempWarningSample.json\".");
+			}
 	
 			myWorker.start();
 		}
@@ -385,7 +397,7 @@ public class Tasker {
 			if( (msg.getContent().startsWith(Commands.ENABLE_TODO_ITEM)) || (msg.getContent().startsWith(Commands.DISBALE_TODO_ITEM)) ){
 				
 				String[] input = msg.getContent().split(" ");
-				ArrayList<Integer> ids = new ArrayList<>();
+				ArrayList<Integer> ids = new ArrayList<Integer>();
 				for(int i=1; i<input.length; i++){
 					try{
 						ids.add(Integer.valueOf(input[i]));

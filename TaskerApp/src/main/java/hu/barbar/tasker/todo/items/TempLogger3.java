@@ -99,4 +99,10 @@ public class TempLogger3 extends TempRelatedToDoItemBase {
 		return true;
 	}
 
+
+	@Override
+	public String getClassName() {
+		return "TempLogger";
+	}
+
 }

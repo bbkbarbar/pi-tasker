@@ -59,6 +59,13 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 		}
 		
 		/*
+		 * Check type
+		 */
+		if (JSONHelper.matchingObjectType(json, getClassName()) < JSONHelper.TypeMatchingResult.MINIMUM_MATCHING_LEVEL){
+			Log.w("Can not create a " + getClassName() + " object from json because type missmatch..");
+		}
+		
+		/*
 		 * Check mandatory fields
 		 */
 		if( !(json.containsKey("limitValue") && json.containsKey("direction") && json.containsKey("backToNormalThreshold") && json.containsKey("observedSensor")) ){
@@ -79,7 +86,24 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 		this.limitValue = JSONHelper.getFloat(json, "limitValue");
 		this.direction = JSONHelper.getInt(json, "direction");
 		this.backToNormalThreshold = JSONHelper.getFloat(json, "backToNormalThreshold");
-		this.observedSensor = JSONHelper.getInt(json, "observedSensor");
+		
+		/*
+		 *  Read observedSensor from json 
+		 */
+		String val = JSONHelper.getString(json, "observedSensor");
+		//TODO: create constants!!!!
+		if(val != null && (val.equalsIgnoreCase("water") || val.equalsIgnoreCase("aquarium")) ){
+			this.observedSensor = TempReader.SENSOR_WATER;
+		}else
+		if(val != null && (val.equalsIgnoreCase("air") || val.equalsIgnoreCase("room")) ){
+			this.observedSensor = TempReader.SENSOR_WATER;
+		}else{
+			try{
+				this.observedSensor = JSONHelper.getInt(json, "observedSensor");
+			}catch(Exception e){
+				this.observedSensor = TempReader.SENSOR_DEFAULT;
+			}
+		}
 		
 		init(observedSensor, limitValue, direction, backToNormalThreshold);
 		
@@ -126,7 +150,7 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 	public void addRecipient(String email){
 		if(this.recipientList == null){
 			this.defaultNotificationRecipient = null;
-			this.recipientList = new ArrayList<>();
+			this.recipientList = new ArrayList<String>();
 		}
 		
 		this.recipientList.add(email);
@@ -301,7 +325,8 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 				}
 			}
 		}
-		return super.toString() + " Observed sensor: " + this.observedSensor + " Recipient" + recipients;
+		//return super.toString() + " Observed sensor: " + this.observedSensor + " Recipient" + recipients;
+		return super.toString() + ". Observed sensor: " + TempReader.getSensorTypeAsHumen(this.observedSensor) + ". Recipient" + recipients;
 	}
 	
 
@@ -312,11 +337,10 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public JSONObject getAsJSON() {
 		JSONObject json = new JSONObject();
 		
-		json.put("class", this.getClassName());
+		json.put(JSONHelper.KEY_OF_TYPE_IDENTIFIER, this.getClassName());
 		
 		json.put("title", this.title);
 		json.put("limitValue", this.limitValue);

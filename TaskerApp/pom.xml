@@ -23,9 +23,17 @@
       <scope>test</scope>
     </dependency>
     
+    <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+	<dependency>
+	    <groupId>javax.mail</groupId>
+	    <artifactId>mail</artifactId>
+	    <version>1.4</version>
+	</dependency>
+	    
+    
     <dependency>
     	<groupId>hu.barbar</groupId>
-    	<artifactId>comm.multithread-server</artifactId>
+    	<artifactId>comm.server.multithread</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
     
@@ -42,8 +50,8 @@
     </dependency>
     
     <dependency>
-    	<groupId>hu.barbar.comm</groupId>
-    	<artifactId>util.tasker-comm</artifactId>
+    	<groupId>hu.barbar</groupId>
+    	<artifactId>comm.util.tasker</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
     

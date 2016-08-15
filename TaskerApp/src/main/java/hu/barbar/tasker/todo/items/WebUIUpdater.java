@@ -288,4 +288,9 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		return true;
 	}
 
+	@Override
+	public String getClassName() {
+		return "WebUIUpdater";
+	}
+
 }

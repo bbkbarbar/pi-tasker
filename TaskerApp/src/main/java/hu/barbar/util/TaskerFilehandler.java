@@ -13,7 +13,7 @@ public class TaskerFilehandler extends FileHandler {
 			return null;
 		}
 		
-		HashMap<String, OutputConfig> result = new HashMap<>();
+		HashMap<String, OutputConfig> result = new HashMap<String, OutputConfig>();
 		
 		for(int i=0; i<lines.size(); i++){
 			String[] arr = lines.get(i).split("=");
