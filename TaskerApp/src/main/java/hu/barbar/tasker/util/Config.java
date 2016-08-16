@@ -44,6 +44,8 @@ public class Config {
 	public static final Object KEY_FILENAME_IO_LOG = "io log file";
 	
 	public static final Object KEY_FILENAME_EVENT_LOG = "event log file";
+
+	public static final Object KEY_FILENAME_FEED_WEB_UI = "webui temp history feed";
 	
 	
 	public static HashMap<String, OutputConfig> outputConfigs = null;
@@ -99,6 +101,11 @@ public class Config {
 		}
 		
 		return Config.outputConfigs;
+		
+	}
+
+	public static void getConfig(String string) {
+		// TODO Auto-generated method stub
 		
 	}
 	

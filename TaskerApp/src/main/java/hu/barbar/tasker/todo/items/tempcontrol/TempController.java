@@ -477,7 +477,7 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		
 		JSONObject json = new JSONObject();
 		
-		json.put("class", this.getClassName());
+		json.put("object", this.getClassName());
 		
 		json.put("title", this.title);
 		json.put("observedSensor", this.observedSensor);

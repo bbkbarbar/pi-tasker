@@ -61,6 +61,16 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		sdf = new SimpleDateFormat(WebUIUpdater.dateTimeFormatPattern);
 		
 		
+		String tempHistoryFeed = "";
+		//TODO read config from cache..
+		//Config.getConfig("");
+		HashMap<String, String> conf = Config.readBaseConfig();
+		if(conf.containsKey(Config.KEY_FILENAME_FEED_WEB_UI)){
+			tempHistoryFeed = conf.get(Config.KEY_FILENAME_FEED_WEB_UI);
+		}else{
+			tempHistoryFeed = DEFAULT_FILENAME_OF_GENERATING_TIME_LOG;
+		}
+		
 		/*
 		 *  Read path of temperature log file..
 		 */
@@ -69,7 +79,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		if(tempLogPath.charAt(tempLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
 			tempLogPath += Env.getPathSeparator();
 		}
-		this.temperatureLogFile = tempLogPath + DEFAULT_FILENAME_OF_TEMP_LOG_FILE;
+		this.temperatureLogFile = tempLogPath + tempHistoryFeed;
 		
 		
 		/*

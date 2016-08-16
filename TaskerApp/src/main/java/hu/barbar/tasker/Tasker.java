@@ -27,6 +27,7 @@ import hu.barbar.tasker.todo.items.util.TempReader;
 import hu.barbar.tasker.util.Config;
 import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.GPIOHelper;
+import hu.barbar.tasker.util.JSONHelper;
 import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.tasker.util.PWMOutputState;
 import hu.barbar.util.FileHandler;
@@ -35,7 +36,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 76;
+	private static final int buildNum = 77;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -163,17 +164,13 @@ public class Tasker {
 			myWorker.addToDoItem(tbc);
 			/**/
 			
+			/*
 			ArrayList<TempController.RuleItem> rules = new ArrayList<TempController.RuleItem>();
 			TempController.RuleItem ri = new TempController.RuleItem(25.70f, 0.25f, 32);
 			//FileHandler.storeJSON( Env.getDataFolderPath() + "test.json", ri.getAsJSON());
 			
 			//JSONObject json = FileHandler.readJSON( Env.getDataFolderPath() + "test.json" );
 			
-			/*CoolerController.RuleItem ri = null;
-			try {
-				ri = new CoolerController.RuleItem(json);
-			} catch (CanNotCreateFromJSONException e) {
-			}/**/
 			rules.add( ri ); 
 					
 			rules.add( new TempController.RuleItem(28.00f, 0.3f, 80) );
@@ -196,19 +193,37 @@ public class Tasker {
 			
 			
 			ArrayList<TempController.RuleItem> rules2 = new ArrayList<TempController.RuleItem>();
-			rules2.add( new TempController.RuleItem(25.70f, 0.05f, 12) );
+			rules2.add( new TempController.RuleItem(25.70f, 0.10f, 12) );
 			rules2.add( new TempController.RuleItem(28.00f, 0.05f, 80) );
 			rules2.add( new TempController.RuleItem(26.00f, 0.1f, 30) );
 			rules2.add( new TempController.RuleItem(26.20f, 0.1f, 40) );
 			CoolerController cc2 = new CoolerController(Config.readOutputConfig(true).get(Config.KEY_OUTPUT_OF_COOLER), "Aquarium cooler", TempReader.SENSOR_WATER, rules2);
 			cc2.setEnabled(true);
 			myWorker.addToDoItem(cc2);
+			JSONObject cc2Json = cc2.getAsJSON();
+			FileHandler.storeJSON(Env.getDataFolderPath() + "coolerController.json", cc2Json);
+			/**/
 			
+			JSONObject json = FileHandler.readJSON(Env.getDataFolderPath() + "coolerController.json");
+			if(JSONHelper.matchingObjectType(json, "CoolerController") > 0){
+				CoolerController cc = new CoolerController(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_COOLER), json);
+				myWorker.addToDoItem(cc);
+			}
+			
+			
+			
+			/*
 			ArrayList<TempController.RuleItem> rulesForHeaterController = new ArrayList<TempController.RuleItem>();
 			rulesForHeaterController.add( new TempController.RuleItem(24.80f, 0.10f, 100) );
 			HeaterController hc = new HeaterController(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_HEATER), "Aquarium heater", TempReader.SENSOR_WATER, rulesForHeaterController);
 			hc.setEnabled(true);
-			myWorker.addToDoItem(hc);
+			/**/
+			json = FileHandler.readJSON(Env.getDataFolderPath() + "heaterController.json");
+			if(JSONHelper.matchingObjectType(json, "HeaterController") > 0){
+				HeaterController hc = new HeaterController(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_HEATER), json);
+				myWorker.addToDoItem(hc);
+			}
+			
 			
 			TempWarning ate = new TempWarning(TempReader.SENSOR_AIR, "Air temperature > 30.0C", 30.0f, TempWarning.DIRECTION_INCREASING, 1.0f);
 			myWorker.addToDoItem(ate);
