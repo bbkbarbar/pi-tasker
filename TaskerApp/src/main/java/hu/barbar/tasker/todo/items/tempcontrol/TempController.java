@@ -307,7 +307,8 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 			return;
 		}
 		
-		this.ruleItems.sort(new RuleItemComparator());
+		//TODO: SOLVE THIS
+		//this.ruleItems.sort(new RuleItemComparator());
 		
 	}
 	
