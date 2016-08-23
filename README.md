@@ -1,5 +1,3 @@
-#pi-tasker
-
 # Control center in living room
 Based on Raspberry Pi Zero
 
