@@ -183,6 +183,11 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 	
 	
 	protected static final int NONE = -1;
+
+	/**
+	 * Minimum value what can be set to cooler fan without boost-start.
+	 */
+	private static final int MINIMUM_COOLER_ALONE_START_VALUE = 30; // %
 	
 	protected int exceededLevel = NONE;
 
@@ -505,10 +510,10 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		}
 		else
 		if(this.outputConfig.getType() == OutputConfig.Type.PWM){
-			if( (outputValue <= 50) && (outputValue > 0)){
-				TaskExecutor.setPwmOutput(this.outputConfig.getPin(), (int)(2100) );
+			if( (outputValue <= MINIMUM_COOLER_ALONE_START_VALUE) && (outputValue > 0)){
+				TaskExecutor.setPwmOutput(this.outputConfig.getPin(), (int)(1800) );
 				try {
-					Thread.sleep(600);
+					Thread.sleep(400);
 				} catch (InterruptedException e) {}
 			}
 			TaskExecutor.setPwmOutput(this.outputConfig.getPin(), (int)(outputValue * 40.95f) );
