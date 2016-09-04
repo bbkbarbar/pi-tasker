@@ -36,7 +36,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 81;
+	private static final int buildNum = 82;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -401,6 +401,36 @@ public class Tasker {
 						
 					}catch(Exception e){
 						myServer.sendToClient(new Msg("SetIO: ERROR", Msg.Types.PLAIN_TEXT), clientId);
+					}
+				}
+
+			}
+			
+			else
+			if( msg.getContent().startsWith(Commands.GET_IO_OUTPUT) ){
+				
+				String[] parts = msg.getContent().split(" ");
+				if (parts.length < 2){
+					String response = "Invalid io command: " + msg.getContent();
+					//System.out.println(response);
+					myServer.sendToClient(new Msg(response, Msg.Types.PLAIN_TEXT), clientId);
+				}else{
+					try{
+						int pinNum = Integer.valueOf(parts[1]);
+						
+						if(GPIOHelper.isValidGPIOPin(pinNum)){
+							OutputConfig outputConfigForWantedPort = new OutputConfig(OutputConfig.Type.IO, pinNum);
+							int state = Tasker.getOutputState(outputConfigForWantedPort);
+							
+							//TODO: separator-t valami common-osztalyban tarolni, onnan hasznalni
+							myServer.sendToClient(new Msg("IO_state " + pinNum + " " + state, Msg.Types.PLAIN_TEXT), clientId);
+						}
+						else{ // invalid pinNumber
+							myServer.sendToClient(new Msg("GetIO ERROR: Invalid pin number: " + pinNum, Msg.Types.PLAIN_TEXT), clientId);
+						}
+						
+					}catch(Exception e){
+						myServer.sendToClient(new Msg("GetIO ERROR", Msg.Types.PLAIN_TEXT), clientId);
 					}
 				}
 
