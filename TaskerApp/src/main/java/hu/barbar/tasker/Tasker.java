@@ -29,6 +29,7 @@ import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.GPIOHelper;
 import hu.barbar.tasker.util.JSONHelper;
 import hu.barbar.tasker.util.OutputConfig;
+import hu.barbar.tasker.util.OutputState;
 import hu.barbar.tasker.util.PWMOutputState;
 import hu.barbar.util.FileHandler;
 import hu.barbar.util.Mailer;
@@ -36,13 +37,17 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 83;
+	private static final int buildNum = 84;
 	
 	public static final boolean DEBUG_MODE = false;
 	
 	public static final int DEFAULT_PORT = (DEBUG_MODE? 10710 : 10713);
 	
 	protected static final String DEFAULT_DATETIME_FORMAT = "yyyy.MM.dd HH:mm:ss";
+
+	private static final int OUTPUT_STATE_UNABLE_TO_FIND = -9;
+
+	private static final int DEFAULT_IO_STATE = 0;
 	
 
 	protected static Tasker me = null;
@@ -95,6 +100,10 @@ public class Tasker {
 		 */
 		//TODO!!!!!!
 		Tasker.ioOutputStates = new int[GPIOHelper.MAX_PIN_NUMBER];
+		// Fill values with 0:
+		for(int i=0; i<ioOutputStates.length; i++){
+			ioOutputStates[i] = DEFAULT_IO_STATE;
+		}
 		
 		Mailer.readConfig();
 		
@@ -447,15 +456,19 @@ public class Tasker {
 					try{
 						String what = parts[3].trim();
 						
-						//TODO: NOW HERE
-						if(what.equalsIgnoreCase("heater")){
-							
+						OutputState result = Tasker.getOutputStateOf(what);
+						
+						if(!result.isUnableToFind()){
+							myServer.sendToClient(new Msg("State of \"" + what + "\": " + result, Msg.Types.PLAIN_TEXT), clientId);
+							myServer.sendToClient(new Msg(what + " " + result, Msg.Types.RESPONSE_STATE), clientId);
+						}else{ // no "target" to get state of..
+							myServer.sendToClient(new Msg("Get state of - ERROR: Can not get state of \"" + what + "\"", Msg.Types.PLAIN_TEXT), clientId);
 						}
 						
 						//myServer.sendToClient(new Msg("IO_state " + pinNum + " " + state, Msg.Types.PLAIN_TEXT), clientId);
 						
 					}catch(Exception e){
-						myServer.sendToClient(new Msg("GetState ERROR", Msg.Types.PLAIN_TEXT), clientId);
+						myServer.sendToClient(new Msg("Get state of - ERROR", Msg.Types.PLAIN_TEXT), clientId);
 					}
 				}
 
@@ -543,7 +556,45 @@ public class Tasker {
 		
 		return false;
 	}
-
+	
+	private static OutputState getOutputStateOf(String what){
+		OutputConfig oc = null;
+		
+		Log.a("Try to get state of |" + what + "|");
+		
+		if(what.equalsIgnoreCase("air_pump")){
+			Log.a("Try to get state of Config.KEY_OUTPUT_OF_AIR_PUMP");
+			oc = Config.getOutputConfig(Config.KEY_OUTPUT_OF_AIR_PUMP);
+		}
+		else
+		if(what.equalsIgnoreCase("heater")){
+			oc = Config.getOutputConfig(Config.KEY_OUTPUT_OF_HEATER);
+		}
+		else
+		if(what.equalsIgnoreCase("cooler")){
+			oc = Config.getOutputConfig(Config.KEY_OUTPUT_OF_COOLER);
+		}
+		
+		if(oc == null || oc.isInvalid() ){
+			return new OutputState(OUTPUT_STATE_UNABLE_TO_FIND, OutputConfig.Type.IO);
+		}
+		
+		int result = Tasker.getOutputState(oc);
+		Log.a("Result: " + result);
+		
+		if((oc.getType() == OutputConfig.Type.IO) && oc.isReversed()){
+			Log.a("Result need to be REVERSED!");
+			if(result == 0){
+				return new OutputState(1, OutputConfig.Type.IO);
+			}else{
+				return new OutputState(0, OutputConfig.Type.IO);
+			}
+		}else{
+			return new OutputState(result, oc.getType());
+		}
+		
+	}
+	
 	
 	/**
 	 * @param outputConfigOfCooler
