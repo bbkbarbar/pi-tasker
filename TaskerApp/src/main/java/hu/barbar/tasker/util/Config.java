@@ -36,6 +36,8 @@ public class Config {
 	
 	public static final String KEY_OUTPUT_OF_HEATER = "output of heater";
 	
+	public static final String KEY_OUTPUT_OF_AIR_PUMP = "output of air pump";
+	
 	
 	public static final String KEY_FILENAME_TEMP_DATA_LOG = "temperature data log file";
 	
