@@ -36,7 +36,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 82;
+	private static final int buildNum = 83;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -436,6 +436,31 @@ public class Tasker {
 
 			}
 
+			else
+			if( msg.getContent().startsWith(Commands.GET_STATE_OF) ){
+				
+				String[] parts = msg.getContent().split(" ");
+				if (parts.length < 4){
+					String response = "Invalid io command: \"" + msg.getContent() + "\" - Need to specify what state do you want to get?";
+					myServer.sendToClient(new Msg(response, Msg.Types.PLAIN_TEXT), clientId);
+				}else{
+					try{
+						String what = parts[3].trim();
+						
+						//TODO: NOW HERE
+						if(what.equalsIgnoreCase("heater")){
+							
+						}
+						
+						//myServer.sendToClient(new Msg("IO_state " + pinNum + " " + state, Msg.Types.PLAIN_TEXT), clientId);
+						
+					}catch(Exception e){
+						myServer.sendToClient(new Msg("GetState ERROR", Msg.Types.PLAIN_TEXT), clientId);
+					}
+				}
+
+			}
+			
 			else
 			if( (msg.getContent().startsWith(Commands.ENABLE_TODO_ITEM)) || (msg.getContent().startsWith(Commands.DISBALE_TODO_ITEM)) ){
 				
