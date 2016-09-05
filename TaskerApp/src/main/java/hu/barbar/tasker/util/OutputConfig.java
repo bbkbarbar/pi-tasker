@@ -9,7 +9,11 @@ public class OutputConfig {
 	public static final int INVALID = -2;
 	
 	public static final String TYPENAME_PWM = "pwm";
+	
+	public static final String CONSTANT_OF_REVERSED_USEAGE = "reversed";
 
+	public static final boolean DEFAULT_VALUE_OF_REVERSED = false;
+	
 	public static class Type {
 		
 		public static final int UNDEFINED = -1,
@@ -48,13 +52,29 @@ public class OutputConfig {
 	
 	private int pin = UNDEFINED;
 	
+	private boolean reversed = DEFAULT_VALUE_OF_REVERSED;
+	
+	
+	/**
+	 * Create OutputConfig object from exact parameters with default "reversed" value (false).
+	 * @param type
+	 * @param pin
+	 */
+	public OutputConfig(int type, int pin){
+		init(type, pin, DEFAULT_VALUE_OF_REVERSED);
+	}
 	
 	/**
 	 * Create OutputConfig object from exact parameters.
 	 * @param type
 	 * @param pin
+	 * @param reversed
 	 */
-	public OutputConfig(int type, int pin){
+	public OutputConfig(int type, int pin, boolean reversed){
+		init(type, pin, reversed);
+	}
+	
+	private void init(int type, int pin, boolean reversed){
 		if(Type.invalid(type)){
 			this.type = Type.INVALID;
 			Log.w("OutputConfig.Constructor :: OutputConfig created with invalid type: " + type);
@@ -63,10 +83,11 @@ public class OutputConfig {
 		}
 		
 		this.pin = pin;
-		if( (this.type == Type.PWM) && (!GPIOHelper.isValidGPIOPin(pin)) ){
+		if( (this.type == Type.IO) && (!GPIOHelper.isValidGPIOPin(pin)) ){
 			Log.w("OutputConfig.Constructor :: OutputConfig created with invalid GPIO pin: " + pin);
 		}
 		
+		this.reversed = reversed;
 	}
 	
 	/**
@@ -91,26 +112,39 @@ public class OutputConfig {
 			this.type = Type.IO;
 		}
 		
+		String value = parts[1].trim();
+		String[] valueParts = value.split(" ");
+		
 		try{
-			this.pin = Integer.valueOf(parts[1]);
+			this.pin = Integer.valueOf(valueParts[0]);
 		}catch(NumberFormatException nfe){
 			Log.w("OutputConfig.Constructor :: NumberFormatException cought; Line: |" + line + "|");
 			this.pin = UNDEFINED;
+		}
+		
+		if( (valueParts.length > 1) && (valueParts[1].equalsIgnoreCase("REVERSED")) ){
+			this.reversed = true;
+		}else{
+			this.reversed = DEFAULT_VALUE_OF_REVERSED;
 		}
 		
 	}
 
 	
 	public int getType() {
-		return type;
+		return this.type;
 	}
 
 	public int getPin() {
-		return pin;
+		return this.pin;
+	}
+	
+	public boolean isReversed(){
+		return this.reversed;
 	}
 	
 	public String toString(){
-		return "Type: "  + Type.toString(this.type) + " " + ((this.type == Type.PWM)?"Channel: ":" Pin: ") + this.pin;
+		return "Type: "  + Type.toString(this.type) + " " + ((this.type == Type.PWM)?"Channel: ":" Pin: ") + this.pin + (((this.type == Type.IO)&&(this.reversed))?" Reversed":"");
 	}
 	
 	public boolean isValid(){
