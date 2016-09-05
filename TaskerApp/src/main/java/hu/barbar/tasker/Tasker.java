@@ -410,13 +410,13 @@ public class Tasker {
 			if( msg.getContent().startsWith(Commands.GET_IO_OUTPUT) ){
 				
 				String[] parts = msg.getContent().split(" ");
-				if (parts.length < 2){
+				if (parts.length < 3){
 					String response = "Invalid io command: " + msg.getContent();
 					//System.out.println(response);
 					myServer.sendToClient(new Msg(response, Msg.Types.PLAIN_TEXT), clientId);
 				}else{
 					try{
-						int pinNum = Integer.valueOf(parts[1]);
+						int pinNum = Integer.valueOf(parts[2]);
 						
 						if(GPIOHelper.isValidGPIOPin(pinNum)){
 							OutputConfig outputConfigForWantedPort = new OutputConfig(OutputConfig.Type.IO, pinNum);
