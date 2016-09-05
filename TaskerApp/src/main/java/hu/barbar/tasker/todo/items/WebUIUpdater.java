@@ -21,7 +21,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 
 	private static final boolean DEBUG_WEB = false;
 
-	private static final String DEFAULT_FILENAME_OF_TEMP_LOG_FILE = "temp.log";
+	//private static final String DEFAULT_FILENAME_OF_TEMP_LOG_FILE = "temp.log";
 
 	private static final String DEFAULT_FILENAME_OF_GENERATING_TIME_LOG = "webui_generation_time.log";
 	

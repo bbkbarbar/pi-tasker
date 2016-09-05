@@ -113,6 +113,7 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 			this.recipientList = null;
 		}else{
 			this.recipientList = new ArrayList<String>();
+			@SuppressWarnings("unchecked")
 			Iterator<String> iterator = recipientArrayFromJSON.iterator();
 			while(iterator.hasNext()){
 				String s = iterator.next();
