@@ -112,21 +112,19 @@ public class OutputConfig {
 			this.type = Type.IO;
 		}
 		
-		String value = parts[1].trim();
-		String[] valueParts = value.split(" ");
-		
 		try{
-			this.pin = Integer.valueOf(valueParts[0]);
+			this.pin = Integer.valueOf(parts[1]);
 		}catch(NumberFormatException nfe){
 			Log.w("OutputConfig.Constructor :: NumberFormatException cought; Line: |" + line + "|");
 			this.pin = UNDEFINED;
 		}
 		
-		if( (valueParts.length > 1) && (valueParts[1].equalsIgnoreCase("REVERSED")) ){
+		if( (parts.length > 2) && ((parts[2].contains("reverse")) || (parts[2].contains("Reverse"))) ){
 			this.reversed = true;
 		}else{
 			this.reversed = DEFAULT_VALUE_OF_REVERSED;
 		}
+		Log.t(this.toString());
 		
 	}
 
