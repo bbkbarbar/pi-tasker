@@ -12,6 +12,7 @@ import hu.barbar.comm.util.Msg;
 import hu.barbar.comm.util.tasker.Commands;
 import hu.barbar.comm.util.tasker.PWMMessage;
 import hu.barbar.comm.util.tasker.RGBMessage;
+import hu.barbar.comm.util.tasker.StateMsg;
 import hu.barbar.tasker.log.EventLogger;
 import hu.barbar.tasker.log.IOLogger;
 import hu.barbar.tasker.todo.Worker;
@@ -37,7 +38,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 84;
+	private static final int buildNum = 85;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -457,10 +458,11 @@ public class Tasker {
 						String what = parts[3].trim();
 						
 						OutputState result = Tasker.getOutputStateOf(what);
-						
+
 						if(!result.isUnableToFind()){
 							myServer.sendToClient(new Msg("State of \"" + what + "\": " + result, Msg.Types.PLAIN_TEXT), clientId);
-							myServer.sendToClient(new Msg(what + " " + result, Msg.Types.RESPONSE_STATE), clientId);
+							//myServer.sendToClient(new Msg(what + " " + result, Msg.Types.RESPONSE_STATE), clientId);
+							myServer.sendToClient(new StateMsg(what, result.getValue(), result.getType()), clientId);
 						}else{ // no "target" to get state of..
 							myServer.sendToClient(new Msg("Get state of - ERROR: Can not get state of \"" + what + "\"", Msg.Types.PLAIN_TEXT), clientId);
 						}
