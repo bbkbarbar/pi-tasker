@@ -16,6 +16,11 @@ public class TempReader extends ToDoItemBase {
 	
 	public static final int SENSOR_DEFAULT = SENSOR_AIR;
 	
+	
+	public static boolean validateSensorSelection(int id){
+		return ((id >= SENSOR_AIR) && (id <= SENSOR_WATER));
+	}
+	
 	private float relevantDifference = 0;
 
 	
