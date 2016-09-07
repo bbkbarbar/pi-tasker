@@ -24,7 +24,7 @@ public class PWMOutputState {
 
 	public static final String DEFAULT_FILE_NAME = "pwmOutputStates.ini";
 
-	
+
 	private int[] channelValues;
 	
 	
@@ -165,6 +165,14 @@ public class PWMOutputState {
 			}
 		}
 		return res;
+	}
+	
+	public int getSumValueOfRGBChannels(){
+		return (
+				this.getValue(CHANNEL_OF_RED) +
+				this.getValue(CHANNEL_OF_GREEN) +
+				this.getValue(CHANNEL_OF_BLUE)
+		);
 	}
 	
 }

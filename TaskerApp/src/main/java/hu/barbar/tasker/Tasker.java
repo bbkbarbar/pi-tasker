@@ -32,13 +32,14 @@ import hu.barbar.tasker.util.JSONHelper;
 import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.tasker.util.OutputState;
 import hu.barbar.tasker.util.PWMOutputState;
+import hu.barbar.tasker.util.Peripherials;
 import hu.barbar.util.FileHandler;
 import hu.barbar.util.Mailer;
 import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 85;
+	private static final int buildNum = 86;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -446,6 +447,9 @@ public class Tasker {
 
 			}
 
+			/*
+			 *  										GET state of ...
+			 */
 			else
 			if( msg.getContent().startsWith(Commands.GET_STATE_OF) ){
 				
@@ -471,6 +475,47 @@ public class Tasker {
 						
 					}catch(Exception e){
 						myServer.sendToClient(new Msg("Get state of - ERROR", Msg.Types.PLAIN_TEXT), clientId);
+					}
+				}
+
+			}
+			
+			/*
+			 *  										SET state of ...
+			 */
+			else
+			if( msg.getContent().startsWith(Commands.SET_STATE_OF) ){
+				
+				String[] parts = msg.getContent().split(" ");
+				if (parts.length < 4){
+					String response = "Invalid io command: \"" + msg.getContent() + "\" - Need to specify what state do you want to set?";
+					myServer.sendToClient(new Msg(response, Msg.Types.PLAIN_TEXT), clientId);
+				}else{
+					try{
+						String what = parts[3].trim();
+						
+						int wantedValue = Integer.parseInt(parts[4].trim()); 
+						
+						if( Tasker.setOutputStateOf(what, wantedValue) ){
+							// Setted successfully
+							Msg simulatedRequestToSendNewState = new Msg(Commands.GET_STATE_OF + " " + what, Msg.Types.REQUEST);
+							handleReceivedMessage(simulatedRequestToSendNewState, clientId);
+						}else{
+							// Send error message
+							myServer.sendToClient(new Msg("Can not set state of \"" + what + "\" (wanted value: " + wantedValue + " )", Msg.Types.RESPONSE_STATE), clientId);
+						}
+
+						/*
+						if(!result.isUnableToFind()){
+							myServer.sendToClient(new Msg("State of \"" + what + "\": " + result, Msg.Types.PLAIN_TEXT), clientId);
+							//myServer.sendToClient(new Msg(what + " " + result, Msg.Types.RESPONSE_STATE), clientId);
+							myServer.sendToClient(new StateMsg(what, result.getValue(), result.getType()), clientId);
+						}else{ // no "target" to get state of..
+							myServer.sendToClient(new Msg("Get state of - ERROR: Can not get state of \"" + what + "\"", Msg.Types.PLAIN_TEXT), clientId);
+						}
+						/**/
+					}catch(Exception e){
+						myServer.sendToClient(new Msg("Set state of - ERROR", Msg.Types.PLAIN_TEXT), clientId);
 					}
 				}
 
@@ -559,13 +604,17 @@ public class Tasker {
 		return false;
 	}
 	
-	private static OutputState getOutputStateOf(String what){
+	
+	private static boolean setOutputStateOf(String what, int value) {
+		// TODO Auto-generated method stub
+		
+		if(value < 0){
+			// Invalid output value..
+			return false;
+		}
+		
 		OutputConfig oc = null;
-		
-		Log.a("Try to get state of |" + what + "|");
-		
 		if(what.equalsIgnoreCase("air_pump")){
-			Log.a("Try to get state of Config.KEY_OUTPUT_OF_AIR_PUMP");
 			oc = Config.getOutputConfig(Config.KEY_OUTPUT_OF_AIR_PUMP);
 		}
 		else
@@ -575,6 +624,74 @@ public class Tasker {
 		else
 		if(what.equalsIgnoreCase("cooler")){
 			oc = Config.getOutputConfig(Config.KEY_OUTPUT_OF_COOLER);
+		}
+		
+		if(oc == null || oc.isInvalid() ){
+			return false;
+		}
+		
+		
+		/*
+		 *  Set IO output value
+		 */
+		if( oc.getType() == OutputConfig.Type.IO ){
+			boolean outputToSet = false;
+			
+			if(value > 0){
+				outputToSet = true;
+			}else{
+				outputToSet = false;
+			}
+
+			/*
+			 *  Change output value if outputConfig is reversed
+			 */
+			if(oc.isReversed()){
+				outputToSet = (!outputToSet);
+			}
+			
+			TaskExecutor.setIOState(oc.getPin(), outputToSet);
+			return true;
+			
+		}
+		
+		/*
+		 *  Set PWM output value
+		 */
+		if( oc.getType() == OutputConfig.Type.PWM ){
+			int outputToSet = value;
+			TaskExecutor.setPwmOutput(oc.getPin(), outputToSet);
+			return true;
+		}
+		
+		/*
+		 *  Output type is invalid (not IO and not PWM).. 
+		 */
+		return false;
+	}
+
+	
+	private static OutputState getOutputStateOf(String what){
+		OutputConfig oc = null;
+		
+		if(what.equalsIgnoreCase(Peripherials.AIR_PUMP)){
+			Log.a("Try to get state of Config.KEY_OUTPUT_OF_AIR_PUMP");
+			oc = Config.getOutputConfig(Config.KEY_OUTPUT_OF_AIR_PUMP);
+		}
+		else
+		if(what.equalsIgnoreCase(Peripherials.HEATER)){
+			oc = Config.getOutputConfig(Config.KEY_OUTPUT_OF_HEATER);
+		}
+		else
+		if(what.equalsIgnoreCase(Peripherials.COOLER)){
+			oc = Config.getOutputConfig(Config.KEY_OUTPUT_OF_COOLER);
+		}
+		else
+		if(what.equalsIgnoreCase(Peripherials.LIGHT)){
+			return new OutputState(
+						pwmOutputStates.getSumValueOfRGBChannels(), 
+						OutputConfig.Type.PWM
+			);
 		}
 		
 		if(oc == null || oc.isInvalid() ){
