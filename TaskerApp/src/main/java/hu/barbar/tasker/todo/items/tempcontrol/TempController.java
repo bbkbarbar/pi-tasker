@@ -1,6 +1,7 @@
 package hu.barbar.tasker.todo.items.tempcontrol;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -11,6 +12,7 @@ import hu.barbar.tasker.todo.items.RuleItemComparator;
 import hu.barbar.tasker.todo.items.util.TempReader;
 import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
 import hu.barbar.tasker.todo.items.util.ToDoItemJSONInterface;
+import hu.barbar.tasker.util.Config;
 import hu.barbar.tasker.util.JSONHelper;
 import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.tasker.util.TemperatureResult;
@@ -187,9 +189,13 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 	/**
 	 * Minimum value what can be set to cooler fan without boost-start.
 	 */
-	private static final int MINIMUM_COOLER_ALONE_START_VALUE = 30; // %
+	private static final int DEFAULT_MINIMUM_COOLER_ALONE_START_VALUE = 30; // %
 
-	private static final long DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS = 600;
+	private int minimumCoolerAloneStartValue = DEFAULT_MINIMUM_COOLER_ALONE_START_VALUE;
+	
+	private static final long DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS = 600;
+	
+	private long fanStartBoostTimeInMs = DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS;
 	
 	protected int exceededLevel = NONE;
 
@@ -229,6 +235,29 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 	
 	public TempController(OutputConfig myOutputConfig, JSONObject coolerControllerJson) {
 		super();
+		
+		HashMap<String, String> conf = Config.readBaseConfig();
+		String configStr = null;
+		if(conf.containsKey(Config.KEY_MIN_COOLER_ALONE_START_VALUE)){
+			configStr = conf.get(Config.KEY_MIN_COOLER_ALONE_START_VALUE);
+			try{
+				minimumCoolerAloneStartValue = Integer.parseInt(configStr);
+			}catch(Exception canGetNumberFormatException){
+				minimumCoolerAloneStartValue = DEFAULT_MINIMUM_COOLER_ALONE_START_VALUE;
+			}
+		}else{
+			minimumCoolerAloneStartValue = DEFAULT_MINIMUM_COOLER_ALONE_START_VALUE;
+		}
+		if(conf.containsKey(Config.KEY_FAN_START_BOOST_TIME_IN_MS)){
+			configStr = conf.get(Config.KEY_FAN_START_BOOST_TIME_IN_MS);
+			try{
+				fanStartBoostTimeInMs = Integer.parseInt(configStr);
+			}catch(Exception canGetNumberFormatException){
+				fanStartBoostTimeInMs = DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS;
+			}
+		}else{
+			fanStartBoostTimeInMs = DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS;
+		}
 		
 		this.outputConfig = myOutputConfig;
 		
@@ -444,7 +473,7 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 			Log.a("Turn "
 					+ ((this.getType() == TempController.Type.HEATER)?"heater":"cooler")
 					+ " OFF. ("
-					+ currentTemp + "�C"
+					+ currentTemp + "°C"
 					+ ")");
 			//show that cooler is NOT active
 			//Tasker.coolerIsActive = false;
@@ -512,10 +541,10 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		}
 		else
 		if(this.outputConfig.getType() == OutputConfig.Type.PWM){
-			if( (outputValue <= MINIMUM_COOLER_ALONE_START_VALUE) && (outputValue > 0)){
-				TaskExecutor.setPwmOutput(this.outputConfig.getPin(), (int)(1800) );
+			if( (outputValue <= minimumCoolerAloneStartValue) && (outputValue > 0)){
+				TaskExecutor.setPwmOutput(this.outputConfig.getPin(), (int)(1900) );
 				try {
-					Thread.sleep(DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS);
+					Thread.sleep(fanStartBoostTimeInMs);
 				} catch (InterruptedException e) {}
 			}
 			TaskExecutor.setPwmOutput(this.outputConfig.getPin(), (int)(outputValue * 40.95f) );

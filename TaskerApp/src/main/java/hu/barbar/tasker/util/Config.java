@@ -49,6 +49,9 @@ public class Config {
 
 	public static final Object KEY_FILENAME_FEED_WEB_UI = "webui temp history feed";
 	
+	public static final Object KEY_FAN_START_BOOST_TIME_IN_MS = "fan start boost time in ms";
+	
+	public static final Object KEY_MIN_COOLER_ALONE_START_VALUE = "min cooler alone start percentage";
 	
 	public static HashMap<String, OutputConfig> outputConfigs = null;
 	
