@@ -5,7 +5,7 @@
 		{
 			"limitValue":"24,800",
 			"outputValueWhenExceeded":100,
-			"threshold":"0,100"
+			"threshold":"0,300"
 		}
 	],
 	"enabled":true,
