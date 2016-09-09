@@ -13,10 +13,12 @@ Based on Raspberry Pi Zero
  	- Network logs (# of connections, etc.)
 
 ####Client can control:
-| Item           | Control type               | Scheduled | Sensor based control | Exceptional control | Src                            | Other              |
-| :------------- | :------------------------: | :-------: | :------------------: | :-----------------: | :----------------------------: | :----------------: |
-| Airpump        | On/Off                     | X         | -                    | X                   | 230VAC                         |                    |
-| Filter         | On/Off                     | X         | -                    | X                   | 230VAC                         |                    |
-| Water heating  | On/Off                     | -         | X                    | X                   | 230VAC                         |                    |
-| Water cooler   | Gradual speed control (pwm)| -         | X                    | X                   | 230VAC                         |                    |
-| Light          | On/Off, 3ch RGB color      | X         | -                    | X                   | 230VAC->12VDC - 3ch pwm / zone | multiple zone (2-3)|
+| Item           | Control type               | Scheduled | Sensor based control | Exceptional control | Src                      | 
+| :------------- | :------------------------: | :-------: | :------------------: | :-----------------: | :----------------------: |
+| Airpump        | On/Off                     | ?         | -                    | X                   | 230VAC                   |
+| Filter         | On/Off                     | ?         | -                    | X                   | 230VAC                   |
+| Water heater   | On/Off                     | -         | X                    | X                   | 230VAC                   |
+| Water cooler   | Gradual speed control (pwm)| -         | X                    | X                   | 230VAC->12VDC - 1ch pwm  |
+| Light          | On/Off, 3ch RGB color      | X         | -                    | X                   | 230VAC->12VDC - 3ch pwm  |
+
+[Back to top](#top)
