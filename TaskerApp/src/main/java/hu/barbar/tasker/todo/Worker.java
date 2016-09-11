@@ -74,6 +74,23 @@ public class Worker extends Thread {
 		this.items.add(itemToAdd);
 	}
 	
+	public void addToDoItems(ArrayList<ToDoItemBase> itemListToAdd){
+		if(itemListToAdd == null){
+			Log.w("Worker: " + this.getTitle() + " can not add todoItems from list. List is null.");
+			return;
+		}
+		if(itemListToAdd.size() == 0){
+			Log.w("Worker: " + this.getTitle() + " can not add todoItems from list. List is empty.");
+			return;
+		}
+		
+		for(int i=0; i<itemListToAdd.size(); i++){
+			this.items.add(itemListToAdd.get(i));
+		}
+		Log.w("Worker: " + this.getTitle() + " " + itemListToAdd.size() + " item" + ((itemListToAdd.size()>1)?"s":"") + " added from list.");
+		
+	}
+	
 	public void setNeedToRun(boolean state){
 		this.needToRun = state;
 	}
