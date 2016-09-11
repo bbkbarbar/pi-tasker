@@ -1,1 +1,13 @@
-{"observedSensor":1,"title":"Aquarium heater","ruleItems":[{"limitValue":"24,800","outputValueWhenExceeded":100,"threshold":"0,100"}],"enabled":true,"object":"HeaterController"}
+{
+	"observedSensor":1,
+	"title":"Aquarium heater",
+	"ruleItems":[
+		{
+			"limitValue":"24,800",
+			"outputValueWhenExceeded":100,
+			"threshold":"0,300"
+		}
+	],
+	"enabled":true,
+	"object":"HeaterController"
+}
