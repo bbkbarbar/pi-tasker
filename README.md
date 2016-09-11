@@ -19,7 +19,8 @@ Based on Raspberry Pi Zero
 ####Temperature warnings can be sent via email for multiple recipient in case of:
   - temperature (in selected sensor) rises above specified limit
   - temperature (in selected sensor) drops below specified limit
- Temperature warning rules initialized from [JSON file](https://github.com/bbkbarbar/pi-tasker/blob/master/onTarget/home_-_pi/taskerData/TempWarnings.json).
+
+Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/pi-tasker/blob/master/onTarget/home_-_pi/taskerData/TempWarnings.json).
 
 
 ####Client can control:
