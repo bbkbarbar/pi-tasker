@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import hu.barbar.tasker.todo.items.TempWarning;
 import hu.barbar.tasker.todo.items.ToDoItemBase;
 import hu.barbar.util.logger.Log;
 
@@ -87,7 +88,24 @@ public class Worker extends Thread {
 		for(int i=0; i<itemListToAdd.size(); i++){
 			this.items.add(itemListToAdd.get(i));
 		}
-		Log.w("Worker: " + this.getTitle() + " " + itemListToAdd.size() + " item" + ((itemListToAdd.size()>1)?"s":"") + " added from list.");
+		Log.i(this.getTitle() + ": " + itemListToAdd.size() + " item" + ((itemListToAdd.size()>1)?"s":"") + " added from list.");
+		
+	}
+	
+	public void addTempWarnings(ArrayList<TempWarning> itemListToAdd){
+		if(itemListToAdd == null){
+			Log.w("Worker: " + this.getTitle() + " can not add todoItems from list. List is null.");
+			return;
+		}
+		if(itemListToAdd.size() == 0){
+			Log.w("Worker: " + this.getTitle() + " can not add todoItems from list. List is empty.");
+			return;
+		}
+		
+		for(int i=0; i<itemListToAdd.size(); i++){
+			this.items.add(itemListToAdd.get(i));
+		}
+		Log.i(this.getTitle() + ": " + itemListToAdd.size() + " item" + ((itemListToAdd.size()>1)?"s":"") + " added from list.");
 		
 	}
 	

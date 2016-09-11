@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import hu.barbar.comm.server.MultiThreadServer;
@@ -39,7 +40,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 87;
+	private static final int buildNum = 88;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -234,6 +235,7 @@ public class Tasker {
 			 *  Temperature warnings 
 			 */
 			
+			/*
 			TempWarning ate = new TempWarning(TempReader.SENSOR_AIR, "Air temperature > 30.0C", 30.0f, TempWarning.DIRECTION_INCREASING, 1.0f);
 			myWorker.addToDoItem(ate);
 			
@@ -241,6 +243,7 @@ public class Tasker {
 			wte.addRecipient("bbk.barbar@gmail.com");
 			//wte.addRecipient("baboshenrietta@gmail.com");
 			myWorker.addToDoItem(wte);
+			/**/
 			
 			/*
 			TempWarning wth = new TempWarning(TempReader.SENSOR_WATER, "Water temperature > 27.75C", 27.75f, TempWarning.WARMER, 0.25f);
@@ -248,6 +251,8 @@ public class Tasker {
 			wth.addRecipient("baboshenrietta@gmail.com");
 			FileHandler.storeJSON(Env.getDataFolderPath() + "TempWarningSample.json", wth.getAsJSON());	//TODO: testing only
 			/**/
+			
+			/*
 			JSONObject twJson = FileHandler.readJSON(Env.getDataFolderPath() + "TempWarningSample.json");
 			if(twJson != null){
 				TempWarning wth = new TempWarning(twJson);
@@ -255,6 +260,12 @@ public class Tasker {
 			}else{
 				Log.w("TempWarning can not be initialited because can not read \"TempWarningSample.json\".");
 			}
+			/**/
+			
+			myWorker.addTempWarnings(
+					TempWarning.buildInstancesFromJSON("TempWarnings.json")
+			);
+			
 	
 			myWorker.start();
 		}

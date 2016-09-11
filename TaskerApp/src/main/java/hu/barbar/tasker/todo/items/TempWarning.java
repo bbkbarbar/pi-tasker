@@ -11,8 +11,10 @@ import org.json.simple.JSONObject;
 import hu.barbar.tasker.todo.items.util.TempReader;
 import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
 import hu.barbar.tasker.todo.items.util.ToDoItemJSONInterface;
+import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.JSONHelper;
 import hu.barbar.tasker.util.TemperatureResult;
+import hu.barbar.util.FileHandler;
 import hu.barbar.util.Mailer;
 import hu.barbar.util.logger.Log;
 
@@ -46,6 +48,49 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 		super();
 		init(sensorSelection, limitValue, direction, backToNormalThreshold);
 		this.title = title;
+	}
+	
+	
+	/**
+	 * Build TempWarning instances from JSON file what contains a list of TempWarning items as JSON objects.
+	 * @param jsonFileInDataFolder (only the name of json file what stored in data folder of Tasker app.
+	 * @return an ArrayList of TempWarning items.
+	 */
+	public static ArrayList<TempWarning> buildInstancesFromJSON(String jsonFileInDataFolder){
+		JSONObject jsonInput = FileHandler.readJSON(Env.getDataFolderPath() + jsonFileInDataFolder);
+		return TempWarning.buildInstancesFromJSON(jsonInput);
+	}
+
+	/**
+	 * Build TempWarning instances from JSON file what contains a list of TempWarning items as JSON objects.
+	 * @param json
+	 * @return an ArrayList of TempWarning items.
+	 */
+	public static ArrayList<TempWarning> buildInstancesFromJSON(JSONObject json){
+		
+		if(json == null){
+			Log.w("Tried to create list of TempWarning instances from JSON file, but json reference is null.");
+			return null;
+		}
+		
+		if(!json.containsKey("tempWarnings")){
+			Log.w("Tried to create list of TempWarning instances from JSON file, but json not contains key \"tempWarnings\".");
+			return null;
+		}
+		
+		JSONArray array = (JSONArray) json.get("tempWarnings");
+		
+		ArrayList<TempWarning> list = new ArrayList<TempWarning>();
+		for(int i=0; i<array.size(); i++){
+			JSONObject twObject = (JSONObject) array.get(i);
+			TempWarning tw = new TempWarning(twObject);
+			list.add(tw);
+		}
+		
+		Log.i("TempWarning instance" + (list.size()>1?"s (" + list.size() + ")":"")
+				+ " created from json.");
+		
+		return list;
 	}
 	
 	
