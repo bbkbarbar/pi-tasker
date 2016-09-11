@@ -135,13 +135,34 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 		}
 		
 		this.limitValue = JSONHelper.getFloat(json, "limitValue");
-		this.direction = JSONHelper.getInt(json, "direction");
 		this.backToNormalThreshold = JSONHelper.getFloat(json, "backToNormalThreshold");
+
+		//this.direction = JSONHelper.getInt(json, "direction");
+		
+		/*
+		 *  Read direction from json
+		 */
+		String val = JSONHelper.getString(json, "direction");
+		if(val != null && (val.equalsIgnoreCase("above") || val.equalsIgnoreCase("higher")) ){
+			this.direction = DIRECTION_INCREASING;
+		}else
+		if(val != null && (val.equalsIgnoreCase("below") || val.equalsIgnoreCase("lower")) ){
+			this.direction = DIRECTION_DECREASING;
+		}else{
+			try{
+				this.direction = JSONHelper.getInt(json, "direction");
+			}catch(Exception e){
+				Log.w("Can not process value of field \"direction\". Direction UNDEFINED.");
+				this.direction = DIRECTION_UNDEFINED;
+			}
+		}
+		val = null;
+		
 		
 		/*
 		 *  Read observedSensor from json 
 		 */
-		String val = JSONHelper.getString(json, "observedSensor");
+		val = JSONHelper.getString(json, "observedSensor");
 		//TODO: create constants!!!!
 		if(val != null && (val.equalsIgnoreCase("water") || val.equalsIgnoreCase("aquarium")) ){
 			this.observedSensor = TempReader.SENSOR_WATER;
@@ -379,7 +400,9 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 			}
 		}
 		//return super.toString() + " Observed sensor: " + this.observedSensor + " Recipient" + recipients;
-		return super.toString() + ". Observed sensor: " + TempReader.getSensorTypeAsHumen(this.observedSensor) + ". Recipient" + recipients;
+		return super.toString() + ". Observed sensor: " + TempReader.getSensorTypeAsHumen(this.observedSensor) + ". "
+				+ "Direction: " + getDirectionAsHuman(this.getDirection()) + ". "
+				+ "Recipient" + recipients;
 	}
 	
 
