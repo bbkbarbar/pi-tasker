@@ -1,0 +1,27 @@
+{
+	"tempWarnings":[
+		{
+			"title":"Anything human-readble title",
+			"limitValue":24.0,				// in celsius
+			"backToNormalThreshold":0.25,	// in celsius
+			"recipients":[
+				"user1@gmail.com",
+				"user2@example.com"
+			],
+			"observedSensor":"water", 		// can be: water, aquarium, 1; air, room, 0
+			"object":"TempWarning",
+			"direction":"below" 			// can be: above, higher, 1; 0; -1; below, lower
+		},
+		{
+			"title":"Air temperature > 30.0C",
+			"limitValue":30.0,
+			"backToNormalThreshold":1.0,
+			"recipients":[
+				"user@gmail.com"
+			],
+			"observedSensor":"air",
+			"object":"TempWarning",
+			"direction":"above"
+		}
+	]
+}
