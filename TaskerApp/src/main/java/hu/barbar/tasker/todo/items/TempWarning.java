@@ -94,6 +94,10 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 	}
 	
 	
+	/**
+	 * Constructor to create TempWarning instance from JSON object.
+	 * @param json
+	 */
 	public TempWarning(JSONObject json) {
 		super();
 		
@@ -113,9 +117,11 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 		/*
 		 * Check mandatory fields
 		 */
-		if( !(json.containsKey("limitValue") && json.containsKey("direction") && json.containsKey("backToNormalThreshold") && json.containsKey("observedSensor")) ){
+		if( !(json.containsKey("limitValue") && 
+			  json.containsKey("direction") && 
+			  json.containsKey("backToNormalThreshold") && 
+			  json.containsKey("observedSensor")) ){
 			Log.e("Can not create TempWarning item because JSONObject not contains all mandatory fields.");
-			//TODO throw excetion
 			return;
 		}
 		
@@ -141,11 +147,12 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 			this.observedSensor = TempReader.SENSOR_WATER;
 		}else
 		if(val != null && (val.equalsIgnoreCase("air") || val.equalsIgnoreCase("room")) ){
-			this.observedSensor = TempReader.SENSOR_WATER;
+			this.observedSensor = TempReader.SENSOR_AIR;
 		}else{
 			try{
 				this.observedSensor = JSONHelper.getInt(json, "observedSensor");
 			}catch(Exception e){
+				Log.w("Can not process value of field \"observedSensor\". Use default sensor: " + TempReader.SENSOR_DEFAULT);
 				this.observedSensor = TempReader.SENSOR_DEFAULT;
 			}
 		}
