@@ -1,0 +1,37 @@
+{
+	"tempWarnings":[
+		{
+			"title":"Water temperature < 24.0C",
+			"limitValue":24.0,
+			"backToNormalThreshold":0.25,
+			"recipients":[
+				"bbk.barbar@gmail.com"
+			],
+			"observedSensor":1,
+			"object":"TempWarning",
+			"direction":-1
+		},
+		{
+			"title":"Air temperature > 30.0C",
+			"limitValue":30.0,
+			"backToNormalThreshold":1.0,
+			"recipients":[
+				"bbk.barbar@gmail.com"
+			],
+			"observedSensor":0,
+			"object":"TempWarning",
+			"direction":1
+		},
+		{
+			"backToNormalThreshold":0.25,
+			"limitValue":27.0,
+			"recipients":[
+				"bbk.barbar@gmail.com",
+				"other_address@gmail.com"
+			],
+			"observedSensor":1,
+			"title":"Water temperature > 27.00C",
+			"direction":1
+		}
+	]
+}
