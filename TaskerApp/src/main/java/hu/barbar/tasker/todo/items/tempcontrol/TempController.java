@@ -459,7 +459,8 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 				Log.a(	"Temperature is too "
 						+((this.getType() == TempController.Type.COOLER)?"high":"low")
 						+ " (limit exceeded)."
-						+ " RuleID: " + i + " limit: " + this.ruleItems.get(i).getLimitValue() + " current value: " + currentTemp);
+						+ ((this.ruleItems.size()>1)?(" RuleID: " + i):(""))
+						+ " limit: " + this.ruleItems.get(i).getLimitValue() + " current value: " + currentTemp);
 				setOutput(this.ruleItems.get(i).getOutputValue());
 				Log.a((this.outputConfig.getType()==OutputConfig.Type.PWM?"PWM output: ch":"IO output pin") + this.outputConfig.getPin() + ": " + this.ruleItems.get(i).getOutputValue() + "%");
 				return;
