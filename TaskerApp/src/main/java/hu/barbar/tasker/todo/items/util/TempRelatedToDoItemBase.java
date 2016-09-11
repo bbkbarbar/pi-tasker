@@ -22,6 +22,19 @@ public abstract class TempRelatedToDoItemBase extends ToDoItemBase{
 							COLDER = -1,
 							DIRECTION_UNDEFINED  =  0;
 	
+	public static String getDirectionAsHuman(int directionValue){
+		
+		if(directionValue > 0){
+			return "above";
+		}
+		
+		if(directionValue < 0){
+			return "below";
+		}
+		
+		return "undefined";
+	}
+	
 	public static final int MAX_ATTEMPS_OF_READING_VALID_TEMPERATURE = 20;
 	
 	public static long DEFAULT_METERING_RESULT_VALIDITY_IN_SEC = 0;
