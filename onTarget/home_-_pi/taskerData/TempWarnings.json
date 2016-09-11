@@ -7,9 +7,9 @@
 			"recipients":[
 				"bbk.barbar@gmail.com"
 			],
-			"observedSensor":1,
+			"observedSensor":"water",
 			"object":"TempWarning",
-			"direction":-1
+			"direction":"below"
 		},
 		{
 			"title":"Air temperature > 30.0C",
@@ -18,19 +18,19 @@
 			"recipients":[
 				"bbk.barbar@gmail.com"
 			],
-			"observedSensor":0,
+			"observedSensor":"air",
 			"object":"TempWarning",
-			"direction":1
+			"direction":"above"
 		},
 		{
+			"title":"Water temperature > 27.00C",
 			"backToNormalThreshold":0.25,
 			"limitValue":27.0,
 			"recipients":[
 				"bbk.barbar@gmail.com",
-				"other_address@gmail.com"
+				"baboshenrietta@gmail.com"
 			],
 			"observedSensor":1,
-			"title":"Water temperature > 27.00C",
 			"direction":1
 		}
 	]
