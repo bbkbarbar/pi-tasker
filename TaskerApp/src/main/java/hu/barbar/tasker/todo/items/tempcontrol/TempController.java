@@ -1,5 +1,6 @@
 package hu.barbar.tasker.todo.items.tempcontrol;
 
+import java.awt.Event;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -471,11 +472,14 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		 */ 
 		if(exceededLevel != NONE){
 			exceededLevel = NONE;
-			Log.a("Turn "
+			String messageText = 
+					"Turn "
 					+ ((this.getType() == TempController.Type.HEATER)?"heater":"cooler")
 					+ " OFF. ("
 					+ currentTemp + "°C"
-					+ ")");
+					+ ")";
+			Log.i(messageText);
+			EventLogger.add(messageText);
 			//show that cooler is NOT active
 			//Tasker.coolerIsActive = false;
 			setOutput(0);
