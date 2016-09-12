@@ -8,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import hu.barbar.tasker.TaskExecutor;
+import hu.barbar.tasker.log.EventLogger;
 import hu.barbar.tasker.todo.items.RuleItemComparator;
 import hu.barbar.tasker.todo.items.util.TempReader;
 import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
@@ -484,13 +485,25 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 	
 	
 	private void onRuleItemExceeded(int idOfExceededLevel, float currentTemp){
-		Log.a(	"Temperature is too "
+		String messageText = 
+				"Temperature is too "
 				+((this.getType() == TempController.Type.COOLER)?"high":"low")
 				+ " (limit exceeded)."
 				+ ((this.ruleItems.size()>1)?(" RuleID: " + idOfExceededLevel):(""))
-				+ " Limit: " + this.ruleItems.get(idOfExceededLevel).getLimitValue() + " current value: " + currentTemp);
+				+ " Limit: " + this.ruleItems.get(idOfExceededLevel).getLimitValue() 
+				+ " current value: " + currentTemp;
+		EventLogger.add(messageText);
+		Log.a(messageText);
+
+		
 		setOutput(this.ruleItems.get(idOfExceededLevel).getOutputValue());
-		Log.a((this.outputConfig.getType()==OutputConfig.Type.PWM?"PWM output: ch":"IO output pin") + this.outputConfig.getPin() + ": " + this.ruleItems.get(idOfExceededLevel).getOutputValue() + "%");
+		
+		
+		String reactionResult = 
+				(this.outputConfig.getType()==OutputConfig.Type.PWM?"PWM output: ch":"IO output pin") 
+				+ this.outputConfig.getPin() + ": " + this.ruleItems.get(idOfExceededLevel).getOutputValue() + "%"; 
+		Log.a(reactionResult);
+		EventLogger.add(reactionResult);
 	}
 	
 	

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import hu.barbar.tasker.log.EventLogger;
 import hu.barbar.tasker.todo.items.util.TempReader;
 import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
 import hu.barbar.tasker.todo.items.util.ToDoItemJSONInterface;
@@ -365,6 +366,7 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 
 	private void sendWarningEmailTo(String to, float currentTemp){
 		
+		boolean emailSent = 
 		Mailer.sendEmail(
 				to,
 				(this.getObservedSensor() == TempReader.SENSOR_WATER)?("Water temperature warning"):("Air temperature warning"),
@@ -372,6 +374,13 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 				" Current temperature (" + String.format("%.2f", currentTemp) + "'C) is " + (direction>0?"above":"below") + 
 				" the limit value (" + String.format("%.2f", limitValue) + ")"
 		);
+		
+		if(emailSent){
+			EventLogger.add("Warning email send to " + to + " (" + currentTemp + "°C)" );
+		}else{
+			EventLogger.add("Could NOT send email warning to " + to + " (" + currentTemp + "°C)");
+		}
+		
 	}
 	
 	
