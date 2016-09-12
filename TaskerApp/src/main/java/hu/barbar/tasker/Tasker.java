@@ -40,7 +40,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 88;
+	private static final int buildNum = 89;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -87,7 +87,7 @@ public class Tasker {
 				+ ")\nBuild: " + buildNum + "\n");/**/
 		
 		
-		Log.init(Env.getDataFolderPath() + "logs/", Log.Level.DEBUG, Log.Level.WARN);
+		Log.init(Env.getDataFolderPath() + "logs/", Log.Level.INFO, Log.Level.WARN);
 		Log.f("Start tasker ("
 				+ ")\nBuild: " + buildNum + "\n");
 		
@@ -686,7 +686,6 @@ public class Tasker {
 		OutputConfig oc = null;
 		
 		if(what.equalsIgnoreCase(Peripherials.AIR_PUMP)){
-			Log.a("Try to get state of Config.KEY_OUTPUT_OF_AIR_PUMP");
 			oc = Config.getOutputConfig(Config.KEY_OUTPUT_OF_AIR_PUMP);
 		}
 		else
@@ -710,10 +709,7 @@ public class Tasker {
 		}
 		
 		int result = Tasker.getOutputState(oc);
-		Log.a("Result: " + result);
-		
 		if((oc.getType() == OutputConfig.Type.IO) && oc.isReversed()){
-			Log.a("Result need to be REVERSED!");
 			if(result == 0){
 				return new OutputState(1, OutputConfig.Type.IO);
 			}else{
