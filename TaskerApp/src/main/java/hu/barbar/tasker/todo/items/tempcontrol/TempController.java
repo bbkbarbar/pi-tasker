@@ -456,19 +456,18 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 					return;
 				}
 				exceededLevel = i; 	// 0
-				Log.a(	"Temperature is too "
-						+((this.getType() == TempController.Type.COOLER)?"high":"low")
-						+ " (limit exceeded)."
-						+ ((this.ruleItems.size()>1)?(" RuleID: " + i):(""))
-						+ " limit: " + this.ruleItems.get(i).getLimitValue() + " current value: " + currentTemp);
-				setOutput(this.ruleItems.get(i).getOutputValue());
-				Log.a((this.outputConfig.getType()==OutputConfig.Type.PWM?"PWM output: ch":"IO output pin") + this.outputConfig.getPin() + ": " + this.ruleItems.get(i).getOutputValue() + "%");
+				onRuleItemExceeded(exceededLevel, currentTemp);
 				return;
 			}
 			
 		}
 		
-		//There is no rule exceeded..
+		/*
+		 * There where a rule exceeded previously..
+		 * There is no rule exceeded now..
+		 * 
+		 * Turn off.
+		 */ 
 		if(exceededLevel != NONE){
 			exceededLevel = NONE;
 			Log.a("Turn "
@@ -481,6 +480,17 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 			setOutput(0);
 		}
 		
+	}
+	
+	
+	private void onRuleItemExceeded(int idOfExceededLevel, float currentTemp){
+		Log.a(	"Temperature is too "
+				+((this.getType() == TempController.Type.COOLER)?"high":"low")
+				+ " (limit exceeded)."
+				+ ((this.ruleItems.size()>1)?(" RuleID: " + idOfExceededLevel):(""))
+				+ " Limit: " + this.ruleItems.get(idOfExceededLevel).getLimitValue() + " current value: " + currentTemp);
+		setOutput(this.ruleItems.get(idOfExceededLevel).getOutputValue());
+		Log.a((this.outputConfig.getType()==OutputConfig.Type.PWM?"PWM output: ch":"IO output pin") + this.outputConfig.getPin() + ": " + this.ruleItems.get(idOfExceededLevel).getOutputValue() + "%");
 	}
 	
 	
