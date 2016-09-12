@@ -166,12 +166,6 @@ public class Tasker {
 			webupdater.setValidityOfMeteringResult(15);
 			myWorker.addToDoItem(webupdater);
 		
-			/*
-			TempChange tc = new TempChange("Temperature diff > 0.15C", 0.15f);
-			tc.setValidityOfMeteringResult(10);
-			myWorker.addToDoItem(tc);
-			/**/
-			
 			
 			/*
 			 *  Cooler
@@ -234,34 +228,6 @@ public class Tasker {
 			/*
 			 *  Temperature warnings 
 			 */
-			
-			/*
-			TempWarning ate = new TempWarning(TempReader.SENSOR_AIR, "Air temperature > 30.0C", 30.0f, TempWarning.DIRECTION_INCREASING, 1.0f);
-			myWorker.addToDoItem(ate);
-			
-			TempWarning wte = new TempWarning(TempReader.SENSOR_WATER, "Water temperature < 24.0C", 24.0f, TempWarning.COLDER, 0.25f);
-			wte.addRecipient("bbk.barbar@gmail.com");
-			//wte.addRecipient("baboshenrietta@gmail.com");
-			myWorker.addToDoItem(wte);
-			/**/
-			
-			/*
-			TempWarning wth = new TempWarning(TempReader.SENSOR_WATER, "Water temperature > 27.75C", 27.75f, TempWarning.WARMER, 0.25f);
-			wth.addRecipient("bbk.barbar@gmail.com");
-			wth.addRecipient("baboshenrietta@gmail.com");
-			FileHandler.storeJSON(Env.getDataFolderPath() + "TempWarningSample.json", wth.getAsJSON());	//TODO: testing only
-			/**/
-			
-			/*
-			JSONObject twJson = FileHandler.readJSON(Env.getDataFolderPath() + "TempWarningSample.json");
-			if(twJson != null){
-				TempWarning wth = new TempWarning(twJson);
-				myWorker.addToDoItem(wth);
-			}else{
-				Log.w("TempWarning can not be initialited because can not read \"TempWarningSample.json\".");
-			}
-			/**/
-			
 			myWorker.addTempWarnings(
 					TempWarning.buildInstancesFromJSON("TempWarnings.json")
 			);
