@@ -73,7 +73,7 @@ public class TaskExecutor {
 	
 	public static String readHumidityOnly(){
 		String response = "_PROBLEM_";
-		String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.CPU_TEMPERATURE_READER_SCRIPT;
+		String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.HUMIDITY_READER_SCRIPT;
 		if(Env.runningOnTargetDevice()){
 			try {
 				Process p = Runtime.getRuntime().exec(cmd);
