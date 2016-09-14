@@ -296,11 +296,18 @@ public class Tasker {
 		if(msg.getType() == Msg.Types.REQUEST){
 			
 			if( msg.getContent().startsWith(Commands.GET_CPU_TEMP) ){
-				
 				String response = TaskExecutor.readCPUTemp();
 				myServer.sendToClient(new Msg(response, Msg.Types.RESPONSE_CPU_TEMP), clientId);
 			}
 			
+			
+			else
+			if( msg.getContent().startsWith(Commands.GET_ONLY_HUMIDITY) ){
+				String response = TaskExecutor.readHumidityOnly();
+				myServer.sendToClient(new Msg(response, Msg.Types.RESPONSE_HUMIDITY), clientId);
+			}
+			
+			else
 			if( msg.getContent().startsWith(Commands.SEND_INFO_MAIL) ){
 				
 				// content should looks like: "sendinfomail recipiant@gmail.com"

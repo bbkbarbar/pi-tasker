@@ -70,6 +70,31 @@ public class TaskExecutor {
 		return response;
 	}
 	
+	
+	public static String readHumidityOnly(){
+		String response = "_PROBLEM_";
+		String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.CPU_TEMPERATURE_READER_SCRIPT;
+		if(Env.runningOnTargetDevice()){
+			try {
+				Process p = Runtime.getRuntime().exec(cmd);
+				
+				if(Tasker.DEBUG_MODE){
+					Log.d("Task execution (read humidity) completed");
+				}
+				
+				BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				response = in.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else{
+			Log.d("<<RUN PYTHON SCRIPT>>\n" + cmd);
+			response = "Humidity: 55";
+		}
+		
+		return response;
+	}
+	
 	public static void setAllPwmOutputs(int[] outputContent, boolean needToSave){
 		
 		String args = "";
