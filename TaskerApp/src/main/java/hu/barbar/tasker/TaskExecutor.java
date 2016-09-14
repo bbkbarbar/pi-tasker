@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import hu.barbar.tasker.log.IOLogger;
+import hu.barbar.tasker.util.Config;
 import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.ExternalResources;
 import hu.barbar.tasker.util.PWMOutputState;
@@ -73,6 +74,13 @@ public class TaskExecutor {
 	
 	public static String readHumidityOnly(){
 		String response = "_PROBLEM_";
+		int inputPinOfHumiditySensor = -1;
+		try{
+			inputPinOfHumiditySensor = Integer.valueOf(Config.readBaseConfig().get(Config.KEY_INPUT_PIN_HUMIDITY));
+		}catch(Exception e){
+			inputPinOfHumiditySensor = -1;
+		}
+		//String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.HUMIDITY_READER_SCRIPT + "-p " + inputPinOfHumiditySensor;
 		String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.HUMIDITY_READER_SCRIPT;
 		if(Env.runningOnTargetDevice()){
 			try {

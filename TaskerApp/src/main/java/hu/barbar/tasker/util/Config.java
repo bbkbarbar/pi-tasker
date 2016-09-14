@@ -38,6 +38,7 @@ public class Config {
 	
 	public static final String KEY_OUTPUT_OF_AIR_PUMP = "output of air pump";
 	
+	public static final String KEY_INPUT_PIN_HUMIDITY = "input pin of humidity sensor";
 	
 	public static final String KEY_FILENAME_TEMP_DATA_LOG = "temperature data log file";
 	
@@ -52,7 +53,7 @@ public class Config {
 	public static final Object KEY_FAN_START_BOOST_TIME_IN_MS = "fan start boost time in ms";
 	
 	public static final Object KEY_MIN_COOLER_ALONE_START_VALUE = "min cooler alone start percentage";
-	
+
 	public static HashMap<String, OutputConfig> outputConfigs = null;
 	
 	
