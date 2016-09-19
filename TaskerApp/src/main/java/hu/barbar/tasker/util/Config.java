@@ -1,6 +1,11 @@
 package hu.barbar.tasker.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import hu.barbar.util.FileHandler;
 import hu.barbar.util.TaskerFilehandler;
@@ -17,6 +22,9 @@ public class Config {
 	public static final String FILENAME_BASE_CONFIG = "base.conf";
 	
 	public static final String FILENAME_PINOUT_CONFIG = "pinout.conf";
+	
+	public static final String FILENAME_PINOUT_CONFIG_JSON = "outputConfig.json";
+	
 	
 	
 	
@@ -109,6 +117,71 @@ public class Config {
 		return Config.outputConfigs;
 		
 	}
+	
+	
+	public static boolean storeOutputConfig(HashMap<String, OutputConfig> data){
+		
+		List<String> list = new ArrayList<String>(data.keySet());
+		
+		System.out.println("Keys:\n");
+		for(int i=0; i<list.size(); i++){
+			System.out.println(list.get(i));
+		}
+		
+		JSONObject json = new JSONObject();
+		
+		JSONArray array = new JSONArray();
+		for(int i=0; i<list.size(); i++){
+			array.add( data.get(list.get(i)).getAsJsonObject(list.get(i)) );
+		}
+		json.put("output config", array);
+		
+		return FileHandler.storeJSON(
+							Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON, 
+							json
+		);
+		
+	}
+	
+	public static HashMap<String, OutputConfig> readOutputConfigJSON(String filename){
+		HashMap<String, OutputConfig> map = new HashMap<String, OutputConfig>();
+		
+		JSONObject json = FileHandler.readJSON(filename);
+		if(json.containsKey("output config")){
+			JSONArray array = (JSONArray) json.get("output config");
+			for(int i=0; i<array.size(); i++){
+				JSONObject jsonItem = (JSONObject) array.get(i);
+				
+				if(jsonItem.containsKey("name")){
+					String name = (String)jsonItem.get("name");
+					OutputConfig oc = new OutputConfig(jsonItem);
+					map.put(name, oc);
+					Log.d("Output config loaded from JSON:\n \"" + name + "\" > " + oc.toString());
+				}
+				
+			}
+		}
+		
+		return map;
+	}
+	
+	public static HashMap<String, OutputConfig> readOutputConfigFromJSON(boolean forceUpdateConfig){
+		
+		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
+			Config.outputConfigs = Config.readOutputConfigJSON(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON);
+			if(forceUpdateConfig){
+				Log.t("Forced re-read pinout config from JSON file.");
+			}else{
+				Log.t("Read pinout config from JSON file.");
+			}
+		}else{
+			Log.t("Read pinout config from cache.");
+		}
+		
+		return Config.outputConfigs;
+		
+	}
+	
 
 	public static void getConfig(String string) {
 		// TODO Auto-generated method stub

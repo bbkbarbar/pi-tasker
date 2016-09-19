@@ -40,7 +40,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 90;
+	private static final int buildNum = 91;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -87,7 +87,7 @@ public class Tasker {
 				+ ")\nBuild: " + buildNum + "\n");/**/
 		
 		
-		Log.init(Env.getDataFolderPath() + "logs/", Log.Level.INFO, Log.Level.WARN);
+		Log.init(Env.getDataFolderPath() + "logs/", Log.Level.DEBUG, Log.Level.WARN);
 		Log.f("Start tasker ("
 				+ ")\nBuild: " + buildNum + "\n");
 		
@@ -147,7 +147,7 @@ public class Tasker {
 			tl.setValidityOfMeteringResult(15);
 			logWorker.addToDoItem(tl);
 			
-			TempLogger3 tlWithCoolerState = new TempLogger3(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_COOLER));
+			TempLogger3 tlWithCoolerState = new TempLogger3(Config.readOutputConfigFromJSON(false).get(Config.KEY_OUTPUT_OF_COOLER));
 			tlWithCoolerState.setValidityOfMeteringResult(15);
 			logWorker.addToDoItem(tlWithCoolerState);
 					
@@ -177,7 +177,7 @@ public class Tasker {
 				/*
 				 *  Load cooler controller from json
 				 */
-				cc = new CoolerController(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_COOLER), json);
+				cc = new CoolerController(Config.readOutputConfigFromJSON(false).get(Config.KEY_OUTPUT_OF_COOLER), json);
 			}else{
 				/*
 				 *  Create new cooler controller
@@ -188,7 +188,7 @@ public class Tasker {
 				rules.add( new TempController.RuleItem(26.00f, 0.10f, 30) );
 				rules.add( new TempController.RuleItem(26.20f, 0.10f, 40) );
 				cc = new CoolerController(
-							Config.readOutputConfig(true).get(Config.KEY_OUTPUT_OF_COOLER), 
+							Config.readOutputConfigFromJSON(true).get(Config.KEY_OUTPUT_OF_COOLER), 
 							"Aquarium cooler", 
 							TempReader.SENSOR_WATER, 
 							rules
@@ -207,7 +207,7 @@ public class Tasker {
 				/*
 				 *  Load heater controller from json
 				 */
-				hc = new HeaterController(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_HEATER), json);
+				hc = new HeaterController(Config.readOutputConfigFromJSON(false).get(Config.KEY_OUTPUT_OF_HEATER), json);
 			}else{
 				/*
 				 *  Create new heater controller
@@ -215,7 +215,7 @@ public class Tasker {
 				ArrayList<TempController.RuleItem> rulesForHeaterController = new ArrayList<TempController.RuleItem>();
 				rulesForHeaterController.add( new TempController.RuleItem(24.80f, 0.10f, 100) );
 				hc = new HeaterController(
-							Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_HEATER), 
+							Config.readOutputConfigFromJSON(false).get(Config.KEY_OUTPUT_OF_HEATER), 
 							"Aquarium heater", 
 							TempReader.SENSOR_WATER, 
 							rulesForHeaterController
@@ -251,7 +251,6 @@ public class Tasker {
 		System.out.println("\n==============\n");
 		Log.i(getWorkerInfos());
 		System.out.println("\n==============\n");
-		
 		
 	}
 	

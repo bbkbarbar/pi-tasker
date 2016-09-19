@@ -1,5 +1,7 @@
 package hu.barbar.tasker.util;
 
+import org.json.simple.JSONObject;
+
 import hu.barbar.util.logger.Log;
 
 public class OutputConfig {
@@ -29,6 +31,19 @@ public class OutputConfig {
 					return false;
 				default:
 					return true;
+			}
+		}
+		
+		public static int getFromString(String text){
+			if(text.equalsIgnoreCase("IO")){
+				return IO;
+			}
+			else
+			if(text.equalsIgnoreCase("PWM")){
+				return PWM;
+			}
+			else{
+				return UNDEFINED;
 			}
 		}
 
@@ -62,6 +77,62 @@ public class OutputConfig {
 	 */
 	public OutputConfig(int type, int pin){
 		init(type, pin, DEFAULT_VALUE_OF_REVERSED);
+	}
+	
+	
+	public JSONObject getAsJsonObject(String name){
+		
+		if(name == null || name.trim().length() == 0){
+			return null;
+		}
+		
+		JSONObject json = new JSONObject();
+		
+		json.put("name", name.trim());
+		json.put("pin", pin);
+		json.put("type", Type.toString(this.type));
+		if(this.reversed){
+			json.put("reversed", true);
+		}
+		
+		return json;
+	}
+	
+	public OutputConfig(JSONObject json){
+		int p = UNDEFINED;
+		int t = Type.UNDEFINED;
+		boolean r = false;
+		
+		if(json.containsKey("pin")){
+			try{
+				int pin = (Integer) json.get("pin");
+				p = pin;
+			}catch(Exception problemWhileTryToConvertValueToInt){
+				p = UNDEFINED;
+			}
+		}
+		
+		if(json.containsKey("type")){
+			t = Type.getFromString((String) json.get("type"));
+		}
+		if( (p == UNDEFINED) && (type == Type.PWM) && (json.containsKey("ch")) ){
+			try{
+				int pin = (Integer) json.get("ch");
+				p = pin;
+			}catch(Exception problemWhileTryToConvertValueToInt){}
+		}else
+		if( (p == UNDEFINED) && (type == Type.PWM) && (json.containsKey("channel")) ){
+			try{
+				int pin = (Integer) json.get("channel");
+				p = pin;
+			}catch(Exception problemWhileTryToConvertValueToInt){}
+		}
+		
+		if(json.containsKey("reversed")){
+			r = (Boolean) json.get("reversed");
+		}
+		
+		init(t,p,r);
 	}
 	
 	/**
