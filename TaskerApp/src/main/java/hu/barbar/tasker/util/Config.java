@@ -13,6 +13,10 @@ import hu.barbar.util.logger.Log;
 
 public class Config {
 
+	
+	public static final boolean READ_OUTPUT_CONFIGS_FROM_JSON = false;
+	
+	
 	/**
 	 *   FILES
 	 */
@@ -24,7 +28,6 @@ public class Config {
 	public static final String FILENAME_PINOUT_CONFIG = "pinout.conf";
 	
 	public static final String FILENAME_PINOUT_CONFIG_JSON = "outputConfig.json";
-	
 	
 	
 	
@@ -83,7 +86,7 @@ public class Config {
 	public static OutputConfig getOutputConfig(String key){
 		
 		if(Config.outputConfigs == null){
-			if(readOutputConfig(true) == null){
+			if(readOutputConfigFromIni(true) == null){
 				Log.e("Failed to get outputConfig for key: " + key);
 				return null;
 			}
@@ -97,11 +100,29 @@ public class Config {
 		return response;
 	}
 	
+	
 	public static HashMap<String, OutputConfig> readOutputConfig(){
-		return readOutputConfig(false);
+		if(READ_OUTPUT_CONFIGS_FROM_JSON){
+			return readOutputConfigFromJSON(false);
+		}else{
+			return readOutputConfigFromIni();
+		}
 	}
 	
 	public static HashMap<String, OutputConfig> readOutputConfig(boolean forceUpdateConfig){
+		if(READ_OUTPUT_CONFIGS_FROM_JSON){
+			return readOutputConfigFromJSON(false);
+		}else{
+			return readOutputConfigFromIni(forceUpdateConfig);
+		}
+	}
+	
+	
+	public static HashMap<String, OutputConfig> readOutputConfigFromIni(){
+		return readOutputConfigFromIni(false);
+	}
+	
+	public static HashMap<String, OutputConfig> readOutputConfigFromIni(boolean forceUpdateConfig){
 		
 		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
 			Config.outputConfigs = TaskerFilehandler.readOutputConfig(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG);
@@ -165,6 +186,7 @@ public class Config {
 		return map;
 	}
 	
+	//TODO
 	public static HashMap<String, OutputConfig> readOutputConfigFromJSON(boolean forceUpdateConfig){
 		
 		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
