@@ -1,7 +1,9 @@
 package hu.barbar.tasker.util;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
+import hu.barbar.tasker.util.exceptions.ItemFinishedException;
 import hu.barbar.tasker.util.exceptions.NotFinishedYetException;
 
 public class HeaterLogItem {
@@ -14,7 +16,8 @@ public class HeaterLogItem {
 	}
 	
 	public HeaterLogItem(Date startDate, Date endDate){
-		//TODO implement me
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 	
 	public boolean isInProgress(){
@@ -35,7 +38,24 @@ public class HeaterLogItem {
 	 * @throws NotFinishedYetException
 	 */
 	public long getElaspedTimeInMs() throws NotFinishedYetException {
-		return 0;
+		
+		if(isFinished()){
+			return getDateDiff(startDate, endDate);
+		}else{
+			throw new NotFinishedYetException();
+		}
+		
+	}
+	
+	/**
+	 * Get a diff between two dates
+	 * @param date1 the oldest date
+	 * @param date2 the newest date
+	 * @return the diff value, in the provided unit
+	 */
+	private static long getDateDiff(Date date1, Date date2) {
+		//TODO Test it
+		return date2.getTime() - date1.getTime();
 	}
 	
 	public Date getStartDate(){
@@ -44,6 +64,18 @@ public class HeaterLogItem {
 	
 	public Date getEndDate(){
 		return this.endDate;
+	}
+
+	public void addEndDate(Date endDate) throws ItemFinishedException {
+		if(this.isInProgress()){
+			this.endDate = endDate;
+		}else{
+			throw new ItemFinishedException();
+		}
+	}
+	
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	
 }
