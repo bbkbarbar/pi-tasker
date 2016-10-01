@@ -8,6 +8,8 @@ public interface UsageLogIF {
 	
 	public void add(UsageLogItem item);
 	
+	public void addNewLogItem();
+	
 	/**
 	 * Get count of items.
 	 * @return 
@@ -24,13 +26,36 @@ public interface UsageLogIF {
 	public String getName();
 
 	public long getTotalTimeInSec();
+	
+	public float getTotalTimeInHours();
 
 	public long getTotalTimeInSecSince(Date begin);
+	
+	public float getTotalTimeInHoursSince(Date begin);
 	
 	public boolean hasItemInProgress();
 	
 	public boolean finishLastItem(Date when);
 	
 	public boolean finishLastItem();
+	
+	public void setEnabled(boolean state);
+	
+	public boolean isEnabled();
+	
+	
+	/**
+	 * Set energy consumption of logged peripheria as Wh. 
+	 * @param wattValuePerHour
+	 */
+	public void setConsumpltion(float wattValuePerHour);
+	
+	public float getConsumpltionPerHour();
+	
+	public float getTotalConsumption();
+	
+	public float getTotalConsumption(Date since);
+	
+	public EnergyConsumptionInfo getEnergyConsumptionInfo();
 	
 }

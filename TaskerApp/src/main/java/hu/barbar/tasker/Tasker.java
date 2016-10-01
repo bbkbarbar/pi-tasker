@@ -34,6 +34,7 @@ import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.tasker.util.OutputState;
 import hu.barbar.tasker.util.PWMOutputState;
 import hu.barbar.tasker.util.Peripherials;
+import hu.barbar.tasker.util.usagelog.UsageLog;
 import hu.barbar.util.FileHandler;
 import hu.barbar.util.Mailer;
 import hu.barbar.util.logger.Log;
@@ -58,6 +59,8 @@ public class Tasker {
 	private MultiThreadServer myServer = null;
 	
 	private Worker myWorker = null;
+	
+	private UsageLog heaterUsageLog = null;
 	
 	protected static PWMOutputState pwmOutputStates = null;
 	protected static int[] ioOutputStates = null;
@@ -195,6 +198,14 @@ public class Tasker {
 				);
 			}
 			myWorker.addToDoItem(cc);
+
+			
+			/*
+			 *  Heater usage log
+			 */
+			heaterUsageLog = new UsageLog();
+			//TODO: load energy consumption from config file or json.
+			heaterUsageLog.setConsumpltion(50);
 			
 			
 			/*
@@ -222,6 +233,7 @@ public class Tasker {
 				);
 				hc.setEnabled(true);
 			}
+			hc.setUsageLog(heaterUsageLog);
 			myWorker.addToDoItem(hc);
 			
 			

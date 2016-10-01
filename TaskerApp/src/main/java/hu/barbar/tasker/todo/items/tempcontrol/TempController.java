@@ -1,6 +1,5 @@
 package hu.barbar.tasker.todo.items.tempcontrol;
 
-import java.awt.Event;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,6 +17,8 @@ import hu.barbar.tasker.util.Config;
 import hu.barbar.tasker.util.JSONHelper;
 import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.tasker.util.TemperatureResult;
+import hu.barbar.tasker.util.usagelog.EnergyConsumptionInfo;
+import hu.barbar.tasker.util.usagelog.UsageLog;
 import hu.barbar.util.logger.Log;
 
 public abstract class TempController extends TempRelatedToDoItemBase implements ToDoItemJSONInterface {
@@ -172,6 +173,9 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 	protected int observedSensor = TempReader.SENSOR_DEFAULT;
 
 	private boolean initialized = false;
+	
+	private UsageLog usageLog = null;
+	
 	
 	/**
 	 * Type can be: <b>TempController.Type.COOLER</b>
@@ -500,6 +504,9 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		Log.a(messageText);
 
 		
+		/*
+		 *  Set output
+		 */
 		setOutput(this.ruleItems.get(idOfExceededLevel).getOutputValue());
 		
 		
@@ -578,9 +585,36 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 			TaskExecutor.setPwmOutput(this.outputConfig.getPin(), (int)(outputValue * 40.95f) );
 			this.lastOutputValue = outputValue;
 		}
+		
+		
+		/*
+		 *  Log usage
+		 */
+		if(this.usageLog != null && this.usageLog.isEnabled()){
+			if(outputValue > 0){
+				usageLog.addNewLogItem();
+			}
+		}
 			
 	}
 	
+	
 	public abstract String getClassName();
 
+	
+	public void setUsageLog(UsageLog usageLogInstance){
+		this.usageLog = usageLogInstance;
+	}
+	
+	public UsageLog getUsageLog(){
+		return this.usageLog;
+	}
+	
+	public EnergyConsumptionInfo getEnergyConsumptionInfo(){
+		if(this.usageLog != null){
+			return this.usageLog.getEnergyConsumptionInfo();
+		}
+		return null;
+	}
+	
 }

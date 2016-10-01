@@ -6,9 +6,22 @@ import java.util.Date;
 public class UsageLog implements UsageLogIF {
 
 	private static final long MILLISEC_IN_SEC = 1000;
+	
+	private static final float ENERGY_CONSUMPTION_UNDEFINED = -2;
+
+	private static final long SECS_IN_AN_HOUR = 3600;
+
+	
 	private ArrayList<UsageLogItem> items = null;
+	
 	private Date creationDate = null;
+	
 	private String name = null;
+	
+	private boolean enabled = false;
+	
+	private float energyConsumption = ENERGY_CONSUMPTION_UNDEFINED;
+	
 	
 	public UsageLog(){
 		init();
@@ -17,6 +30,7 @@ public class UsageLog implements UsageLogIF {
 	public UsageLog(String name){
 		init();
 		this.name = name;
+		this.enabled = true;
 	}
 	
 	
@@ -35,6 +49,11 @@ public class UsageLog implements UsageLogIF {
 			this.finishLastItem();
 		}
 		items.add(item);
+	}
+	
+	public void addNewLogItem() {
+		UsageLogItem item = new UsageLogItem(new Date());
+		this.add(item);
 	}
 
 	public int getItemCount() {
@@ -118,5 +137,45 @@ public class UsageLog implements UsageLogIF {
 		return items.get(items.size()-1).isInProgress();
 	}
 
+	
+	public void setConsumpltion(float wattValuePerHour) {
+		this.energyConsumption = wattValuePerHour;
+	}
+
+	public void setEnabled(boolean state) {
+		this.enabled = state;
+	}
+
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+
+	public float getTotalTimeInHours() {
+		return ((float)getTotalTimeInSec() / SECS_IN_AN_HOUR);
+	}
+
+	public float getTotalTimeInHoursSince(Date begin) {
+		return ((float)getTotalTimeInSecSince(begin) / SECS_IN_AN_HOUR);
+	}
+
+	public float getConsumpltionPerHour() {
+		return this.energyConsumption;
+	}
+
+	public float getTotalConsumption() {
+		return this.getTotalTimeInHours() * this.getConsumpltionPerHour();
+	}
+
+	public float getTotalConsumption(Date since) {
+		return this.getTotalTimeInHoursSince(since) * this.getConsumpltionPerHour();
+	}
+
+	public EnergyConsumptionInfo getEnergyConsumptionInfo() {
+		return new EnergyConsumptionInfo(creationDate, this.getTotalTimeInHours(), energyConsumption);
+	}
+	
+	public EnergyConsumptionInfo getEnergyConsumptionInfo(Date since) {
+		return new EnergyConsumptionInfo(creationDate, this.getTotalTimeInHoursSince(since), energyConsumption);
+	}
 	
 }
