@@ -1,22 +1,24 @@
-package hu.barbar.PiTasker.util;
+package hu.barbar.PiTasker.util.useagelog;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import hu.barbar.tasker.util.UseageLogItem;
 import hu.barbar.tasker.util.exceptions.ItemFinishedException;
-import hu.barbar.tasker.util.exceptions.NotFinishedYetException;
+import hu.barbar.tasker.util.useagelog.UseageLogItem;
 import junit.framework.TestSuite;
 
+@SuppressWarnings("deprecation")
 public class UseageLogItemTest extends TestSuite {
 
 	private static Date date1, date2;
 	
-	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp(){
 	}
@@ -29,14 +31,6 @@ public class UseageLogItemTest extends TestSuite {
 		UseageLogItem item = new UseageLogItem(date1);
 		assertFalse(item.isFinished());
 		assertTrue(item.isInProgress());
-		
-		boolean exceptionCought = false;
-		try {
-			item.getElaspedTimeInMs();
-		} catch (NotFinishedYetException e1) {
-			exceptionCought = true;
-		}
-		assertTrue(exceptionCought);
 		
 		date2 = new Date(2016, 9, 30, 8, 30, 0);
 		try {
@@ -56,12 +50,7 @@ public class UseageLogItemTest extends TestSuite {
 		date2 = new Date(2016, 9, 30, 9, 0, 0);
 		
 		UseageLogItem item = new UseageLogItem(date1, date2);
-		long diff = -1;
-		try {
-			diff = item.getElaspedTimeInMs();
-		} catch (NotFinishedYetException e) {
-			fail("Exception cought.");
-		}
+		long diff = item.getElaspedTimeInMs();
 		assertEquals(3600*1000, diff);
 	}
 	

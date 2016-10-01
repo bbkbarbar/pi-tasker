@@ -1,7 +1,6 @@
-package hu.barbar.tasker.util;
+package hu.barbar.tasker.util.useagelog;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import hu.barbar.tasker.util.exceptions.ItemFinishedException;
 import hu.barbar.tasker.util.exceptions.NotFinishedYetException;
@@ -36,18 +35,40 @@ public class UseageLogItem {
 	/**
 	 * Get elasped time between startDate and endDate in ms.
 	 * @return
-	 * @throws NotFinishedYetException
 	 */
-	public long getElaspedTimeInMs() throws NotFinishedYetException {
-		if(isFinished()){
-			return getDateDiff(startDate, endDate);
-		}else{
-			throw new NotFinishedYetException();
-		}
+	public long getElaspedTimeInMs() {
+		return this.getElaspedTimeInMs(null);
 	}
 	
-	public long getElaspedTimeUntilNowInMs() {
-		return getDateDiff(startDate, new Date());
+	/**
+	 * Get elasped time between startDate and endDate in ms.
+	 * @param since
+	 * @return
+	 */
+	public long getElaspedTimeInMs(Date since) {
+		if(since == null || (since != null && since.before(this.startDate))){
+			if(isFinished()){
+				return getDateDiff(startDate, endDate);
+			}else{
+				return getDateDiff(startDate, new Date());
+			}
+		}else{
+			
+			if(isFinished()){
+				if(since.before(this.endDate)){
+					return getDateDiff(since, endDate);
+				}else{
+					return 0;
+				}
+			}else{
+				Date now = new Date();
+				if(since.before(now)){
+					return getDateDiff(since, now);
+				}else{
+					return 0;
+				}
+			}
+		}
 	}
 	
 	/**
@@ -78,14 +99,6 @@ public class UseageLogItem {
 	
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-
-	public long getElaspedTimeInMsOnlySince(Date begin) {
-		return getDateDiff(begin, this.endDate);
-	}
-
-	public long getElaspedTimeUntilNowInMsOnlySince(Date begin) {
-		return getDateDiff(begin, new Date());
 	}
 
 }
