@@ -12,7 +12,8 @@ public class HeaterLogItem {
 	private Date endDate = null;
 	
 	public HeaterLogItem(Date startDate){
-		//TODO implement me
+		this.startDate = startDate;
+		this.endDate = null;
 	}
 	
 	public HeaterLogItem(Date startDate, Date endDate){
@@ -38,13 +39,15 @@ public class HeaterLogItem {
 	 * @throws NotFinishedYetException
 	 */
 	public long getElaspedTimeInMs() throws NotFinishedYetException {
-		
 		if(isFinished()){
 			return getDateDiff(startDate, endDate);
 		}else{
 			throw new NotFinishedYetException();
 		}
-		
+	}
+	
+	public long getElaspedTimeUntilNowInMs() {
+		return getDateDiff(startDate, new Date());
 	}
 	
 	/**
@@ -54,7 +57,6 @@ public class HeaterLogItem {
 	 * @return the diff value, in the provided unit
 	 */
 	private static long getDateDiff(Date date1, Date date2) {
-		//TODO Test it
 		return date2.getTime() - date1.getTime();
 	}
 	
@@ -77,5 +79,13 @@ public class HeaterLogItem {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	
+
+	public long getElaspedTimeInMsOnlySince(Date begin) {
+		return getDateDiff(begin, this.endDate);
+	}
+
+	public long getElaspedTimeUntilNowInMsOnlySince(Date begin) {
+		return getDateDiff(begin, new Date());
+	}
+
 }

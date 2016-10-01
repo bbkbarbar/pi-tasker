@@ -19,7 +19,6 @@ public class HeaterLogItemTest extends TestSuite {
 	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp(){
-		System.out.println("Test started.");
 	}
 	
 	
