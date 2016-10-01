@@ -1,27 +1,27 @@
-package hu.barbar.tasker.util.useagelog;
+package hu.barbar.tasker.util.usagelog;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class UseageLog implements UseageLogIF {
+public class UsageLog implements UsageLogIF {
 
 	private static final long MILLISEC_IN_SEC = 1000;
-	private ArrayList<UseageLogItem> items = null;
+	private ArrayList<UsageLogItem> items = null;
 	private Date creationDate = null;
 	private String name = null;
 	
-	public UseageLog(){
+	public UsageLog(){
 		init();
 	}
 	
-	public UseageLog(String name){
+	public UsageLog(String name){
 		init();
 		this.name = name;
 	}
 	
 	
 	private void init(){
-		items = new ArrayList<UseageLogItem>();
+		items = new ArrayList<UsageLogItem>();
 		creationDate = new Date();
 	}
 	
@@ -30,7 +30,7 @@ public class UseageLog implements UseageLogIF {
 		return creationDate;
 	}
 
-	public void add(UseageLogItem item) {
+	public void add(UsageLogItem item) {
 		if(this.hasItemInProgress()){
 			this.finishLastItem();
 		}
@@ -96,7 +96,7 @@ public class UseageLog implements UseageLogIF {
 		return false;
 	}
 	
-	private UseageLogItem getLastItem() {
+	private UsageLogItem getLastItem() {
 		if(this.items == null || this.items.size() == 0){
 			return null;
 		}else{

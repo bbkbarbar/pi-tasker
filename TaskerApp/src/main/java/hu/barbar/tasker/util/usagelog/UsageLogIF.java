@@ -1,12 +1,12 @@
-package hu.barbar.tasker.util.useagelog;
+package hu.barbar.tasker.util.usagelog;
 
 import java.util.Date;
 
-public interface UseageLogIF {
+public interface UsageLogIF {
 
 	public Date getStartDate();
 	
-	public void add(UseageLogItem item);
+	public void add(UsageLogItem item);
 	
 	/**
 	 * Get count of items.

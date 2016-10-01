@@ -1,20 +1,20 @@
-package hu.barbar.tasker.util.useagelog;
+package hu.barbar.tasker.util.usagelog;
 
 import java.util.Date;
 
-import hu.barbar.tasker.util.useagelog.exceptions.ItemFinishedException;
+import hu.barbar.tasker.util.usagelog.exceptions.ItemFinishedException;
 
-public class UseageLogItem {
+public class UsageLogItem {
 
 	private Date startDate = null;
 	private Date endDate = null;
 	
-	public UseageLogItem(Date startDate){
+	public UsageLogItem(Date startDate){
 		this.startDate = startDate;
 		this.endDate = null;
 	}
 	
-	public UseageLogItem(Date startDate, Date endDate){
+	public UsageLogItem(Date startDate, Date endDate){
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
