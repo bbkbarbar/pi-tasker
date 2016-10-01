@@ -3,8 +3,6 @@ package hu.barbar.tasker.util.useagelog;
 import java.util.ArrayList;
 import java.util.Date;
 
-import hu.barbar.tasker.util.exceptions.NotFinishedYetException;
-
 public class UseageLog implements UseageLogIF {
 
 	private static final long MILLISEC_IN_SEC = 1000;

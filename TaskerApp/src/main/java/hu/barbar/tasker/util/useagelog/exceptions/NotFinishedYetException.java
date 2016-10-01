@@ -1,4 +1,4 @@
-package hu.barbar.tasker.util.exceptions;
+package hu.barbar.tasker.util.useagelog.exceptions;
 
 public class NotFinishedYetException extends Exception {
 

@@ -10,8 +10,8 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import hu.barbar.tasker.util.exceptions.ItemFinishedException;
 import hu.barbar.tasker.util.useagelog.UseageLogItem;
+import hu.barbar.tasker.util.useagelog.exceptions.ItemFinishedException;
 import junit.framework.TestSuite;
 
 @SuppressWarnings("deprecation")

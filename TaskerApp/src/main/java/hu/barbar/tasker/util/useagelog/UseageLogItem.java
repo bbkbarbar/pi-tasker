@@ -2,8 +2,7 @@ package hu.barbar.tasker.util.useagelog;
 
 import java.util.Date;
 
-import hu.barbar.tasker.util.exceptions.ItemFinishedException;
-import hu.barbar.tasker.util.exceptions.NotFinishedYetException;
+import hu.barbar.tasker.util.useagelog.exceptions.ItemFinishedException;
 
 public class UseageLogItem {
 
