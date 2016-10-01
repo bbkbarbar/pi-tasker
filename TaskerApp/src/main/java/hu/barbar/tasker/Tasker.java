@@ -60,7 +60,7 @@ public class Tasker {
 	
 	private Worker myWorker = null;
 	
-	private UsageLog heaterUsageLog = null;
+	private static UsageLog heaterUsageLog = null;
 	
 	protected static PWMOutputState pwmOutputStates = null;
 	protected static int[] ioOutputStates = null;
@@ -90,7 +90,7 @@ public class Tasker {
 				+ ")\nBuild: " + buildNum + "\n");/**/
 		
 		
-		Log.init(Env.getDataFolderPath() + "logs/", Log.Level.DEBUG, Log.Level.WARN);
+		Log.init(Env.getDataFolderPath() + "logs/", Log.Level.INFO, Log.Level.WARN);
 		Log.f("Start tasker ("
 				+ ")\nBuild: " + buildNum + "\n");
 		
@@ -165,10 +165,7 @@ public class Tasker {
 			toc.setEnabled(false);
 			myWorker.addToDoItem(toc);
 		
-			WebUIUpdater webupdater = new WebUIUpdater();
-			webupdater.setValidityOfMeteringResult(15);
-			myWorker.addToDoItem(webupdater);
-		
+			
 			
 			/*
 			 *  Cooler
@@ -235,6 +232,15 @@ public class Tasker {
 			}
 			hc.setUsageLog(heaterUsageLog);
 			myWorker.addToDoItem(hc);
+			
+			
+			/*
+			 *  WebUI updater
+			 */
+			WebUIUpdater webupdater = new WebUIUpdater();
+			webupdater.setValidityOfMeteringResult(15);
+			webupdater.setHeaterUsageLog(heaterUsageLog);
+			myWorker.addToDoItem(webupdater);
 			
 			
 			/*
@@ -649,6 +655,16 @@ public class Tasker {
 			}
 			
 			TaskExecutor.setIOState(oc.getPin(), outputToSet);
+			/*
+			 *  Log usage of heater
+			 */
+			if(what.equalsIgnoreCase("heater")){
+				if(value > 0){
+					heaterUsageLog.addNewLogItem();
+				}else{
+					heaterUsageLog.finishLastItem();
+				}
+			}
 			return true;
 			
 		}

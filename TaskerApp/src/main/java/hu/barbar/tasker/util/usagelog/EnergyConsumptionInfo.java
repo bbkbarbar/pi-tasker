@@ -7,7 +7,7 @@ public class EnergyConsumptionInfo {
 	
 	public static final float ACTIVE_TIME_UNDEFINED = -3f;
 
-	private static final String DEFAULT_DATE_FORMAT_PATTERN = "yyyy-MM-dd hh:mm:ss";
+	private static final String DEFAULT_DATE_FORMAT_PATTERN = "yyyy.MM.dd HH:mm:ss";
 
 	
 	private String dateFormatPattern = DEFAULT_DATE_FORMAT_PATTERN;
@@ -26,12 +26,17 @@ public class EnergyConsumptionInfo {
 		this.energyConsumption = energyConsumption;
 	}
 
-	
 	public String toString(){
+		return toString(false);
+	}
+	
+	public String toString(boolean multiLine){
 		SimpleDateFormat format = new SimpleDateFormat(dateFormatPattern);
         String dateStr = format.format(this.startDate);
         String wattHourValueStr = String.format("%.3f", getWattHours());
-		return wattHourValueStr + " Wh since " + dateStr;
+		return wattHourValueStr + " Wh"
+				+ (multiLine?"\n":" ")
+				+ "since " + dateStr;
 	}
 	
 	public float getWattHours(){

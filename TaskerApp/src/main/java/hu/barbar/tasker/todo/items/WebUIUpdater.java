@@ -12,6 +12,7 @@ import hu.barbar.tasker.util.Config;
 import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.tasker.util.TemperatureResult;
+import hu.barbar.tasker.util.usagelog.UsageLog;
 import hu.barbar.util.FileHandler;
 import hu.barbar.util.logger.Log;
 
@@ -38,6 +39,8 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 	private String temperatureLogFile = null;
 	
 	private String generationTimeLogFile = null;
+	
+	private UsageLog heaterUsageLog = null;
 	
 	private OutputConfig outputConfigOfCooler = null;
 	private OutputConfig outputConfigOfHeater = null;
@@ -143,6 +146,19 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 			systemTempToShow = systemTempParts[2];
 		}
 		
+		/*
+		 *  Heater usage line
+		 */
+		String heaterUsageLine = "";
+		if(this.heaterUsageLog != null){
+			heaterUsageLine = "<h3 style=\"color: #008AB8;\">"
+					          //+ "<strong>" 
+		                      + "Heater's energy consumption: <br>"
+							  + heaterUsageLog.getEnergyConsumptionInfo().toString(true) 
+		                      //+ "</strong>"
+		                      + "</h3>";
+		}
+		
 
 		/*
 		 *  Generate html from parts..
@@ -165,6 +181,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 			if( tempLines.get(i).contains("System") ){
 				String line = tempLines.get(i);
 				tempLines.set(i, line.replace("[X].[Y]", systemTempToShow));
+				tempLines.add(heaterUsageLine);
 			}
 		}
 		htmlResult.addAll(tempLines);
@@ -303,4 +320,8 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		return "WebUIUpdater";
 	}
 
+	public void setHeaterUsageLog(UsageLog usageLog) {
+		this.heaterUsageLog = usageLog;
+	}
+	
 }
