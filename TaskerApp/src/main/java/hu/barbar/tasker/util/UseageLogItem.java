@@ -6,17 +6,17 @@ import java.util.concurrent.TimeUnit;
 import hu.barbar.tasker.util.exceptions.ItemFinishedException;
 import hu.barbar.tasker.util.exceptions.NotFinishedYetException;
 
-public class HeaterLogItem {
+public class UseageLogItem {
 
 	private Date startDate = null;
 	private Date endDate = null;
 	
-	public HeaterLogItem(Date startDate){
+	public UseageLogItem(Date startDate){
 		this.startDate = startDate;
 		this.endDate = null;
 	}
 	
-	public HeaterLogItem(Date startDate, Date endDate){
+	public UseageLogItem(Date startDate, Date endDate){
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}

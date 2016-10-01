@@ -7,12 +7,12 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import hu.barbar.tasker.util.HeaterLogItem;
+import hu.barbar.tasker.util.UseageLogItem;
 import hu.barbar.tasker.util.exceptions.ItemFinishedException;
 import hu.barbar.tasker.util.exceptions.NotFinishedYetException;
 import junit.framework.TestSuite;
 
-public class HeaterLogItemTest extends TestSuite {
+public class UseageLogItemTest extends TestSuite {
 
 	private static Date date1, date2;
 	
@@ -26,7 +26,7 @@ public class HeaterLogItemTest extends TestSuite {
 	public void troughPutTest(){
 		date1 = new Date(2016, 9, 30, 8, 0, 0);
 		date2 = null;
-		HeaterLogItem item = new HeaterLogItem(date1);
+		UseageLogItem item = new UseageLogItem(date1);
 		assertFalse(item.isFinished());
 		assertTrue(item.isInProgress());
 		
@@ -55,7 +55,7 @@ public class HeaterLogItemTest extends TestSuite {
 		date1 = new Date(2016, 9, 30, 8, 0, 0);
 		date2 = new Date(2016, 9, 30, 9, 0, 0);
 		
-		HeaterLogItem item = new HeaterLogItem(date1, date2);
+		UseageLogItem item = new UseageLogItem(date1, date2);
 		long diff = -1;
 		try {
 			diff = item.getElaspedTimeInMs();
