@@ -593,6 +593,8 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		if(this.usageLog != null && this.usageLog.isEnabled()){
 			if(outputValue > 0){
 				usageLog.addNewLogItem();
+			}else{
+				usageLog.finishLastItem();
 			}
 		}
 			

@@ -203,6 +203,7 @@ public class Tasker {
 			heaterUsageLog = new UsageLog();
 			//TODO: load energy consumption from config file or json.
 			heaterUsageLog.setConsumpltion(50);
+			heaterUsageLog.setEnabled(true);
 			
 			
 			/*
