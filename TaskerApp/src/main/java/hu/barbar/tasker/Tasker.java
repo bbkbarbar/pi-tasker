@@ -329,11 +329,14 @@ public class Tasker {
 				while(response == null && attempCount < 8){
 					response = TaskExecutor.readHumidityOnly();
 					Log.all("Humidity measurement response: " + response);
-					Msg responseMsg = new Msg(response, Msg.Types.RESPONSE_HUMIDITY);
-					Log.all(responseMsg.toString());
-					myServer.sendToClient(responseMsg, clientId);
 					attempCount++;
 				}
+				if(response == null){
+					response = "Humidity: --";
+				}
+				Msg responseMsg = new Msg(response, Msg.Types.RESPONSE_HUMIDITY);
+				Log.all(responseMsg.toString());
+				myServer.sendToClient(responseMsg, clientId);
 			}
 			
 			else
