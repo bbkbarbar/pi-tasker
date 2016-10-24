@@ -41,7 +41,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 91;
+	private static final int buildNum = 94;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -324,8 +324,16 @@ public class Tasker {
 			
 			else
 			if( msg.getContent().startsWith(Commands.GET_ONLY_HUMIDITY) ){
-				String response = TaskExecutor.readHumidityOnly();
-				myServer.sendToClient(new Msg(response, Msg.Types.RESPONSE_HUMIDITY), clientId);
+				int attempCount = 0;
+				String response = null;
+				while(response == null && attempCount < 8){
+					response = TaskExecutor.readHumidityOnly();
+					Log.all("Humidity measurement response: " + response);
+					Msg responseMsg = new Msg(response, Msg.Types.RESPONSE_HUMIDITY);
+					Log.all(responseMsg.toString());
+					myServer.sendToClient(responseMsg, clientId);
+					attempCount++;
+				}
 			}
 			
 			else

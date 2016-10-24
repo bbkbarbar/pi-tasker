@@ -84,6 +84,7 @@ public class TaskExecutor {
 		String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.HUMIDITY_READER_SCRIPT;
 		if(Env.runningOnTargetDevice()){
 			try {
+				Log.all("Run script: " + cmd);
 				Process p = Runtime.getRuntime().exec(cmd);
 				
 				if(Tasker.DEBUG_MODE){
