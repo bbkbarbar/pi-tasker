@@ -12,6 +12,6 @@ public class ExternalResources {
 
 	public static final String CPU_TEMPERATURE_READER_SCRIPT = "get_cpu_temp.py";
 	
-	public static final String HUMIDITY_READER_SCRIPT = "getHumidity.py";
+	public static final String HUMIDITY_READER_SCRIPT = "getHumidity_mock.py";
 	
 }
