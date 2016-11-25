@@ -176,6 +176,7 @@ public class Tasker {
 			 */
 			OutputEventScheduler scheduledOutputEvents = new OutputEventScheduler(Env.getDataFolderPath() + "scheduledOutputEvents.json");
 			myWorker.addToDoItem(scheduledOutputEvents);
+			Log.d("Scheduled output events loaded from \"" + "scheduledOutputEvents.json" + "\"");
 			
 			
 			/*
@@ -189,6 +190,7 @@ public class Tasker {
 				 *  Load cooler controller from json
 				 */
 				cc = new CoolerController(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_COOLER), json);
+				Log.d("CoolerController loaded from \"" + "coolerController.json" + "\"");
 			}else{
 				/*
 				 *  Create new cooler controller
@@ -228,6 +230,7 @@ public class Tasker {
 				 *  Load heater controller from json
 				 */
 				hc = new HeaterController(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_HEATER), json);
+				Log.d("HeaterController loaded from \"" + "heaterController.json" + "\"");
 			}else{
 				/*
 				 *  Create new heater controller
