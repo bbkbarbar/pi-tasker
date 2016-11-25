@@ -8,6 +8,10 @@ import hu.barbar.tasker.todo.items.TempWarning;
 import hu.barbar.tasker.todo.items.ToDoItemBase;
 import hu.barbar.util.logger.Log;
 
+/**
+ * Worker class to run ToDoItem objects frequently.
+ * @author Andras_Boor
+ */
 public class Worker extends Thread {
 
 	
@@ -51,6 +55,10 @@ public class Worker extends Thread {
 	 *  Methods
 	 */
 	
+	/**
+	 * Create worker instance.
+	 * @param delayInSeconds specify the frequency in seconds.
+	 */
 	public Worker(long delayInSeconds) {
 		init(Worker.DEFAULT_WORKER_TITLE, delayInSeconds);
 	}

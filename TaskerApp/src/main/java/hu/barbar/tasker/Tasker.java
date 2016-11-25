@@ -17,6 +17,7 @@ import hu.barbar.comm.util.tasker.StateMsg;
 import hu.barbar.tasker.log.EventLogger;
 import hu.barbar.tasker.log.IOLogger;
 import hu.barbar.tasker.todo.Worker;
+import hu.barbar.tasker.todo.items.OutputEventScheduler;
 import hu.barbar.tasker.todo.items.TempLogger2;
 import hu.barbar.tasker.todo.items.TempLogger3;
 import hu.barbar.tasker.todo.items.TempOnColors;
@@ -41,7 +42,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 94;
+	private static final int buildNum = 95;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -84,6 +85,10 @@ public class Tasker {
 	}
 	
 	private void startApp(int port){
+		
+		JSONObject testJson = new JSONObject();
+		//testJson.put(key, value)
+		FileHandler.storeJSON("alma.json", testJson);
 		
 		System.out.println ("Start tasker ("
 				+ getTimeStamp(new Date())
@@ -164,7 +169,13 @@ public class Tasker {
 			toc.setValidityOfMeteringResult(10);
 			toc.setEnabled(false);
 			myWorker.addToDoItem(toc);
-		
+			
+			
+			/*
+			 * Scheduled output events
+			 */
+			OutputEventScheduler scheduledOutputEvents = new OutputEventScheduler(Env.getDataFolderPath() + "scheduledOutputEvents.json");
+			myWorker.addToDoItem(scheduledOutputEvents);
 			
 			
 			/*
@@ -302,7 +313,7 @@ public class Tasker {
 		if(msg.getType() == Msg.Types.PWM_COMMAND){
 			PWMMessage pwmM = (PWMMessage)msg;
 			pwmOutputStates.setValue(pwmM.getChannelID(), (int)(pwmM.getValue()*40.95f) );
-			TaskExecutor.setAllPwmOutputs(pwmOutputStates.getValues(), true);
+			TaskExecutor.setAllPwmOutputs(pwmOutputStates.getValues());
 			
 		}else
 		
