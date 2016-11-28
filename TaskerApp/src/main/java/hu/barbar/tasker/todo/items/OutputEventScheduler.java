@@ -58,11 +58,13 @@ public class OutputEventScheduler extends ToDoItemBase {
 		/*
 		 * Do executions
 		 */
+		boolean needToValidatePWMOutputs = false;
 		for(int i=0; i<executionList.size(); i++){
 			TimedOutputEvent event = executionList.get(i);
 			if(event.getType() == OutputConfig.Type.PWM){
+				needToValidatePWMOutputs = true;
 				for(int j=0; j<event.getgetOutputStateCount(); j++){
-					TaskExecutor.setPwmOutput((int)event.getOutputState(j).getPin(), (int)event.getOutputState(j).getValue());
+					TaskExecutor.setPwmOutputValueWithoutSetAnyOutputYet((int)event.getOutputState(j).getPin(), (int)event.getOutputState(j).getValue());
 				}
 			}
 			else
@@ -71,6 +73,10 @@ public class OutputEventScheduler extends ToDoItemBase {
 					TaskExecutor.setIOState((int)event.getOutputState(j).getPin(), (event.getOutputState(j).getValue() > 0));
 				}
 			}
+		}
+		
+		if(needToValidatePWMOutputs){
+			TaskExecutor.validatePwmOutputs();
 		}
 		
 	}

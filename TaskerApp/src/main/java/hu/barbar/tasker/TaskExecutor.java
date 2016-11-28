@@ -176,6 +176,14 @@ public class TaskExecutor {
 			TaskExecutor.setAllPwmOutputs(Tasker.pwmOutputStates.getValues(), true);
 		}
 	}
+	
+	public static void setPwmOutputValueWithoutSetAnyOutputYet(int pin, int outputValue) {
+			Tasker.pwmOutputStates.setValue(pin, outputValue);
+	}
+	
+	public static void validatePwmOutputs() {
+		TaskExecutor.setAllPwmOutputs(Tasker.pwmOutputStates.getValues(), true);
+}
 
 
 	public static void setIOState(int pinNum, boolean state){
