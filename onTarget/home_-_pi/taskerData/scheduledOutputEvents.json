@@ -1,16 +1,16 @@
 {
 	"timedOutput_events":[
 		{
-			"time":0900,
+			"time":0638,
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":3900},
-				{"channel":1,"value":3800},
-				{"channel":2,"value":3700}
+				{"channel":1,"value":3900},
+				{"channel":2,"value":3900}
 			]
 		},
 		{
-			"time":0900,
+			"time":0830,
 			"type":"io",
 			"ioStates":[
 				{"pin":38,"value":0}
@@ -35,7 +35,7 @@
 			]
 		},
 		{
-			"time":2230,
+			"time":2300,
 			"type":"io",
 			"ioStates":[
 				{"pin":38,"value":1}
