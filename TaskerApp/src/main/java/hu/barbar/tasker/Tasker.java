@@ -496,7 +496,7 @@ public class Tasker {
 						if(!result.isUnableToFind()){
 							myServer.sendToClient(new Msg("State of \"" + what + "\": " + result, Msg.Types.PLAIN_TEXT), clientId);
 							//myServer.sendToClient(new Msg(what + " " + result, Msg.Types.RESPONSE_STATE), clientId);
-							myServer.sendToClient(new StateMsg(what, result.getValue(), result.getType()), clientId);
+							myServer.sendToClient(new StateMsg(what, (int)result.getValue(), result.getType()), clientId);
 						}else{ // no "target" to get state of..
 							myServer.sendToClient(new Msg("Get state of - ERROR: Can not get state of \"" + what + "\"", Msg.Types.PLAIN_TEXT), clientId);
 						}
