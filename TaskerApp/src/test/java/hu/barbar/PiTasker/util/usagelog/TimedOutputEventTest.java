@@ -18,39 +18,39 @@ public class TimedOutputEventTest extends TestSuite {
 	public void loadFromJsonTest(){
 		
 		//JSONObject json = FileHandler.readJSON("d:\\workspace_j\\pi-tasker\\onTarget\\home_-_pi\\taskerData\\timedPwmEvents.json");
-		JSONObject json = FileHandler.readJSON("..\\onTarget\\home_-_pi\\taskerData\\timedPwmEvents.json");
+		JSONObject json = FileHandler.readJSON("..\\onTarget\\home_-_pi\\taskerData\\scheduledOutputEvents.json");
 		JSONArray ja = (JSONArray) json.get("timedOutput_events");
 		JSONObject stateItem = (JSONObject) ja.get(0);
 		System.out.println("|" + stateItem + "|");
 		TimedOutputEvent item = new TimedOutputEvent(stateItem);
 
-		assertEquals(800, item.getTime());
+		assertEquals(639, item.getTime());
 		assertEquals(OutputConfig.Type.PWM, item.getType());
 		assertEquals(0,   item.getOutputState(0).getChannel());
-		assertEquals(255, item.getOutputState(0).getValue());
+		assertEquals(3900, item.getOutputState(0).getValue());
 		assertEquals(2,   item.getOutputState(2).getChannel());
-		assertEquals(240, item.getOutputState(2).getValue());
+		assertEquals(3900, item.getOutputState(2).getValue());
 		
 		
 		JSONObject stateItem3 = (JSONObject) ja.get(1);
 		System.out.println("|" + stateItem3 + "|");
 		TimedOutputEvent item3 = new TimedOutputEvent(stateItem3);
 
-		assertEquals(801,  item3.getTime());
+		assertEquals(830,  item3.getTime());
 		assertEquals(OutputConfig.Type.IO, item3.getType());
-		assertEquals(37,   item3.getOutputState(0).getPin());
-		assertEquals(1,    item3.getOutputState(0).getValue());
+		assertEquals(38,   item3.getOutputState(0).getPin());
+		assertEquals(0,    item3.getOutputState(0).getValue());
 		
 		
 		JSONObject stateItem2 = (JSONObject) ja.get(2);
 		System.out.println("|" + stateItem2 + "|");
 		TimedOutputEvent item2 = new TimedOutputEvent(stateItem2);
 
-		assertEquals(2200, item2.getTime());
+		assertEquals(2230, item2.getTime());
 		assertEquals(0,    item2.getOutputState(0).getChannel());
-		assertEquals(0,    item2.getOutputState(0).getValue());
+		assertEquals(1950,    item2.getOutputState(0).getValue());
 		assertEquals(2,    item2.getOutputState(2).getChannel());
-		assertEquals(0,    item2.getOutputState(2).getValue());
+		assertEquals(1800,    item2.getOutputState(2).getValue());
 		
 	}
 	
@@ -65,7 +65,7 @@ public class TimedOutputEventTest extends TestSuite {
 	@Test
 	public void needToDoNowTest(){
 		
-		JSONObject json = FileHandler.readJSON("..\\onTarget\\home_-_pi\\taskerData\\timedPwmEvents.json");
+		JSONObject json = FileHandler.readJSON("..\\onTarget\\home_-_pi\\taskerData\\scheduledOutputEvents.json");
 		JSONArray ja = (JSONArray) json.get("timedOutput_events");
 		JSONObject stateItem = (JSONObject) ja.get(0);
 		
@@ -78,7 +78,7 @@ public class TimedOutputEventTest extends TestSuite {
 	@Test
 	public void needToDoNowFalseTest1(){
 		
-		JSONObject json = FileHandler.readJSON("..\\onTarget\\home_-_pi\\taskerData\\timedPwmEvents.json");
+		JSONObject json = FileHandler.readJSON("..\\onTarget\\home_-_pi\\taskerData\\scheduledOutputEvents.json");
 		JSONArray ja = (JSONArray) json.get("timedOutput_events");
 		JSONObject stateItem = (JSONObject) ja.get(0);
 		
@@ -91,7 +91,7 @@ public class TimedOutputEventTest extends TestSuite {
 	@Test
 	public void needToDoNowFalseTest2(){
 		
-		JSONObject json = FileHandler.readJSON("..\\onTarget\\home_-_pi\\taskerData\\timedPwmEvents.json");
+		JSONObject json = FileHandler.readJSON("..\\onTarget\\home_-_pi\\taskerData\\scheduledOutputEvents.json");
 		JSONArray ja = (JSONArray) json.get("timedOutput_events");
 		JSONObject stateItem = (JSONObject) ja.get(0);
 		
