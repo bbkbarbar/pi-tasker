@@ -114,6 +114,7 @@ public class OutputConfig {
 		
 		if(json.containsKey("type")){
 			t = Type.getFromString((String) json.get("type"));
+			this.type = t;
 		}
 		if( (p == UNDEFINED) && (type == Type.PWM) && (json.containsKey("ch")) ){
 			try{

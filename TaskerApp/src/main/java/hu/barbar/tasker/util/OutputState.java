@@ -68,6 +68,9 @@ public class OutputState implements Serializable{
 			} else 
 			if(str.equalsIgnoreCase("io")){
 				this.type = Type.IO;
+			}else
+			if(Integer.valueOf(str) == 2){
+				this.type = Type.PWM;
 			}
 		}else{
 			this.type = Type.UNDEFINED;
