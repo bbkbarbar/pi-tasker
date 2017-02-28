@@ -136,7 +136,8 @@ public class TaskExecutor {
 		
 		
 		//RUN SCRIPT
-		String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.COLOR_OUTPUT_CONTROL_SCRIPT
+		String cmd = "python "
+				+ ExternalResources.SCRIPT_PATH + ExternalResources.PWM_OUTPUT_CONTROL_SCRIPT
 				+ args;
 		
 		if(Env.runningOnTargetDevice()){
@@ -144,7 +145,7 @@ public class TaskExecutor {
 				//Process p = Runtime.getRuntime().exec(cmd);
 				Runtime.getRuntime().exec(cmd);
 			} catch (IOException e) {
-				Log.e("Can not execute \"setColor\" script.");
+				Log.e("Can not execute \"setPwm\" script.");
 			}
 		}else{
 			Log.i("<<RUN PYTHON SCRIPT>>\n" + cmd);
