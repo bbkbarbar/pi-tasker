@@ -10,8 +10,9 @@
 			]
 		},
 		{
-			"time":0830,
+			"time":0630,
 			"type":"io",
+			"desctription":"levego ON - reggel",
 			"ioStates":[
 				{"pin":38,"value":0}
 			]
@@ -25,6 +26,15 @@
 				{"channel":2,"value":1800}
 			]
 		},
+{
+			"time":2240,
+			"type":"pwm",
+			"pwmStates":[
+				{"channel":0,"value":1550},
+				{"channel":1,"value":1450},
+				{"channel":2,"value":1400}
+			]
+		},
 		{
 			"time":2300,
 			"type":"pwm",
@@ -35,7 +45,7 @@
 			]
 		},
 		{
-			"time":2300,
+			"time":2200,
 			"type":"io",
 			"ioStates":[
 				{"pin":38,"value":1}
