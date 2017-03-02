@@ -86,10 +86,6 @@ public class Tasker {
 	
 	private void startApp(int port){
 		
-		JSONObject testJson = new JSONObject();
-		//testJson.put(key, value)
-		FileHandler.storeJSON("alma.json", testJson);
-		
 		System.out.println ("Start tasker ("
 				+ getTimeStamp(new Date())
 				+ ")\nBuild: " + buildNum + "\n");/**/
