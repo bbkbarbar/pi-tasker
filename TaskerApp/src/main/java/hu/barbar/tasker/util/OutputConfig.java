@@ -149,14 +149,14 @@ public class OutputConfig {
 	private void init(int type, int pin, boolean reversed){
 		if(Type.invalid(type)){
 			this.type = Type.INVALID;
-			Log.w("OutputConfig.Constructor :: OutputConfig created with invalid type: " + type);
+			Log.w("OutputConfig.Constructor :: OutputConfig created with invalid type: " + type + " Pin: " + pin);
 		}else{
 			this.type = type;
 		}
 		
 		this.pin = pin;
 		if( (this.type == Type.IO) && (!GPIOHelper.isValidGPIOPin(pin)) ){
-			Log.w("OutputConfig.Constructor :: OutputConfig created with invalid GPIO pin: " + pin);
+			Log.w("OutputConfig.Constructor :: OutputConfig created with invalid GPIO pin: " + pin + " Type: " + this.type);
 		}
 		
 		this.reversed = reversed;
