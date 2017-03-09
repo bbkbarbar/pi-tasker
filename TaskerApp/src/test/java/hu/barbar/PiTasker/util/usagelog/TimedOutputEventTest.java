@@ -36,7 +36,7 @@ public class TimedOutputEventTest extends TestSuite {
 		System.out.println("|" + stateItem3 + "|");
 		TimedOutputEvent item3 = new TimedOutputEvent(stateItem3);
 
-		assertEquals(830,  item3.getTime());
+		assertEquals(630,  item3.getTime());
 		assertEquals(OutputConfig.Type.IO, item3.getType());
 		assertEquals(38,   item3.getOutputState(0).getPin());
 		assertEquals(0,    item3.getOutputState(0).getValue());

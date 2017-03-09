@@ -21,7 +21,7 @@ public class OutputEventSchedulerTest extends TestSuite {
 	@Test
 	public void createFromJSONTest(){
 		
-		OutputEventScheduler myScheduler = new OutputEventScheduler("..\\onTarget\\home_-_pi\\taskerData\\timedPwmEvents.json");
+		OutputEventScheduler myScheduler = new OutputEventScheduler("..\\onTarget\\home_-_pi\\taskerData\\scheduledOutputEvents.json");
 		
 	}
 	
