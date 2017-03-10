@@ -42,7 +42,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 98;
+	private static final int buildNum = 99;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -338,7 +338,7 @@ public class Tasker {
 				String response = null;
 				while(response == null && attempCount < 8){
 					response = TaskExecutor.readHumidityOnly();
-					Log.all("Humidity measurement response: " + response);
+					Log.debug("Humidity measurement response: " + response);
 					attempCount++;
 				}
 				if(response == null){
