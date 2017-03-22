@@ -1,7 +1,7 @@
 # Control center in living room
 Based on Raspberry Pi Zero
 
-####Clients can get infos from:
+#### Clients can get infos from:
 ###### - Environment:
  	- Air temperature
  	- Aquarium-water temperature
@@ -16,14 +16,14 @@ Based on Raspberry Pi Zero
  	- Free space (later if needed)
  	- Network logs (# of connections, etc.) (later if needed)
 
-####Temperature warnings can be sent via email for multiple recipient in case of:
+#### Temperature warnings can be sent via email for multiple recipient in case of:
   - temperature (in selected sensor) rises above specified limit
   - temperature (in selected sensor) drops below specified limit
 
 Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/pi-tasker/blob/master/onTarget/home_-_pi/taskerData/TempWarnings.json).
 
 
-####Client can control:
+#### Client can control:
 | Item           | Control type               | Scheduled | Sensor based control | Exceptional control | Src                      | 
 | :------------- | :------------------------: | :-------: | :------------------: | :-----------------: | :----------------------: |
 | Airpump        | On/Off                     | ?         | -                    | X                   | 230VAC                   |
@@ -34,7 +34,7 @@ Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/
 | Addtitional PWM outputs (12 channel) | 12 bit PWM output | possible  | possible | X                  | 230VAC->12VDC - pwm      |
 
 
-####Other outputs:
+#### Other outputs:
  - WebUI (show temperature infos and status infos of controller peripherials)
  - Temperature logs
  - System logs
