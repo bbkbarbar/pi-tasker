@@ -17,7 +17,9 @@ public class Env {
 	 * <br> Default name: <b>"taskerData"</b>
 	 */
 	public static final String NAME_OF_DATA_FOLDER = "taskerData";
-	
+
+	public static final String BASE_CONFIG_FILE = "baseConfig.json";
+
 	
 	
 	/**

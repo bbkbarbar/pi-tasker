@@ -24,18 +24,19 @@ public class TaskExecutor {
 				
 				//TODO: megcsinalni h opcionalis legyen az ilyen "log-ok" kiirasa
 				if(Tasker.DEBUG_MODE){
-					Log.d("Task execution (readTemp) completed");
+					Log.i("Task execution (readTemp) completed.");
 				}
 				
 				BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
 				response = in.readLine();
+				Log.d("Response: " + response);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else{
 			Log.d("<<RUN PYTHON SCRIPT>>\n" + cmd);
-			response = "2 12.234 26.027";
+			response = "2 23.234 26.027";
 		}
 		
 		return response;

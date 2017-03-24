@@ -91,7 +91,21 @@ public class Tasker {
 				+ ")\nBuild: " + buildNum + "\n");/**/
 		
 		
-		Log.init(Env.getDataFolderPath() + "logs/", Log.Level.INFO, Log.Level.WARN);
+		// Read base-parameters
+		int logLevelStdOut = Log.Level.INFO;
+		int logLevelFiledOut = Log.Level.WARN;
+		JSONObject baseConf = FileHandler.readJSON(Env.NAME_OF_DATA_FOLDER + Env.getPathSeparator() + Env.BASE_CONFIG_FILE);
+		if(baseConf != null){
+			if(baseConf.containsKey("loglevels-stdout")){
+				logLevelStdOut = Log.getLogLevelFromString((String)baseConf.get("loglevels-stdout"));
+			}
+			if(baseConf.containsKey("loglevels-fileout")){
+				logLevelFiledOut = Log.getLogLevelFromString((String)baseConf.get("loglevels-fileout"));
+			}
+		}
+			
+		
+		Log.init(Env.getDataFolderPath() + "logs/", logLevelStdOut, logLevelFiledOut);
 		Log.f("Start tasker ("
 				+ ")\nBuild: " + buildNum + "\n");
 		
@@ -163,7 +177,8 @@ public class Tasker {
 			TempOnColors toc = new TempOnColors();
 			toc.setServer(myServer);
 			toc.setValidityOfMeteringResult(10);
-			toc.setEnabled(false);
+			// Temporary disabled because of temperature sensor problem
+			toc.setEnabled(true);
 			myWorker.addToDoItem(toc);
 			
 			
@@ -203,7 +218,8 @@ public class Tasker {
 							rules
 				);
 			}
-			cc.setEnabled(false);
+			// Temporary disabled because of temperature sensor problem
+			cc.setEnabled(true);
 			myWorker.addToDoItem(cc);
 
 			
@@ -243,6 +259,7 @@ public class Tasker {
 				hc.setEnabled(true);
 			}
 			hc.setUsageLog(heaterUsageLog);
+			// Temporary disabled because of temperature sensor problem
 			hc.setEnabled(false);
 			myWorker.addToDoItem(hc);
 			
@@ -253,13 +270,14 @@ public class Tasker {
 			WebUIUpdater webupdater = new WebUIUpdater();
 			webupdater.setValidityOfMeteringResult(15);
 			webupdater.setHeaterUsageLog(heaterUsageLog);
-			webupdater.setEnabled(false);
+			webupdater.setEnabled(true);
 			myWorker.addToDoItem(webupdater);
 			
 			
 			/*
 			 *  Temperature warnings 
 			 */
+			// Temporary disabled because of temperature sensor problem
 			myWorker.addTempWarnings(
 					TempWarning.buildInstancesFromJSON("TempWarnings.json")
 			);
