@@ -6,7 +6,7 @@ public class ExternalResources {
 	
 	public static final String PWM_OUTPUT_CONTROL_SCRIPT = "pwm.py";
 
-	public static final String IO_OUTPUT_SCRIPT = "io.py";
+	public static final String IO_OUTPUT_SCRIPT = "io_output.py";
 
 	public static final String TEMPERATURE_READER_SCRIPT = "getTemp.py";
 

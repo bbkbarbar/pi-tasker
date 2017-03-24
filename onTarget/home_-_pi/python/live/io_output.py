@@ -3,6 +3,10 @@ import argparse
 
 GPIO.setwarnings(False)
 
+# File ranemed because of Python based serial output ISSUE:
+# Solution found: 
+# http://stackoverflow.com/questions/23572003/why-io-module-object-has-no-attribute-rawiobase-eventhough-i-am-using-python-2
+
 def msg(pin, state):
 	print "Pin: " + str(pin) + " State: " + str(state)
 
