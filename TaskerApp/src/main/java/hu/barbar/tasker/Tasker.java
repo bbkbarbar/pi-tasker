@@ -42,7 +42,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 99;
+	private static final int buildNum = 100;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -203,6 +203,7 @@ public class Tasker {
 							rules
 				);
 			}
+			cc.setEnabled(false);
 			myWorker.addToDoItem(cc);
 
 			
@@ -242,6 +243,7 @@ public class Tasker {
 				hc.setEnabled(true);
 			}
 			hc.setUsageLog(heaterUsageLog);
+			hc.setEnabled(false);
 			myWorker.addToDoItem(hc);
 			
 			
@@ -251,6 +253,7 @@ public class Tasker {
 			WebUIUpdater webupdater = new WebUIUpdater();
 			webupdater.setValidityOfMeteringResult(15);
 			webupdater.setHeaterUsageLog(heaterUsageLog);
+			webupdater.setEnabled(false);
 			myWorker.addToDoItem(webupdater);
 			
 			
