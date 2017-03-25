@@ -18,6 +18,18 @@
     <finalName>PiTasker</finalName>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.3.1</version>
+        <configuration>
+          <outputDirectory>..\Releases\</outputDirectory>
+          <manifest>
+              <mainClass>hu.barbar.tasker.Tasker</mainClass>
+            </manifest>
+        </configuration>
+      </plugin>
+      <!--
+      <plugin>
       <artifactId>maven-assembly-plugin</artifactId>
         <version>2.5.3</version>
         <configuration>
@@ -34,6 +46,7 @@
           </archive>
         </configuration>
       </plugin>
+      -->
     </plugins>
   </build>
 
