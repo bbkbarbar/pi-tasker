@@ -46,6 +46,14 @@ Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/
  sudo apt-get install apache2 -y
  ```
 
+## Deployment
+ - Copy content from onTarget/home_-_pi folder to user folder on target
+ - Copy release from onTarget/Releases folder to user folder on target
+ - Install apache webserver service (install_web_service.sh)
+ - Copy content from onTarget/var_-_www_-_html folder to /var/www/html folder on target
+ - Set attributes (setAttributes.sh)
+ - run first with run.sh with name of copied release as parameter (./run.sh t102.jar)
+
 ## ToDo list:
  - [ ] Cleanup files for easy deployment
  - [ ] Create "deploy script"
