@@ -134,12 +134,14 @@ public class TaskExecutor {
 				Log.d("PWM [" + i + "]: " + outputContent[i]);
 			}
 		}
+		Log.d("");
 		
 		
 		//RUN SCRIPT
 		String cmd = "python "
 				+ ExternalResources.SCRIPT_PATH + ExternalResources.PWM_OUTPUT_CONTROL_SCRIPT
 				+ args;
+		Log.d("Run PWM script: " + cmd);
 		
 		if(Env.runningOnTargetDevice()){
 			try {
@@ -173,10 +175,10 @@ public class TaskExecutor {
 	}
 		
 	public static void setPwmOutput(int pin, int outputValue) {
-		if( Tasker.pwmOutputStates.getValue(pin) != outputValue ){
+		//if( Tasker.pwmOutputStates.getValue(pin) != outputValue ){
 			Tasker.pwmOutputStates.setValue(pin, outputValue);
 			TaskExecutor.setAllPwmOutputs(Tasker.pwmOutputStates.getValues(), true);
-		}
+		//}
 	}
 	
 	public static void setPwmOutputValueWithoutSetAnyOutputYet(int pin, int outputValue) {

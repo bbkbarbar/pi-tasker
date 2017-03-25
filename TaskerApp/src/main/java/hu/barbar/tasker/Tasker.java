@@ -42,7 +42,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 100;
+	private static final int buildNum = 102;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -178,7 +178,7 @@ public class Tasker {
 			toc.setServer(myServer);
 			toc.setValidityOfMeteringResult(10);
 			// Temporary disabled because of temperature sensor problem
-			toc.setEnabled(true);
+			toc.setEnabled(false);
 			myWorker.addToDoItem(toc);
 			
 			
@@ -270,7 +270,7 @@ public class Tasker {
 			WebUIUpdater webupdater = new WebUIUpdater();
 			webupdater.setValidityOfMeteringResult(15);
 			webupdater.setHeaterUsageLog(heaterUsageLog);
-			webupdater.setEnabled(true);
+			webupdater.setEnabled(false);
 			myWorker.addToDoItem(webupdater);
 			
 			
@@ -298,9 +298,9 @@ public class Tasker {
 		} catch (InterruptedException e) {}
 
 		
-		System.out.println("\n==============\n");
+		Log.i("\n==============\n");
 		Log.i(getWorkerInfos());
-		System.out.println("\n==============\n");
+		Log.i("\n==============\n");
 		
 		
 		HashMap<String, OutputConfig> test = Config.readOutputConfigJSON(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON);
