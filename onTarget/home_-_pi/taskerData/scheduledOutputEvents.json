@@ -1,7 +1,25 @@
 {
 	"timedOutput_events":[
 		{
-			"time":0639,
+			"time":0745,
+			"type":"pwm",
+			"pwmStates":[
+				{"channel":0,"value":100},
+                                {"channel":1,"value":100},
+                                {"channel":2,"value":100}
+                        ]
+                },
+		{
+			"time":0746,
+			"type":"pwm",
+			"pwmStates":[
+				{"channel":0,"value":1000},
+				{"channel":1,"value":1000},
+				{"channel":2,"value":1000}
+			]
+		},
+		{
+			"time":0747,
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":3900},
@@ -10,7 +28,7 @@
 			]
 		},
 		{
-			"time":0630,
+			"time":0625,
 			"type":"io",
 			"desctription":"levego ON - reggel",
 			"ioStates":[

@@ -1,0 +1,11 @@
+{
+	"backToNormalThreshold":0.25,
+	"limitValue":27.0,
+	"recipients":[
+		"bbk.barbar@gmail.com",
+		"otheraddress@gmail.com"
+	],
+	"observedSensor":1,
+	"title":"Water temperature > 27.00C",
+	"direction":1
+}

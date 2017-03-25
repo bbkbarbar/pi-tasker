@@ -4,22 +4,22 @@
 	"title":"Aquarium cooler",
 	"ruleItems":[
 		{
-			"limitValue":"25,700",
+			"limitValue":"25,60",
 			"outputValueWhenExceeded":30,
 			"threshold":"0,100"
 		},
 		{
-			"limitValue":"26,000",
+			"limitValue":"25,800",
 			"outputValueWhenExceeded":40,
 			"threshold":"0,100"
 		},
 		{
-			"limitValue":"26,200",
+			"limitValue":"25,900",
 			"outputValueWhenExceeded":50,
 			"threshold":"0,100"
 		},
 		{
-			"limitValue":"28,000",
+			"limitValue":"26,500",
 			"outputValueWhenExceeded":80,
 			"threshold":"0,050"
 		}

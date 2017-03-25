@@ -1,4 +1,4 @@
 {
-	"loglevels-stdout":"all",
+	"loglevels-stdout":"info",
 	"loglevels-fileout":"warn"
 }
