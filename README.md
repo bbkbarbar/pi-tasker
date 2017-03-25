@@ -24,7 +24,7 @@ Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/
 
 
 #### Client can control:
-| Item           | Control type               | Scheduled | Sensor based control | Exceptional control | Src                      | 
+| Item           | Control type               | Scheduled | Sensor based control | Exceptional control | Src                      |
 | :------------- | :------------------------: | :-------: | :------------------: | :-----------------: | :----------------------: |
 | Airpump        | On/Off                     | ?         | -                    | X                   | 230VAC                   |
 | Filter         | On/Off                     | ?         | -                    | X                   | 230VAC                   |
@@ -38,5 +38,13 @@ Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/
  - WebUI (show temperature infos and status infos of controller peripherials)
  - Temperature logs
  - System logs
+
+
+## Used external tool(s):
+ - Install Apache Webserver:
+ ```
+ sudo apt-get install apache2 -y
+ ```
+
 
 [Back to top](#top)
