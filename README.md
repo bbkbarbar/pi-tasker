@@ -47,9 +47,11 @@ Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/
  ```
 
 ## Deployment
- - Copy content of onTarget
- - Run deploy.sh
+ - Copy content of onTarget folder to user's folder on target.
+ - Run deploy script (deploy.sh)
+ - Copy release to user's folder
  - run first with run.sh with name of copied release as parameter (./run.sh t102.jar)
+
 
 ## ToDo list:
  - [ ] Cleanup files for easy deployment
