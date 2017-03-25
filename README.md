@@ -31,7 +31,7 @@ Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/
 | Water heater   | On/Off                     | -         | X                    | X                   | 230VAC                   |
 | Water cooler   | Gradual speed control (pwm)| -         | X                    | X                   | 230VAC->12VDC - 1ch pwm  |
 | Light          | On/Off, 3ch RGB color      | TBD       | -                    | X                   | 230VAC->12VDC - 3ch pwm  |
-| Addtitional PWM outputs (12 channel) | 12 bit PWM output | possible  | possible | X                  | 230VAC->12VDC - pwm      |
+| Addtitional PWM outputs (12 channel) | 12 bit PWM output | possible | possible | X                   | 230VAC->12VDC - pwm      |
 
 
 #### Other outputs:
@@ -46,5 +46,8 @@ Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/
  sudo apt-get install apache2 -y
  ```
 
+## ToDo list:
+ - [ ] Cleanup files for easy deployment
+ - [ ] Create "deploy script"
 
 [Back to top](#top)
