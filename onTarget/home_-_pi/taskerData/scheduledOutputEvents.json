@@ -1,30 +1,39 @@
 {
 	"timedOutput_events":[
 		{
-			"time":0745,
+			"time":0615,
 			"type":"pwm",
 			"pwmStates":[
-				{"channel":0,"value":100},
-                                {"channel":1,"value":100},
-                                {"channel":2,"value":100}
-                        ]
-                },
+				{"channel":0,"value":144},
+				{"channel":1,"value":112},
+				{"channel":2,"value":96}
+            ]
+        },
 		{
-			"time":0746,
+			"time":0620,
 			"type":"pwm",
 			"pwmStates":[
-				{"channel":0,"value":1000},
-				{"channel":1,"value":1000},
-				{"channel":2,"value":1000}
+				{"channel":0,"value":416},
+				{"channel":1,"value":288},
+				{"channel":2,"value":128}
+            ]
+        },
+		{
+			"time":0630,
+			"type":"pwm",
+			"pwmStates":[
+				{"channel":0,"value":856},
+				{"channel":1,"value":832},
+				{"channel":2,"value":272}
 			]
 		},
 		{
-			"time":0747,
+			"time":0640,
 			"type":"pwm",
 			"pwmStates":[
-				{"channel":0,"value":3900},
-				{"channel":1,"value":3900},
-				{"channel":2,"value":3900}
+				{"channel":0,"value":1296},
+				{"channel":1,"value":1376},
+				{"channel":2,"value":416}
 			]
 		},
 		{
@@ -36,25 +45,25 @@
 			]
 		},
 		{
-			"time":2230,
+			"time":2210,
 			"type":"pwm",
 			"pwmStates":[
-				{"channel":0,"value":1950},
-				{"channel":1,"value":1850},
-				{"channel":2,"value":1800}
+				{"channel":0,"value":856},
+				{"channel":1,"value":832},
+				{"channel":2,"value":272}
 			]
 		},
 {
-			"time":2240,
+			"time":2220,
 			"type":"pwm",
 			"pwmStates":[
-				{"channel":0,"value":1550},
-				{"channel":1,"value":1450},
-				{"channel":2,"value":1400}
+				{"channel":0,"value":416},
+				{"channel":1,"value":288},
+				{"channel":2,"value":128}
 			]
 		},
 		{
-			"time":2300,
+			"time":2230,
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":0},
