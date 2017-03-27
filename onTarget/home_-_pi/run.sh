@@ -10,3 +10,5 @@ if [ $# -eq 0 ]
 fi
 
 sudo nohup java -jar /home/pi/java-pi/tasker.jar &
+
+sudo tail -f nohup.out -n 40

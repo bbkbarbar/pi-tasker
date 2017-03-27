@@ -103,6 +103,8 @@ public class OutputConfig {
 		int t = Type.UNDEFINED;
 		boolean r = false;
 		
+		Log.i("Build OutputConfig from: " + json);
+		
 		if(json.containsKey("pin")){
 			try{
 				int pin = (Integer) json.get("pin");
