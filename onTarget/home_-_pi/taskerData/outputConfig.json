@@ -1,0 +1,20 @@
+{
+	"output config":[
+		{
+			"name":"Cooler",
+			"type":"PWM",
+			"ch":3
+		},
+		{
+			"name":"Air pump",
+			"type":"IO",
+			"reversed":true,
+			"pin":38
+		},
+		{
+			"name":"Heater",
+			"type":"IO",
+			"pin":37
+		}
+	]
+}
