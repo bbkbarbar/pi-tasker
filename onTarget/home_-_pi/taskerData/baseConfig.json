@@ -1,4 +1,7 @@
 {
-	"loglevels-stdout":"info",
-	"loglevels-fileout":"warn"
+	"loglevels":{
+		"stdout":"info",
+		"fileout":"warn",
+		"possible_log_levels":"debug, info, warn, error, all"
+	}
 }
