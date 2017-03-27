@@ -112,7 +112,22 @@ public class TimedOutputEvent implements Serializable {
 		return "Time: " + time + " type: " + type + " OutputState count: " + this.getgetOutputStateCount();
 	}
 	
+
+	/**
+	 * Get specific time in "Zulu" format regardless of the daylight saving time 
+	 * @param timeInMs the specific time (from currentTimeInMs() -function.
+	 * @return the specific time in "Zulu" format. <br>
+	 * 		   e.g:                                <br>
+	 * 		     Time:   12:37:51                  <br>
+	 * 			 Result: 1237
+	 */
 	private static int getZuluTime(long timeInMs){
+		SimpleDateFormat zuluTimeSDF = new SimpleDateFormat("hhmm");
+		return Integer.valueOf(zuluTimeSDF.format(new Date(timeInMs)));
+	}
+
+	// TODO: delete the old version of this function after successful tests of the new version on target device too..
+	private static int getZuluTimeOLD(long timeInMs){
 		
 		Calendar cal = Calendar.getInstance();
 		long milliDiff = cal.get(Calendar.ZONE_OFFSET);
