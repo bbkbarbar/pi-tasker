@@ -10,6 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import hu.barbar.tasker.util.OutputState;
+import hu.barbar.util.logger.Log;
 import hu.barbar.tasker.util.OutputConfig.Type;
 
 public class TimedOutputEvent implements Serializable {
@@ -107,6 +108,8 @@ public class TimedOutputEvent implements Serializable {
 	}
 	
 	public boolean needToDoNow(long timeInMs){
+		boolean need = (this.time == getZuluTime(timeInMs));
+		Log.d("NeedToRun? -> " + need);
 		return (this.time == getZuluTime(timeInMs));
 	}
 
@@ -124,7 +127,8 @@ public class TimedOutputEvent implements Serializable {
 	 * 			 Result: 1237
 	 */
 	private static int getZuluTime(long timeInMs){
-		SimpleDateFormat zuluTimeSDF = new SimpleDateFormat("hhmm");
+		SimpleDateFormat zuluTimeSDF = new SimpleDateFormat("HHmm");
+		Log.d("Zulu time: " + zuluTimeSDF.format(new Date(timeInMs)));
 		return Integer.valueOf(zuluTimeSDF.format(new Date(timeInMs)));
 	}
 
