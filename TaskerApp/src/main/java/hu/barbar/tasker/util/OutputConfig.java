@@ -110,6 +110,7 @@ public class OutputConfig {
 				int pin = (Integer) json.get("pin");
 				p = pin;
 			}catch(Exception problemWhileTryToConvertValueToInt){
+				Log.e("Exception while try to convert |pin| value to Int (A)");
 				p = UNDEFINED;
 			}
 		}
@@ -122,13 +123,17 @@ public class OutputConfig {
 			try{
 				int pin = (Integer) json.get("ch");
 				p = pin;
-			}catch(Exception problemWhileTryToConvertValueToInt){}
+			}catch(Exception problemWhileTryToConvertValueToInt){
+				Log.e("Exception while try to convert |channel| value to Int (B)");
+			}
 		}else
 		if( (p == UNDEFINED) && (type == Type.PWM) && (json.containsKey("channel")) ){
 			try{
 				int pin = (Integer) json.get("channel");
 				p = pin;
-			}catch(Exception problemWhileTryToConvertValueToInt){}
+			}catch(Exception problemWhileTryToConvertValueToInt){
+				Log.e("Exception while try to convert |channel| value to Int (C)");
+			}
 		}
 		
 		if(json.containsKey("reversed")){
