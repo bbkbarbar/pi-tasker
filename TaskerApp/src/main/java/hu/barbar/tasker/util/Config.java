@@ -247,7 +247,7 @@ public class Config {
 	 * @return an Object from JSON <br>
 	 * or NULL if it could not be find.
 	 */
-	public static Object getConfig(String jsonKey, boolean forceReadFileAgain, Object defaultValue) {
+	public static Object getConfig(String jsonKey, Object defaultValue, boolean forceReadFileAgain) {
 		Object result = getConfigWithoutDefault(jsonKey, forceReadFileAgain);
 		if(result == null){
 			return defaultValue;
@@ -255,6 +255,16 @@ public class Config {
 			return result;
 		}
 	}
+	
+	public static String getConfig(String jsonKey, String defaultValue, boolean forceReadFileAgain) {
+		String result = (String) getConfigWithoutDefault(jsonKey, forceReadFileAgain);
+		if(result == null){
+			return defaultValue;
+		}else{
+			return result;
+		}
+	}
+	
 
 	/**
 	 * Get parameters from config JSON
@@ -275,9 +285,14 @@ public class Config {
 	 * or NULL if it could not be find.
 	 */
 	public static Object getConfig(String jsonKey, Object defaultValue) {
-		return getConfig(jsonKey, false, defaultValue);
+		return getConfig(jsonKey, defaultValue, false);
 	}
 
+	
+	public static String getConfig(String jsonKey, String defaultValue) {
+		return getConfig(jsonKey, defaultValue, false);
+	}
+	
 
 	private static Object getElementFromJson(String jsonKey, JSONObject json){
 
