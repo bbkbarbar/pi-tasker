@@ -21,3 +21,5 @@ Makefile.in
 *.s#?
 *.b#*
 *.s#*
+
+Releases/PiTasker-jar-with-dependencies.jar
