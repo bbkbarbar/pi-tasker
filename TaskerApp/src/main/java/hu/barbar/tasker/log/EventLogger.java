@@ -23,11 +23,28 @@ public class EventLogger {
 	
 	
 	
-	
-	public static void initialize(){
+	/**
+	 * Initialize EventLogger instance.
+	 * @return True if successfuly initialized or <br>
+	 *         False otherwise..
+	 */
+	public static boolean initialize(){
 		
 		HashMap<String, String> config = Config.readBaseConfig();
+		if(config == null){
+			Log.w("EventLogger can not initialized!\n" 
+				+ "Can not read BaseConfig\n");
+			initialized = false;
+			return false;
+		}
+
 		String eventLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		if(eventLogPath == null){
+			Log.w("EventLogger can not initialized!\n" 
+				+ "Can not read path for event log.\n");
+			initialized = false;
+			return false;
+		}
 		if(eventLogPath.charAt(eventLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
 			eventLogPath += Env.getPathSeparator();
 		}
@@ -41,7 +58,7 @@ public class EventLogger {
 		Log.info("EventLogger initialized:");
 		Log.info("Event log file: " + EventLogger.eventLogFile);
 		Log.debug("Event log date format: " + EventLogger.DATE_PATTERN_OF_EVENTLOG_LINES + "\n");
-		
+		return true;
 	}
 	
 	

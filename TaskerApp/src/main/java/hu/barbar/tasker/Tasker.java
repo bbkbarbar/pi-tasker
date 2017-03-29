@@ -42,7 +42,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 105;
+	private static final int buildNum = 106;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -109,7 +109,7 @@ public class Tasker {
 		}
 			
 		
-		Log.init(Env.getDataFolderPath() + "logs/", logLevelStdOut, logLevelFiledOut);
+		Log.init(Env.getDataFolderPath() + "logs" + Env.getPathSeparator(), logLevelStdOut, logLevelFiledOut);
 		Log.f("Start tasker ("
 				+ ")\nBuild: " + buildNum + "\n");
 		
@@ -121,18 +121,18 @@ public class Tasker {
 		
 		
 		/*
-		 *  Load previous states of IO outputs
+		 *  Set states of IO outputs for default value
 		 */
-		//TODO!!!!!!
+		//TODO: Load previous states of IO outputs
 		Tasker.ioOutputStates = new int[GPIOHelper.MAX_PIN_NUMBER];
 		// Fill values with 0:
 		for(int i=0; i<ioOutputStates.length; i++){
 			ioOutputStates[i] = DEFAULT_IO_STATE;
 		}
 		
-		Mailer.readConfig();
-		
-		Log.info("Mailer initialized.\n");
+		if(Mailer.readConfig()){
+			Log.info("Mailer initialized.\n");
+		}
 		
 		EventLogger.initialize();
 		

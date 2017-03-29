@@ -20,24 +20,27 @@ public class Mailer {
 	private static HashMap<String, String> mailConfig = null;
 	private static boolean configurationAvailable = false;
 	
-	public static void readConfig(){
+	public static boolean readConfig(){
 		String mailConfigFile = Env.getDataFolderPath() + Config.FILENAME_MAIL_CONFIG;
 		mailConfig = FileHandler.readConfig(mailConfigFile);
 		
 		if(mailConfig == null){
 			//TODO handle case when config file can not be read.
-			Log.e("Mailer :: Missing mail config: (" + mailConfigFile + ")");
+			Log.w("Mailer can not initialized!\n" 
+				 +"Missing mail config: (" + mailConfigFile + ")");
+			return false;
 		}
 		
 		if((mailConfig.get(Config.KEY_MAIL_SENDER_ACCOUNT) == null) || 
 		   (mailConfig.get(Config.KEY_MAIL_SENDER_P) == null) ){
-			Log.e("Mailer :: Email config can not be found.");
+			Log.w("Mailer: Email config can not be found.\n");
 			
 			configurationAvailable = false;
 		}else{
 			configurationAvailable = true;
 		}
 		
+		return configurationAvailable;
 	}
 
 	public static boolean sendEmail(String to, String subject, String text){

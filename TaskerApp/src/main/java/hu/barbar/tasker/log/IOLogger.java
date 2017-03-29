@@ -19,13 +19,32 @@ public class IOLogger {
 	
 	private static SimpleDateFormat sdf = null;
 	
-	private static boolean initailazed = false;
+	private static boolean initialized = false;
 	
 	
-	public static void initialize() {
+	/**
+	 * Initialize IOLogger instance.
+	 * @return True if successfuly initialized or <br>
+	 *         False otherwise..
+	 */
+	public static boolean initialize() {
 		
 		HashMap<String, String> config = Config.readBaseConfig();
+		if(config == null){
+			Log.w("IOLogger can not initialized!\n" 
+				+ "Can not read BaseConfig\n");
+			initialized = false;
+			return false;
+		}
+		
 		String ioLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		if(ioLogPath == null){
+			Log.w("IOLogger can not initialized!\n" 
+				+ "Can not read path for IO log.\n");
+			initialized = false;
+			return false;
+		}
+
 		if(ioLogPath.charAt(ioLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
 			ioLogPath += Env.getPathSeparator();
 		}
@@ -33,16 +52,17 @@ public class IOLogger {
 		
 		sdf = new SimpleDateFormat(DATE_PATTERN_OF_IOLOG_LINES);
 
-		initailazed = true;
+		initialized = true;
 		
 		Log.i("IOLogger initialized:");
 		Log.i("IO log file: " + IOLogger.ioLogFile);
 		Log.d("IO log date format: " + IOLogger.DATE_PATTERN_OF_IOLOG_LINES + "\n");
 		
+		return true;
 	}
 	
 	public static boolean isInitialized(){
-		return IOLogger.initailazed;
+		return IOLogger.initialized;
 	}
 	
 	public static void add(int pin, boolean state){
