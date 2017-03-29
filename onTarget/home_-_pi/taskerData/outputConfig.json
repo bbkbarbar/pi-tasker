@@ -3,22 +3,22 @@
 	[
 		{
 			"name":"output of cooler",
-			"pin":3,
+			"channel":"3",
 			"type":"PWM"
 		},
 		{
 			"name":"output of feedback",
-			"pin":36,
+			"pin":"36",
 			"type":"IO"
 		},
 		{
 			"name":"output of heater",
-			"pin":37,
+			"pin":"37",
 			"type":"IO"
 		},
 		{
 			"name":"output of air pump",
-			"pin":38,
+			"pin":"38",
 			"type":"IO",
 			"reversed":true
 		}

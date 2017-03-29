@@ -42,7 +42,7 @@ import hu.barbar.util.logger.Log;
 
 public class Tasker {
 	
-	private static final int buildNum = 103;
+	private static final int buildNum = 105;
 	
 	public static final boolean DEBUG_MODE = false;
 	

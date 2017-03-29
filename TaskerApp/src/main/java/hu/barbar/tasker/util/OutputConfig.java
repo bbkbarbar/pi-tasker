@@ -103,14 +103,15 @@ public class OutputConfig {
 		int t = Type.UNDEFINED;
 		boolean r = false;
 		
-		Log.i("Build OutputConfig from: " + json);
+		Log.d("Build OutputConfig from: " + json);
 		
 		if(json.containsKey("pin")){
 			try{
-				int pin = (Integer) json.get("pin");
+				int pin = Integer.valueOf((String)json.get("pin"));
 				p = pin;
 			}catch(Exception problemWhileTryToConvertValueToInt){
 				Log.e("Exception while try to convert |pin| value to Int (A)");
+				Log.e(problemWhileTryToConvertValueToInt.toString());
 				p = UNDEFINED;
 			}
 		}
@@ -121,18 +122,20 @@ public class OutputConfig {
 		}
 		if( (p == UNDEFINED) && (type == Type.PWM) && (json.containsKey("ch")) ){
 			try{
-				int pin = (Integer) json.get("ch");
+				int pin = Integer.valueOf((String)json.get("ch"));
 				p = pin;
 			}catch(Exception problemWhileTryToConvertValueToInt){
 				Log.e("Exception while try to convert |channel| value to Int (B)");
+				Log.e(problemWhileTryToConvertValueToInt.toString());
 			}
 		}else
 		if( (p == UNDEFINED) && (type == Type.PWM) && (json.containsKey("channel")) ){
 			try{
-				int pin = (Integer) json.get("channel");
+				int pin = Integer.valueOf((String)json.get("channel"));
 				p = pin;
 			}catch(Exception problemWhileTryToConvertValueToInt){
 				Log.e("Exception while try to convert |channel| value to Int (C)");
+				Log.e(problemWhileTryToConvertValueToInt.toString());
 			}
 		}
 		
@@ -167,6 +170,12 @@ public class OutputConfig {
 		}
 		
 		this.reversed = reversed;
+		
+		Log.i("Output config used:"
+				+ " Type: " + OutputConfig.Type.toString(type)
+				+ " " + ((type == Type.PWM)?"Channel: ":"Pin: ") + pin
+				+ (reversed?" Reversed":"")
+		);
 	}
 	
 	/**
