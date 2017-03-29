@@ -90,27 +90,13 @@ public class Tasker {
 				+ getTimeStamp(new Date())
 				+ ")\nBuild: " + buildNum + "\n");/**/
 		
+		Config.setConfigSourceJSON(Env.NAME_OF_DATA_FOLDER + Env.getPathSeparator() + Env.BASE_CONFIG_JSON);
 		
 		// Read base-parameters from JSON
-		int logLevelStdOut = Log.Level.INFO;
-		int logLevelFiledOut = Log.Level.WARN;
+		int logLevelStdOut = Log.getLogLevelFromString((String)Config.getConfig("loglevels.stdout", "info"));
+		int logLevelFiledOut = Log.getLogLevelFromString((String)Config.getConfig("loglevels.fileout", "warn"));
 		
-		JSONObject baseConf = FileHandler.readJSON(Env.NAME_OF_DATA_FOLDER + Env.getPathSeparator() + Env.BASE_CONFIG_JSON);
-		if(baseConf != null){
-			if(baseConf.containsKey("loglevels")){
-				JSONObject logLevels = (JSONObject) baseConf.get("loglevels");
-				if(logLevels.containsKey("stdout")){
-					logLevelStdOut = Log.getLogLevelFromString((String)logLevels.get("stdout"));
-				}
-				if(baseConf.containsKey("fileout")){
-					logLevelFiledOut = Log.getLogLevelFromString((String)logLevels.get("fileout"));
-				}
-			}
-		}
-		
-		Config.setConfigSourceJSON(Env.NAME_OF_DATA_FOLDER + Env.getPathSeparator() + Env.BASE_CONFIG_JSON);
-		//TODO HERE
-		Config.getConfig("");
+		//Config.getConfigWithoutDefault("");
 		
 		
 		//TODO: read name of logfile (and name of log folder) from config

@@ -25,7 +25,7 @@ public class ConfigTest extends TestSuite {
 
 		String jsonPathOfWantedValue = "non-existing-key";
 
-		String value = (String) Config.getConfig(jsonPathOfWantedValue);
+		String value = (String) Config.getConfigWithoutDefault(jsonPathOfWantedValue);
 		assertEquals(null, value);
 
 	}
@@ -37,7 +37,7 @@ public class ConfigTest extends TestSuite {
 
 		String jsonPathOfWantedValue = "testkey";
 
-		String value = (String) Config.getConfig(jsonPathOfWantedValue);
+		String value = (String) Config.getConfigWithoutDefault(jsonPathOfWantedValue);
 		assertEquals("good_value", value);
 
 	}
@@ -48,11 +48,11 @@ public class ConfigTest extends TestSuite {
 		Config.setConfigSourceJSON(configJsonFilePath);
 
 		String jsonPathOfWantedValue = "loglevels.stdout";
-		String value = (String) Config.getConfig(jsonPathOfWantedValue);
+		String value = (String) Config.getConfigWithoutDefault(jsonPathOfWantedValue);
 		assertEquals("info", value);
 
 		jsonPathOfWantedValue = "loglevels.fileout";
-		value = (String) Config.getConfig(jsonPathOfWantedValue);
+		value = (String) Config.getConfigWithoutDefault(jsonPathOfWantedValue);
 		assertEquals("warn", value);
 
 	}

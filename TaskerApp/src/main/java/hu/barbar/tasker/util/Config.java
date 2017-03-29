@@ -13,106 +13,106 @@ import hu.barbar.util.logger.Log;
 
 public class Config {
 
-	
+
 	public static final boolean READ_OUTPUT_CONFIGS_FROM_JSON = false;
-	
-	
+
+
 	/**
 	 *   FILES
 	 */
-	
+
 	public static final String FILENAME_MAIL_CONFIG = "mail.conf";
 
 	public static final String FILENAME_BASE_CONFIG = "base.conf";
-	
+
 	public static final String FILENAME_PINOUT_CONFIG = "pinout.conf";
-	
+
 	public static final String FILENAME_PINOUT_CONFIG_JSON = "outputConfig.json";
-	
-	
-	
+
+
+
 	/**
 	 *   KEYS
 	 */
-	
+
 	public static final String KEY_MAIL_SENDER_ACCOUNT = "sender";
 	public static final String KEY_MAIL_SENDER_P = "sp";
-	
+
 	public static final String KEY_FORMAT_WEBUI_DATE_TIME_FORMAT = "web ui datetime format pattern";
 
 	public static final String KEY_PATH_OF_LOG_FOLDER = "log folder path";
-	
-	
+
+
 	public static final String KEY_OUTPUT_OF_COOLER = "output of cooler";
-	
+
 	public static final String KEY_OUTPUT_OF_HEATER = "output of heater";
-	
+
 	public static final String KEY_OUTPUT_OF_AIR_PUMP = "output of air pump";
-	
+
 	public static final String KEY_INPUT_PIN_HUMIDITY = "input pin of humidity sensor";
-	
+
 	public static final String KEY_FILENAME_TEMP_DATA_LOG = "temperature data log file";
-	
+
 	public static final Object KEY_FILENAME_GENERATION_TIME_LO = "web ui generation time log file";
 
 	public static final Object KEY_FILENAME_IO_LOG = "io log file";
-	
+
 	public static final Object KEY_FILENAME_EVENT_LOG = "event log file";
 
 	public static final Object KEY_FILENAME_FEED_WEB_UI = "webui temp history feed";
-	
+
 	public static final Object KEY_FAN_START_BOOST_TIME_IN_MS = "fan start boost time in ms";
-	
+
 	public static final Object KEY_MIN_COOLER_ALONE_START_VALUE = "min cooler alone start percentage";
 
-	
+
 	private static String configSourceJSON = null;
-	
+
 	private static JSONObject configJson = null;
-	
+
 	private static boolean configJsonHasBeenRead = false;
-	
-	
+
+
 	public static HashMap<String, OutputConfig> outputConfigs = null;
-	
-	
-	
-	
+
+
+
+
 	public static HashMap<String, String> readBaseConfig(String configFile){
 		HashMap<String, String> configResult = null;
-		
+
 		configResult = FileHandler.readConfig(configFile);
-		
+
 		if(configResult == null){
 			//TODO handle case when config file can not be read.
 			Log.e("Missing config file:\n" + configFile);
 		}
-		
+
 		return configResult;
 	}
-	
+
 	public static HashMap<String, String> readBaseConfig(){
 		return readBaseConfig(Env.getDataFolderPath() + Config.FILENAME_BASE_CONFIG);
 	}
-	
+
 	public static OutputConfig getOutputConfig(String key){
-		
+
 		if(Config.outputConfigs == null){
 			if(readOutputConfigFromIni(true) == null){
 				Log.e("Failed to get outputConfig for key: " + key);
 				return null;
 			}
 		}
-		
+
 		OutputConfig response = Config.outputConfigs.get(key);
 		if(response == null){
 			Log.w("Can not find outputConfig for key: " + key);
 		}
-		
+
 		return response;
 	}
-	
-	
+
+
 	public static HashMap<String, OutputConfig> readOutputConfig(){
 		if(READ_OUTPUT_CONFIGS_FROM_JSON){
 			return readOutputConfigFromJSON(false);
@@ -120,7 +120,7 @@ public class Config {
 			return readOutputConfigFromIni();
 		}
 	}
-	
+
 	public static HashMap<String, OutputConfig> readOutputConfig(boolean forceUpdateConfig){
 		if(READ_OUTPUT_CONFIGS_FROM_JSON){
 			return readOutputConfigFromJSON(false);
@@ -128,14 +128,14 @@ public class Config {
 			return readOutputConfigFromIni(forceUpdateConfig);
 		}
 	}
-	
-	
+
+
 	public static HashMap<String, OutputConfig> readOutputConfigFromIni(){
 		return readOutputConfigFromIni(false);
 	}
-	
+
 	public static HashMap<String, OutputConfig> readOutputConfigFromIni(boolean forceUpdateConfig){
-		
+
 		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
 			Config.outputConfigs = TaskerFilehandler.readOutputConfig(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG);
 			if(forceUpdateConfig){
@@ -146,61 +146,61 @@ public class Config {
 		}else{
 			Log.t("Read pinout config from cache.");
 		}
-		
+
 		return Config.outputConfigs;
-		
+
 	}
-	
-	
+
+
 	public static boolean storeOutputConfig(HashMap<String, OutputConfig> data){
-		
+
 		List<String> list = new ArrayList<String>(data.keySet());
-		
+
 		System.out.println("Keys:\n");
 		for(int i=0; i<list.size(); i++){
 			System.out.println(list.get(i));
 		}
-		
+
 		JSONObject json = new JSONObject();
-		
+
 		JSONArray array = new JSONArray();
 		for(int i=0; i<list.size(); i++){
 			array.add( data.get(list.get(i)).getAsJsonObject(list.get(i)) );
 		}
 		json.put("output config", array);
-		
+
 		return FileHandler.storeJSON(
-							Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON, 
+							Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON,
 							json
 		);
-		
+
 	}
-	
+
 	public static HashMap<String, OutputConfig> readOutputConfigJSON(String filename){
 		HashMap<String, OutputConfig> map = new HashMap<String, OutputConfig>();
-		
+
 		JSONObject json = FileHandler.readJSON(filename);
 		if(json.containsKey("output config")){
 			JSONArray array = (JSONArray) json.get("output config");
 			for(int i=0; i<array.size(); i++){
 				JSONObject jsonItem = (JSONObject) array.get(i);
-				
+
 				if(jsonItem.containsKey("name")){
 					String name = (String)jsonItem.get("name");
 					OutputConfig oc = new OutputConfig(jsonItem);
 					map.put(name, oc);
 					Log.d("Output config loaded from JSON:\n \"" + name + "\" > " + oc.toString());
 				}
-				
+
 			}
 		}
-		
+
 		return map;
 	}
-	
+
 	//TODO
 	public static HashMap<String, OutputConfig> readOutputConfigFromJSON(boolean forceUpdateConfig){
-		
+
 		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
 			Config.outputConfigs = Config.readOutputConfigJSON(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON);
 			if(forceUpdateConfig){
@@ -211,22 +211,22 @@ public class Config {
 		}else{
 			Log.t("Read pinout config from cache.");
 		}
-		
-		return Config.outputConfigs;
-		
-	}
-	
 
-	
+		return Config.outputConfigs;
+
+	}
+
+
+
 	/**
 	 * Get parameters from config JSON
 	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
 	 * @param forceReadFileAgain if this is true, than it will always read JSON file again before find specified value <br>
-	 * otherwise it will read it first, and will use that data for all getConfig calls later... 
+	 * otherwise it will read it first, and will use that data for all getConfig calls later...
 	 * @return an Object from JSON <br>
 	 * or NULL if it could not be find.
 	 */
-	public static Object getConfig(String jsonKey, boolean forceReadFileAgain) {
+	public static Object getConfigWithoutDefault(String jsonKey, boolean forceReadFileAgain) {
 		if((!configJsonHasBeenRead) || forceReadFileAgain){
 			configJson = FileHandler.readJSON(configSourceJSON);
 			if(configJson != null){
@@ -235,10 +235,27 @@ public class Config {
 				Log.e("Config: Can not read config JSON: " + configSourceJSON);
 			}
 		}
-		
+
 		return getElementFromJson(jsonKey, configJson);
 	}
-	
+
+	/**
+	 * Get parameters from config JSON
+	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
+	 * @param forceReadFileAgain if this is true, than it will always read JSON file again before find specified value <br>
+	 * otherwise it will read it first, and will use that data for all getConfig calls later...
+	 * @return an Object from JSON <br>
+	 * or NULL if it could not be find.
+	 */
+	public static Object getConfig(String jsonKey, boolean forceReadFileAgain, Object defaultValue) {
+		Object result = getConfigWithoutDefault(jsonKey, forceReadFileAgain);
+		if(result == null){
+			return defaultValue;
+		}else{
+			return result;
+		}
+	}
+
 	/**
 	 * Get parameters from config JSON
 	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
@@ -246,26 +263,37 @@ public class Config {
 	 * @return an Object from JSON <br>
 	 * or NULL if it could not be find.
 	 */
-	public static Object getConfig(String jsonKey) {
-		return getConfig(jsonKey, false);
+	public static Object getConfigWithoutDefault(String jsonKey) {
+		return getConfigWithoutDefault(jsonKey, false);
 	}
-	
-	
+
+	/**
+	 * Get parameters from config JSON
+	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
+	 * <br><b>Note:</b> ForceReadFileAgain is disabled: It will read it first, and will use that data for all getConfig calls later...
+	 * @return an Object from JSON <br>
+	 * or NULL if it could not be find.
+	 */
+	public static Object getConfig(String jsonKey, Object defaultValue) {
+		return getConfig(jsonKey, false, defaultValue);
+	}
+
+
 	private static Object getElementFromJson(String jsonKey, JSONObject json){
-		
+
 		if(json == null){
 			Log.e("Could not read find key in JSON; JSON object is null!");
 			return null;
 		}
-		
+
 		if(json.containsKey(jsonKey)){
 			return json.get(jsonKey);
 		}
-		
+
 		if(jsonKey.contains(".")){
-			
+
 			//System.out.println("Key |" + jsonKey + "| contains \".\"");
-			
+
 			String firstPartOfKey = jsonKey.substring(0, jsonKey.indexOf("."));
 			String newKey = jsonKey.substring(jsonKey.indexOf(".") + 1);
 			//System.out.println("firstPartOfKey: " + firstPartOfKey);
@@ -273,25 +301,25 @@ public class Config {
 			JSONObject newJSONObject = (JSONObject) json.get(firstPartOfKey);
 			//System.out.println("NewJsonObject:\n" + newJSONObject);
 			return getElementFromJson(newKey,newJSONObject);
-			
+
 		}
 
 		return null;
-		
+
 	}
-	
-	
+
+
 
 	public static void setConfigSourceJSON(String configSource) {
 		Config.configSourceJSON = configSource;
 		if(!FileHandler.fileExists(configSource)){
 			Log.e("Setted config source JSON ("
-					+ configSource 
+					+ configSource
 					+ ")is not exists!");
 		}else{
 			Log.i("Config source is set from JSON: " + configSource);
 		}
 	}
-	
-	
+
+
 }
