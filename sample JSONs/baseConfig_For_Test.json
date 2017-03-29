@@ -4,5 +4,11 @@
 		"fileout":"warn",
 		"possible_log_levels":"debug, info, warn, error, all"
 	},
-	"testkey":"good_value"
+	"testkey":"good_value",
+	"multi":{
+		"other":"some data",
+		"level":{
+			"path":"value_of_multi_level_path"
+		}
+	}
 }
