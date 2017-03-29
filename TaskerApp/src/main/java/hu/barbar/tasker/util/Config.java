@@ -68,6 +68,9 @@ public class Config {
 	
 	private static String configSourceJSON = null;
 	
+	private static JSONObject configJson = null;
+	
+	
 	public static HashMap<String, OutputConfig> outputConfigs = null;
 	
 	
@@ -215,13 +218,44 @@ public class Config {
 	
 	/**
 	 * Get parameters from config JSON
-	 * @param jsonPath where the value should be
+	 * @param jsonKey where the value should be
 	 * @return an Object from JSON <br>
 	 * or NULL if it could not be find.
 	 */
-	public static Object getConfig(String jsonPath) {
+	public static Object getConfig(String jsonKey) {
+		configJson = FileHandler.readJSON(configSourceJSON);
 		
+		return getElementFromJson(jsonKey, configJson);
+	}
+	
+	
+	private static Object getElementFromJson(String jsonKey, JSONObject json){
+		
+		if(json == null){
+			Log.e("Could not read find key in JSON; JSON object is null!");
+			return null;
+		}
+		
+		if(json.containsKey(jsonKey)){
+			return json.get(jsonKey);
+		}
+		
+		if(jsonKey.contains(".")){
+			
+			//System.out.println("Key |" + jsonKey + "| contains \".\"");
+			
+			String firstPartOfKey = jsonKey.substring(0, jsonKey.indexOf("."));
+			String newKey = jsonKey.substring(jsonKey.indexOf(".") + 1);
+			//System.out.println("firstPartOfKey: " + firstPartOfKey);
+			//System.out.println("newKey: |" + newKey + "|");
+			JSONObject newJSONObject = (JSONObject) json.get(firstPartOfKey);
+			//System.out.println("NewJsonObject:\n" + newJSONObject);
+			return getElementFromJson(newKey,newJSONObject);
+			
+		}
+
 		return null;
+		
 	}
 	
 	

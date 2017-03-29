@@ -48,9 +48,12 @@ public class ConfigTest extends TestSuite {
 		Config.setConfigSourceJSON(configJsonFilePath);
 		
 		String jsonPathOfWantedValue = "loglevels.stdout";
-		
 		String value = (String) Config.getConfig(jsonPathOfWantedValue);
 		assertEquals("info", value);
+		
+		jsonPathOfWantedValue = "loglevels.fileout";
+		value = (String) Config.getConfig(jsonPathOfWantedValue);
+		assertEquals("warn", value);
 		
 	}
 	
