@@ -70,6 +70,8 @@ public class Config {
 	
 	private static JSONObject configJson = null;
 	
+	private static boolean configJsonHasBeenRead = false;
+	
 	
 	public static HashMap<String, OutputConfig> outputConfigs = null;
 	
@@ -218,14 +220,34 @@ public class Config {
 	
 	/**
 	 * Get parameters from config JSON
-	 * @param jsonKey where the value should be
+	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
+	 * @param forceReadFileAgain if this is true, than it will always read JSON file again before find specified value <br>
+	 * otherwise it will read it first, and will use that data for all getConfig calls later... 
+	 * @return an Object from JSON <br>
+	 * or NULL if it could not be find.
+	 */
+	public static Object getConfig(String jsonKey, boolean forceReadFileAgain) {
+		if((!configJsonHasBeenRead) || forceReadFileAgain){
+			configJson = FileHandler.readJSON(configSourceJSON);
+			if(configJson != null){
+				configJsonHasBeenRead = true;
+			}else{
+				Log.e("Config: Can not read config JSON: " + configSourceJSON);
+			}
+		}
+		
+		return getElementFromJson(jsonKey, configJson);
+	}
+	
+	/**
+	 * Get parameters from config JSON
+	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
+	 * <br><b>Note:</b> ForceReadFileAgain is disabled: It will read it first, and will use that data for all getConfig calls later...
 	 * @return an Object from JSON <br>
 	 * or NULL if it could not be find.
 	 */
 	public static Object getConfig(String jsonKey) {
-		configJson = FileHandler.readJSON(configSourceJSON);
-		
-		return getElementFromJson(jsonKey, configJson);
+		return getConfig(jsonKey, false);
 	}
 	
 	
