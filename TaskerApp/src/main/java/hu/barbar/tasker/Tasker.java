@@ -95,7 +95,7 @@ public class Tasker {
 		int logLevelStdOut = Log.Level.INFO;
 		int logLevelFiledOut = Log.Level.WARN;
 		
-		JSONObject baseConf = FileHandler.readJSON(Env.NAME_OF_DATA_FOLDER + Env.getPathSeparator() + Env.BASE_CONFIG_FILE);
+		JSONObject baseConf = FileHandler.readJSON(Env.NAME_OF_DATA_FOLDER + Env.getPathSeparator() + Env.BASE_CONFIG_JSON);
 		if(baseConf != null){
 			if(baseConf.containsKey("loglevels")){
 				JSONObject logLevels = (JSONObject) baseConf.get("loglevels");
@@ -107,9 +107,14 @@ public class Tasker {
 				}
 			}
 		}
-			
 		
-		Log.init(Env.getDataFolderPath() + "logs" + Env.getPathSeparator(), logLevelStdOut, logLevelFiledOut);
+		Config.setConfigSourceJSON(Env.NAME_OF_DATA_FOLDER + Env.getPathSeparator() + Env.BASE_CONFIG_JSON);
+		//TODO HERE
+		Config.getConfig("");
+		
+		
+		//TODO: read name of logfile (and name of log folder) from config
+		Log.init(Env.getDataFolderPath() + "logs" + Env.getPathSeparator(), "tasker.log", logLevelStdOut, logLevelFiledOut);
 		Log.f("Start tasker ("
 				+ ")\nBuild: " + buildNum + "\n");
 		

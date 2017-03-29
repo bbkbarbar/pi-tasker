@@ -65,13 +65,17 @@ public class Config {
 	
 	public static final Object KEY_MIN_COOLER_ALONE_START_VALUE = "min cooler alone start percentage";
 
+	
+	private static String configSourceJSON = null;
+	
 	public static HashMap<String, OutputConfig> outputConfigs = null;
 	
 	
-	public static HashMap<String, String> readBaseConfig(){
+	
+	
+	public static HashMap<String, String> readBaseConfig(String configFile){
 		HashMap<String, String> configResult = null;
 		
-		String configFile = Env.getDataFolderPath() + Config.FILENAME_BASE_CONFIG;
 		configResult = FileHandler.readConfig(configFile);
 		
 		if(configResult == null){
@@ -80,7 +84,10 @@ public class Config {
 		}
 		
 		return configResult;
-		
+	}
+	
+	public static HashMap<String, String> readBaseConfig(){
+		return readBaseConfig(Env.getDataFolderPath() + Config.FILENAME_BASE_CONFIG);
 	}
 	
 	public static OutputConfig getOutputConfig(String key){
@@ -205,9 +212,29 @@ public class Config {
 	}
 	
 
-	public static void getConfig(String string) {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * Get parameters from config JSON
+	 * @param jsonPath where the value should be
+	 * @return an Object from JSON <br>
+	 * or NULL if it could not be find.
+	 */
+	public static Object getConfig(String jsonPath) {
 		
+		return null;
+	}
+	
+	
+
+	public static void setConfigSourceJSON(String configSource) {
+		Config.configSourceJSON = configSource;
+		if(!FileHandler.fileExists(configSource)){
+			Log.e("Setted config source JSON ("
+					+ configSource 
+					+ ")is not exists!");
+		}else{
+			Log.i("Config source is set from JSON: " + configSource);
+		}
 	}
 	
 	
