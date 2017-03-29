@@ -1,0 +1,8 @@
+{
+	"loglevels":{
+		"stdout":"info",
+		"fileout":"warn",
+		"possible_log_levels":"debug, info, warn, error, all"
+	},
+	"testkey":"good_value"
+}
