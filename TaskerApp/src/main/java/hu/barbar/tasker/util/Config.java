@@ -362,7 +362,7 @@ public class Config {
 	
 	/**
 	 * Set the filepath of configSource JSON. (e.g.: ../data/config.json)
-	 * <br> Tthis JSON file will be used to find the specified key by the getConfig.. methods.
+	 * <br> This JSON file will be used to find the specified key by the getConfig.. methods.
 	 * @param configSourceFilePath
 	 */
 	public static void setConfigSourceJSON(String configSourceFilePath) {
