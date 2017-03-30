@@ -24,7 +24,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 
 	//private static final String DEFAULT_FILENAME_OF_TEMP_LOG_FILE = "temp.log";
 
-	private static final String DEFAULT_FILENAME_OF_GENERATING_TIME_LOG = "webui_generation_time.log";
+	private static final String DEFAULT_FILENAME_OF_TEMPERATURE_LOG_FEED_FOR_WEBUI = "temperature.log";
 	
 	private static final String PART_COOLER_ACTIVE = "<img src=\"res/cooler_active.png\" alt=\"Cooler active\" style=\"width:64px;height:64px;\">";
 	private static final String PART_COOLER_NOT_ACTIVE = "<img src=\"res/cooler_NOT_active.png\" alt=\"Cooler not active\" style=\"width:64px;height:64px;\">";
@@ -33,8 +33,12 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 	
 	private SimpleDateFormat sdf = null;
 	
-	private static String dateTimeFormatPattern = "yyyy.MM.dd HH:mm:ss";
-	private static boolean useDefaultDateFormat = true;
+	public static final String DEFAULT_DATE_TIME_FORMAT_PATTERN = "yyyy.MM.dd HH:mm:ss";
+	
+	public static final String DEFAULT_PATH_FOR_LOG_FOLDER = "/home/pi/taskerData/logs/";
+	
+	private static String dateTimeFormatPattern = DEFAULT_DATE_TIME_FORMAT_PATTERN;
+	
 	
 	private String temperatureLogFile = null;
 	
@@ -52,47 +56,47 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		/*
 		 *  Read date-time format pattern to show "last update" -info..
 		 */
-		if(WebUIUpdater.useDefaultDateFormat){
-			HashMap<String, String> conf = Config.readBaseConfig();
-			String patternFromConfig = conf.get(Config.KEY_FORMAT_WEBUI_DATE_TIME_FORMAT);
-			if(patternFromConfig != null && !(patternFromConfig.trim().equals("")) ){
-				WebUIUpdater.dateTimeFormatPattern = patternFromConfig;
-			}
-			WebUIUpdater.useDefaultDateFormat = false;
-		}
-		
+		// Get this parameter from config JSON.. 
+		WebUIUpdater.dateTimeFormatPattern = Config.getConfig("web ui datetime format pattern", DEFAULT_DATE_TIME_FORMAT_PATTERN);
 		sdf = new SimpleDateFormat(WebUIUpdater.dateTimeFormatPattern);
 		
 		
-		String tempHistoryFeed = "";
-		//TODO read config from cache..
-		//Config.getConfig("");
+		String tempHistoryFeed = Config.getConfig("web_ui.temperature_history_feed", DEFAULT_FILENAME_OF_TEMPERATURE_LOG_FEED_FOR_WEBUI);
+
+		// Get this parameter from config JSON.. 
+		/*
 		HashMap<String, String> conf = Config.readBaseConfig();
 		if(conf.containsKey(Config.KEY_FILENAME_FEED_WEB_UI)){
 			tempHistoryFeed = conf.get(Config.KEY_FILENAME_FEED_WEB_UI);
 		}else{
-			tempHistoryFeed = DEFAULT_FILENAME_OF_GENERATING_TIME_LOG;
-		}
+			tempHistoryFeed = DEFAULT_FILENAME_OF_TEMPERATURE_LOG_FEED_FOR_WEBUI;
+		}/**/
+		
 		
 		/*
 		 *  Read path of temperature log file..
 		 */
-		HashMap<String, String> config = Config.readBaseConfig();
-		String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		// Get this parameter from config JSON.. 
+		//HashMap<String, String> config = Config.readBaseConfig();
+		//String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		
+		String tempLogPath = Config.getConfig("web_ui.path for log folder", DEFAULT_PATH_FOR_LOG_FOLDER);
 		if(tempLogPath.charAt(tempLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
 			tempLogPath += Env.getPathSeparator();
 		}
+		
 		this.temperatureLogFile = tempLogPath + tempHistoryFeed;
 		
 		
 		/*
 		 *  Read path of generating log file..
 		 */
-		String generationTimeLogPathFromConfig = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		String generationTimeLogPathFromConfig = Config.getConfig("web_ui.path for log folder", DEFAULT_PATH_FOR_LOG_FOLDER);
 		if(generationTimeLogPathFromConfig.charAt(generationTimeLogPathFromConfig.length()-1) != Env.getPathSeparator().charAt(0)){
 			tempLogPath += Env.getPathSeparator();
 		}
-		this.generationTimeLogFile = tempLogPath + DEFAULT_FILENAME_OF_GENERATING_TIME_LOG;
+		//TODO check this: ->
+		this.generationTimeLogFile = tempLogPath + DEFAULT_FILENAME_OF_TEMPERATURE_LOG_FEED_FOR_WEBUI;
 		
 		/*
 		 *  Get output config where cooler and heater is attached.

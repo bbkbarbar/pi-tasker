@@ -38,7 +38,7 @@ public class Config {
 	public static final String KEY_MAIL_SENDER_ACCOUNT = "sender";
 	public static final String KEY_MAIL_SENDER_P = "sp";
 
-	public static final String KEY_FORMAT_WEBUI_DATE_TIME_FORMAT = "web ui datetime format pattern";
+	//public static final String KEY_FORMAT_WEBUI_DATE_TIME_FORMAT = "web ui datetime format pattern";
 
 	public static final String KEY_PATH_OF_LOG_FOLDER = "log folder path";
 
@@ -59,7 +59,7 @@ public class Config {
 
 	public static final Object KEY_FILENAME_EVENT_LOG = "event log file";
 
-	public static final Object KEY_FILENAME_FEED_WEB_UI = "webui temp history feed";
+	//public static final Object KEY_FILENAME_FEED_WEB_UI = "webui temp history feed";
 
 	public static final Object KEY_FAN_START_BOOST_TIME_IN_MS = "fan start boost time in ms";
 
@@ -238,7 +238,7 @@ public class Config {
 		}
 		return getElementFromJson(jsonKey, configJson);
 	}
-
+	
 	
 	/**
 	 * Get parameters from config JSON with specified default value
@@ -270,6 +270,18 @@ public class Config {
 	 */
 	public static Object getConfigWithoutDefault(String jsonKey) {
 		return getConfigWithoutDefault(jsonKey, false);
+	}
+	
+	/**
+	 * Get parameters from config JSON without default value.
+	 * <br> Note: Need to call {@link #setConfigSourceJSON(String) setConfigSourceJSON} method once before using..
+	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
+	 * <br><b>Note:</b> ForceReadFileAgain is disabled: It will read it first, and will use that data for all getConfig calls later...
+	 * @return an String from JSON <br>
+	 * or NULL if it could not be find.
+	 */
+	public static String getConfigStrWithoutDefault(String jsonKey) {
+		return (String)(getConfigWithoutDefault(jsonKey));
 	}
 
 	

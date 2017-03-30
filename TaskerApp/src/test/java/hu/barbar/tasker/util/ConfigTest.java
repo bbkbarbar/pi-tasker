@@ -56,5 +56,17 @@ public class ConfigTest extends TestSuite {
 		assertEquals("warn", value);
 
 	}
+	
+	
+	@Test
+	public void read_value_from_config_JSON_where_the_key_contains_space_Test(){
+
+		Config.setConfigSourceJSON(configJsonFilePath);
+		
+		String jsonPathOfWantedValue = "an other key with space";
+		String value = Config.getConfigStrWithoutDefault(jsonPathOfWantedValue);
+		assertEquals("yes, key can contains space", value);
+
+	}
 
 }

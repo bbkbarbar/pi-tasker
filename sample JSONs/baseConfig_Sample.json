@@ -3,5 +3,10 @@
 		"stdout":"info",
 		"fileout":"warn",
 		"possible_log_levels":"debug, info, warn, error, all"
+	},
+	"web_ui":{
+		"web ui datetime format pattern":"HH:mm:ss",
+		"path for log folder":"/home/pi/taskerData/logs/",
+		"temperature_history_feed":"temp_and_cooler.log"
 	}
 }

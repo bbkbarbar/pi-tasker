@@ -10,5 +10,7 @@
 		"level":{
 			"path":"value_of_multi_level_path"
 		}
-	}
+	},
+	"an other key with space":"yes, key can contains space"
+
 }
