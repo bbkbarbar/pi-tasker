@@ -84,7 +84,6 @@ public class Config {
 		configResult = FileHandler.readConfig(configFile);
 
 		if(configResult == null){
-			//TODO handle case when config file can not be read.
 			Log.e("Missing config file:\n" + configFile);
 		}
 
@@ -152,6 +151,7 @@ public class Config {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	public static boolean storeOutputConfig(HashMap<String, OutputConfig> data){
 
 		List<String> list = new ArrayList<String>(data.keySet());
@@ -216,15 +216,16 @@ public class Config {
 
 	}
 
-
+	
 
 	/**
-	 * Get parameters from config JSON
-	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
-	 * @param forceReadFileAgain if this is true, than it will always read JSON file again before find specified value <br>
+	 * Get parameters from config JSON without default value.
+	 * <br> Note: Need to call {@link #setConfigSourceJSON(String) setConfigSourceJSON} method once before using..
+	 * @param jsonKey The path of wanted config value (e.g.: loglevels.stdout)
+	 * @param forceReadFileAgain If this is true, than it will always read JSON file again before find specified value <br>
 	 * otherwise it will read it first, and will use that data for all getConfig calls later...
 	 * @return an Object from JSON <br>
-	 * or NULL if it could not be find.
+	 * or NULL if could not found the specified key.
 	 */
 	public static Object getConfigWithoutDefault(String jsonKey, boolean forceReadFileAgain) {
 		if((!configJsonHasBeenRead) || forceReadFileAgain){
@@ -235,17 +236,19 @@ public class Config {
 				Log.e("Config: Can not read config JSON: " + configSourceJSON);
 			}
 		}
-
 		return getElementFromJson(jsonKey, configJson);
 	}
 
+	
 	/**
-	 * Get parameters from config JSON
-	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
-	 * @param forceReadFileAgain if this is true, than it will always read JSON file again before find specified value <br>
+	 * Get parameters from config JSON with specified default value
+	 * <br> Note: Need to call {@link #setConfigSourceJSON(String) setConfigSourceJSON} method once before using..
+	 * @param jsonKey The path of wanted config value (e.g.: loglevels.stdout)
+	 * @param defaultValue to define the return value if specified key could not be found.
+	 * @param forceReadFileAgain If this is true, than it will always read JSON file again before find specified value <br>
 	 * otherwise it will read it first, and will use that data for all getConfig calls later...
 	 * @return an Object from JSON <br>
-	 * or NULL if it could not be find.
+	 * or with the specified default value if could not found the specified key.
 	 */
 	public static Object getConfig(String jsonKey, Object defaultValue, boolean forceReadFileAgain) {
 		Object result = getConfigWithoutDefault(jsonKey, forceReadFileAgain);
@@ -256,6 +259,58 @@ public class Config {
 		}
 	}
 	
+	
+	/**
+	 * Get parameters from config JSON without default value.
+	 * <br> Note: Need to call {@link #setConfigSourceJSON(String) setConfigSourceJSON} method once before using..
+	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
+	 * <br><b>Note:</b> ForceReadFileAgain is disabled: It will read it first, and will use that data for all getConfig calls later...
+	 * @return an Object from JSON <br>
+	 * or NULL if it could not be find.
+	 */
+	public static Object getConfigWithoutDefault(String jsonKey) {
+		return getConfigWithoutDefault(jsonKey, false);
+	}
+
+	
+	/**
+	 * Get parameters from config JSON
+	 * <br> Note: Need to call {@link #setConfigSourceJSON(String) setConfigSourceJSON} method once before using..
+	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
+	 * <br><b>Note:</b> ForceReadFileAgain is disabled: It will read it first, and will use that data for all getConfig calls later...
+	 * @param defaultValue to define the return value if specified key could not be found.
+	 * @return an Object from JSON <br>
+	 * or NULL if it could not be find.
+	 */
+	public static Object getConfig(String jsonKey, Object defaultValue) {
+		return getConfig(jsonKey, defaultValue, false);
+	}
+
+
+	/**
+	 * Get parameters from config JSON
+	 * <br> Note: Need to call {@link #setConfigSourceJSON(String) setConfigSourceJSON} method once before using..
+	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
+	 * <br><b>Note:</b> ForceReadFileAgain is disabled: It will read it first, and will use that data for all getConfig calls later...
+	 * @param defaultValue to define the return value if specified key could not be found.
+	 * @return a String from JSON <br>
+	 * or NULL if it could not be find.
+	 */
+	public static String getConfig(String jsonKey, String defaultValue) {
+		return getConfig(jsonKey, defaultValue, false);
+	}
+	
+	
+	/**
+	 * Get parameters from config JSON with specified default value
+	 * <br> Note: Need to call {@link #setConfigSourceJSON(String) setConfigSourceJSON} method once before using..
+	 * @param jsonKey The path of wanted config value (e.g.: loglevels.stdout)
+	 * @param defaultValue to define the return value if specified key could not be found. 
+	 * @param forceReadFileAgain If this is true, than it will always read JSON file again before find specified value <br>
+	 * otherwise it will read it first, and will use that data for all getConfig calls later...
+	 * @return an String object from JSON <br>
+	 * or with the specified default value if could not found the specified key.
+	 */
 	public static String getConfig(String jsonKey, String defaultValue, boolean forceReadFileAgain) {
 		String result = (String) getConfigWithoutDefault(jsonKey, forceReadFileAgain);
 		if(result == null){
@@ -266,34 +321,15 @@ public class Config {
 	}
 	
 
-	/**
-	 * Get parameters from config JSON
-	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
-	 * <br><b>Note:</b> ForceReadFileAgain is disabled: It will read it first, and will use that data for all getConfig calls later...
-	 * @return an Object from JSON <br>
-	 * or NULL if it could not be find.
-	 */
-	public static Object getConfigWithoutDefault(String jsonKey) {
-		return getConfigWithoutDefault(jsonKey, false);
-	}
-
-	/**
-	 * Get parameters from config JSON
-	 * @param jsonKey where the value should be (e.g.: loglevels.stdout)
-	 * <br><b>Note:</b> ForceReadFileAgain is disabled: It will read it first, and will use that data for all getConfig calls later...
-	 * @return an Object from JSON <br>
-	 * or NULL if it could not be find.
-	 */
-	public static Object getConfig(String jsonKey, Object defaultValue) {
-		return getConfig(jsonKey, defaultValue, false);
-	}
-
-	
-	public static String getConfig(String jsonKey, String defaultValue) {
-		return getConfig(jsonKey, defaultValue, false);
-	}
 	
 
+	/**
+	 * Find the value for a specified key in given JSON object recursively.
+	 * @param jsonKey
+	 * @param json
+	 * @return the value of specified key if it exists
+	 * <br> or returns NULL otherwise
+	 */
 	private static Object getElementFromJson(String jsonKey, JSONObject json){
 
 		if(json == null){
@@ -323,16 +359,20 @@ public class Config {
 
 	}
 
-
-
-	public static void setConfigSourceJSON(String configSource) {
-		Config.configSourceJSON = configSource;
-		if(!FileHandler.fileExists(configSource)){
+	
+	/**
+	 * Set the filepath of configSource JSON. (e.g.: ../data/config.json)
+	 * <br> Tthis JSON file will be used to find the specified key by the getConfig.. methods.
+	 * @param configSourceFilePath
+	 */
+	public static void setConfigSourceJSON(String configSourceFilePath) {
+		Config.configSourceJSON = configSourceFilePath;
+		if(!FileHandler.fileExists(configSourceFilePath)){
 			Log.e("Setted config source JSON ("
-					+ configSource
+					+ configSourceFilePath
 					+ ")is not exists!");
 		}else{
-			Log.i("Config source is set from JSON: " + configSource);
+			Log.i("Config source is set from JSON: " + configSourceFilePath);
 		}
 	}
 
