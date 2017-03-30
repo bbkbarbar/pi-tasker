@@ -139,12 +139,12 @@ public class Config {
 		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
 			Config.outputConfigs = TaskerFilehandler.readOutputConfig(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG);
 			if(forceUpdateConfig){
-				Log.t("Forced re-read pinout config from file.");
+				Log.a("Forced re-read pinout config from file.");
 			}else{
-				Log.t("Read pinout config from file.");
+				Log.a("Read pinout config from file.");
 			}
 		}else{
-			Log.t("Read pinout config from cache.");
+			Log.a("Read pinout config from cache.");
 		}
 
 		return Config.outputConfigs;
@@ -204,12 +204,12 @@ public class Config {
 		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
 			Config.outputConfigs = Config.readOutputConfigJSON(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON);
 			if(forceUpdateConfig){
-				Log.t("Forced re-read pinout config from JSON file.");
+				Log.a("Forced re-read pinout config from JSON file.");
 			}else{
-				Log.t("Read pinout config from JSON file.");
+				Log.a("Read pinout config from JSON file.");
 			}
 		}else{
-			Log.t("Read pinout config from cache.");
+			Log.a("Read pinout config from cache.");
 		}
 
 		return Config.outputConfigs;

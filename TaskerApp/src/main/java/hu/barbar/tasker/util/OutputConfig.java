@@ -212,7 +212,6 @@ public class OutputConfig {
 		}else{
 			this.reversed = DEFAULT_VALUE_OF_REVERSED;
 		}
-		Log.t(this.toString());
 		
 	}
 
