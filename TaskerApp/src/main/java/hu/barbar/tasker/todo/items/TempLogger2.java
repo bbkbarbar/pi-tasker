@@ -26,10 +26,10 @@ public class TempLogger2 extends TempRelatedToDoItemBase {
 		super();
 		
 		// Get this parameter from config JSON..
-		String tempLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.getConfig("web ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
+		String tempLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.get("web ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
 		this.temperatureLogFile = tempLogPath + DEFAULT_FILENAME_OF_TEMP_LOG_FILE;
 		
-		sdf = new SimpleDateFormat(Config.getConfig("temp logger.datetime parrern for temp log lines", Defaults.DATETIME_PATTERN_OF_TEMPLOG_LINES));
+		sdf = new SimpleDateFormat(Config.get("temp logger.datetime parrern for temp log lines", Defaults.DATETIME_PATTERN_OF_TEMPLOG_LINES));
 		
 	}
 	

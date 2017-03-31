@@ -27,10 +27,10 @@ public class TempLogger3 extends TempRelatedToDoItemBase {
 		
 		this.outputConfigOfCooler = outputConfigOfCooler;
 		// Get this parameter from config JSON..
-		String tempLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.getConfig("temp logger.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
-		this.temperatureLogFile = tempLogPath + Config.getConfig("temp logger.filename of temperature log", Defaults.FILENAME_OF_TEMP_LOG_FILE);
+		String tempLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.get("temp logger.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
+		this.temperatureLogFile = tempLogPath + Config.get("temp logger.filename of temperature log", Defaults.FILENAME_OF_TEMP_LOG_FILE);
 		
-		sdf = new SimpleDateFormat(Config.getConfig("temp logger.datetime parrern for temp log lines", Defaults.DATETIME_PATTERN_OF_TEMPLOG_LINES));
+		sdf = new SimpleDateFormat(Config.get("temp logger.datetime parrern for temp log lines", Defaults.DATETIME_PATTERN_OF_TEMPLOG_LINES));
 		
 	}
 	

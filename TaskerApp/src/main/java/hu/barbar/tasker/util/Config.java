@@ -233,7 +233,7 @@ public class Config {
 	 * @return an Object from JSON <br>
 	 * or NULL if could not found the specified key.
 	 */
-	public static Object getConfigWithoutDefault(String jsonKey, boolean forceReadFileAgain) {
+	public static Object getWithoutDefault(String jsonKey, boolean forceReadFileAgain) {
 		if((!configJsonHasBeenRead) || forceReadFileAgain){
 			configJson = FileHandler.readJSON(configSourceJSON);
 			if(configJson != null){
@@ -256,8 +256,8 @@ public class Config {
 	 * @return an Object from JSON <br>
 	 * or with the specified default value if could not found the specified key.
 	 */
-	public static Object getConfig(String jsonKey, Object defaultValue, boolean forceReadFileAgain) {
-		Object result = getConfigWithoutDefault(jsonKey, forceReadFileAgain);
+	public static Object get(String jsonKey, Object defaultValue, boolean forceReadFileAgain) {
+		Object result = getWithoutDefault(jsonKey, forceReadFileAgain);
 		if(result == null){
 			Log.d("Config: Can not find JSON key: \"" + jsonKey + "\". Use default value: " + defaultValue);
 			return defaultValue;
@@ -275,8 +275,8 @@ public class Config {
 	 * @return an Object from JSON <br>
 	 * or NULL if it could not be find.
 	 */
-	public static Object getConfigWithoutDefault(String jsonKey) {
-		return getConfigWithoutDefault(jsonKey, false);
+	public static Object getWithoutDefault(String jsonKey) {
+		return getWithoutDefault(jsonKey, false);
 	}
 	
 	/**
@@ -287,8 +287,8 @@ public class Config {
 	 * @return an String from JSON <br>
 	 * or NULL if it could not be find.
 	 */
-	public static String getConfigStrWithoutDefault(String jsonKey) {
-		return (String)(getConfigWithoutDefault(jsonKey));
+	public static String getStringWithoutDefault(String jsonKey) {
+		return (String)(getWithoutDefault(jsonKey));
 	}
 
 	
@@ -301,8 +301,8 @@ public class Config {
 	 * @return an Object from JSON <br>
 	 * or NULL if it could not be find.
 	 */
-	public static Object getConfig(String jsonKey, Object defaultValue) {
-		return getConfig(jsonKey, defaultValue, false);
+	public static Object get(String jsonKey, Object defaultValue) {
+		return get(jsonKey, defaultValue, false);
 	}
 
 
@@ -315,8 +315,8 @@ public class Config {
 	 * @return a String from JSON <br>
 	 * or NULL if it could not be find.
 	 */
-	public static String getConfig(String jsonKey, String defaultValue) {
-		return getConfig(jsonKey, defaultValue, false);
+	public static String get(String jsonKey, String defaultValue) {
+		return get(jsonKey, defaultValue, false);
 	}
 	
 	
@@ -330,8 +330,8 @@ public class Config {
 	 * @return an String object from JSON <br>
 	 * or with the specified default value if could not found the specified key.
 	 */
-	public static String getConfig(String jsonKey, String defaultValue, boolean forceReadFileAgain) {
-		String result = (String) getConfigWithoutDefault(jsonKey, forceReadFileAgain);
+	public static String get(String jsonKey, String defaultValue, boolean forceReadFileAgain) {
+		String result = (String) getWithoutDefault(jsonKey, forceReadFileAgain);
 		if(result == null){
 			return defaultValue;
 		}else{
@@ -352,7 +352,7 @@ public class Config {
 			return defaultValue;
 		}
 		
-		Object foundObject = getConfigWithoutDefault(jsonKey);
+		Object foundObject = getWithoutDefault(jsonKey);
 		if(foundObject == null){
 			return defaultValue;
 		}

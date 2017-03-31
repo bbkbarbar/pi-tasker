@@ -55,7 +55,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		 *  Read date-time format pattern to show "last update" -info..
 		 */
 		// Get this parameter from config JSON.. 
-		WebUIUpdater.dateTimeFormatPattern = Config.getConfig("web ui.datetime format pattern", Defaults.WEBUI_UPDATER_DATE_TIME_FORMAT_PATTERN);
+		WebUIUpdater.dateTimeFormatPattern = Config.get("web ui.datetime format pattern", Defaults.WEBUI_UPDATER_DATE_TIME_FORMAT_PATTERN);
 		sdf = new SimpleDateFormat(WebUIUpdater.dateTimeFormatPattern);
 		
 		
@@ -69,7 +69,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		}else{
 			tempHistoryFeed = DEFAULT_FILENAME_OF_TEMPERATURE_LOG_FEED_FOR_WEBUI;
 		}/**/
-		String tempHistoryFeed = Config.getConfig("web ui.temperature history feed", Defaults.FILENAME_OF_TEMP_LOG_FILE);
+		String tempHistoryFeed = Config.get("web ui.temperature history feed", Defaults.FILENAME_OF_TEMP_LOG_FILE);
 		
 		/*
 		 *  Read path of temperature log feed file..
@@ -78,15 +78,15 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		//HashMap<String, String> config = Config.readBaseConfig();
 		//String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
 		
-		String tempLogFeedPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.getConfig("temp logger.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
+		String tempLogFeedPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.get("temp logger.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
 		this.temperatureFeedLogFile = tempLogFeedPath + tempHistoryFeed;
 		
 		
 		/*
 		 *  Read path of generating log file..
 		 */
-		String generationTimeLogPathFromConfig = FileHandler.guaranteePathSeparatorAtEndOf( Config.getConfig("web ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
-		this.webUiUpdaterLogFile = generationTimeLogPathFromConfig + Config.getConfig("web ui.log file", DEFAULT_FILENAME_OF_WEBUI_UPDATER);
+		String generationTimeLogPathFromConfig = FileHandler.guaranteePathSeparatorAtEndOf( Config.get("web ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
+		this.webUiUpdaterLogFile = generationTimeLogPathFromConfig + Config.get("web ui.log file", DEFAULT_FILENAME_OF_WEBUI_UPDATER);
 		
 		
 		/*

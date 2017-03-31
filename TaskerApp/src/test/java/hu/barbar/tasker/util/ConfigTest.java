@@ -28,7 +28,7 @@ public class ConfigTest extends TestSuite {
 
 		String jsonPathOfWantedValue = "non-existing-key";
 
-		String value = (String) Config.getConfigWithoutDefault(jsonPathOfWantedValue);
+		String value = (String) Config.getWithoutDefault(jsonPathOfWantedValue);
 		assertEquals(null, value);
 
 	}
@@ -40,7 +40,7 @@ public class ConfigTest extends TestSuite {
 
 		String jsonPathOfWantedValue = "testkey";
 
-		String value = (String) Config.getConfigWithoutDefault(jsonPathOfWantedValue);
+		String value = (String) Config.getWithoutDefault(jsonPathOfWantedValue);
 		assertEquals("good_value", value);
 
 	}
@@ -51,11 +51,11 @@ public class ConfigTest extends TestSuite {
 		Config.setConfigSourceJSON(configJsonFilePath);
 
 		String jsonPathOfWantedValue = "log.levels.stdout";
-		String value = (String) Config.getConfigWithoutDefault(jsonPathOfWantedValue);
+		String value = (String) Config.getWithoutDefault(jsonPathOfWantedValue);
 		assertEquals("info", value);
 
 		jsonPathOfWantedValue = "log.levels.fileout";
-		value = (String) Config.getConfigWithoutDefault(jsonPathOfWantedValue);
+		value = (String) Config.getWithoutDefault(jsonPathOfWantedValue);
 		assertEquals("warn", value);
 
 	}
@@ -67,7 +67,7 @@ public class ConfigTest extends TestSuite {
 		Config.setConfigSourceJSON(configJsonFilePath);
 		
 		String jsonPathOfWantedValue = "an other key with space";
-		String value = Config.getConfigStrWithoutDefault(jsonPathOfWantedValue);
+		String value = Config.getStringWithoutDefault(jsonPathOfWantedValue);
 		assertEquals("yes, key can contains space", value);
 
 	}

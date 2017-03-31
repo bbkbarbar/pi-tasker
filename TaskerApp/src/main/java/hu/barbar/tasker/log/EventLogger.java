@@ -38,7 +38,7 @@ public class EventLogger {
 			return false;
 		}
 
-		String eventLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.getConfigStrWithoutDefault("log.path") );
+		String eventLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.getStringWithoutDefault("log.path") );
 		if(eventLogPath == null){
 			Log.w("EventLogger can not initialized!\n" 
 				+ "Can not read path for event log.\n");
