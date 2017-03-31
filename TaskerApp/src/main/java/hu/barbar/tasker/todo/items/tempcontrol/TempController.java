@@ -206,6 +206,7 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 
 	private int lastOutputValue;
 
+	//TODO give summary log of initialized instance
 	public TempController(OutputConfig myOutputConfig, String title, int observedSensor, ArrayList<RuleItem> ruleItems) {
 		super();
 		
@@ -215,6 +216,14 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		this.outputConfig = myOutputConfig;
 		this.observedSensor = observedSensor;
 		this.ruleItems = ruleItems;
+		
+		if(outputConfig == null){
+			Log.e("TempController ("
+					+ title
+					+ ") can not be initialized: OutputConfig is NULL!");
+			this.initialized = false;
+			return;
+		}
 		
 		if(outputConfig.isInvalid()){
 			if(title == null || title.trim().equals(""))
@@ -226,7 +235,7 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		
 		if(this.ruleItems == null || this.ruleItems.size() == 0){
 			if(title == null || title.trim().equals("")){
-				Log.e("CoolerController can not be initialized: No ruleItems!");
+				Log.e("TempController can not be initialized: No ruleItems!");
 			}else{
 				Log.e("CoolerController (" + this.title + ") can not be initialized: No ruleItems!");
 			}
@@ -246,6 +255,14 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		fanStartBoostTimeInMs = Config.getInt(Config.JsonKeys.DEVICE_FAN_START_BOST_TIME_IN_MS, DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS);
 		
 		this.outputConfig = myOutputConfig;
+		
+		if(outputConfig == null){
+			Log.e("TempController ("
+					+ title
+					+ ") can not be initialized: OutputConfig is NULL!");
+			this.initialized = false;
+			return;
+		}
 		
 		this.exceededLevel = NONE;
 		this.initialized = true;
@@ -309,7 +326,6 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 		}
 		
 		
-
 		
 		if(outputConfig.isInvalid()){
 			if(title == null || title.trim().equals(""))
@@ -499,6 +515,12 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 	
 	
 	protected String getRuleStrings(){
+		if(!initialized){
+			Log.w("TempController: Can not getRuleString() because instance"
+					+ ((this.title != null) ? " (" + this.title + ")" : "") 
+					+ " is not initialized.");
+			return "";
+		}
 		String s = "";
 		for(int i=0; i<this.ruleItems.size(); i++){
 			s += this.ruleItems.get(i).getLine( getType() == Type.COOLER );

@@ -20,11 +20,16 @@ public class TempLogger3 extends TempRelatedToDoItemBase {
 	
 	private OutputConfig outputConfigOfCooler = null;
 	
+	private boolean isInitialized = false;
 	
 	
 	public TempLogger3(OutputConfig outputConfigOfCooler) {
 		super();
-		
+		if(outputConfigOfCooler == null){
+			Log.e("TempLogger3: Can not initialite temperature logger instance. OutputConfigOfCooler is null!");
+			isInitialized = false;
+			return;
+		}
 		this.outputConfigOfCooler = outputConfigOfCooler;
 		// Get this parameter from config JSON..
 		String tempLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.get("temp logger.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
@@ -32,6 +37,7 @@ public class TempLogger3 extends TempRelatedToDoItemBase {
 		
 		sdf = new SimpleDateFormat(Config.get("temp logger.datetime parrern for temp log lines", Defaults.DATETIME_PATTERN_OF_TEMPLOG_LINES));
 		
+		isInitialized = true;
 	}
 	
 	
@@ -42,6 +48,12 @@ public class TempLogger3 extends TempRelatedToDoItemBase {
 
 	@Override
 	public void execute() {
+		
+		if(!this.isInitialized){
+			Log.w("TempLogger3: Can not execute: Could not be initialized!");
+			return;
+		}
+		
 		//Sample: 
 		// "2016-07-12 12:29, 26.76, 25.01, 26.00\n" + 	//where 25.60 means 25 + 12% (which means 0.6 in range of 25..30)
 		String line = "\"" + sdf.format(new Date());
