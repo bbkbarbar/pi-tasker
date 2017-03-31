@@ -27,9 +27,6 @@
 		},
 		"humidity sensor":{
 			"input pin":26
-		},
-		"heater":{
-			"energy consumption in kwh":50.0
 		}
 	}
 }
