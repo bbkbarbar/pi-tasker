@@ -28,7 +28,7 @@ public class TempLogger2 extends TempRelatedToDoItemBase {
 		// Get this parameter from config JSON..
 		//HashMap<String, String> config = Config.readBaseConfig();
 		//String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
-		String tempLogPath = Config.getConfig("web_ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
+		String tempLogPath = Config.getConfig("web ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
 		if(tempLogPath.charAt(tempLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
 			tempLogPath += Env.getPathSeparator();
 		}

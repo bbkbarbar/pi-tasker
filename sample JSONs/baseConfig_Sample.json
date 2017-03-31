@@ -1,6 +1,11 @@
 {
 	"log":{
-		"path":"/home/pi/taskerData/logs/"
+		"path":"/home/pi/taskerData/logs/",
+		"levels":{
+			"stdout":"info",
+			"fileout":"warn",
+			"possible_log_levels":"debug, info, warn, error, all"
+		}
 	},
 	"loglevels":{
 		"stdout":"info",
@@ -12,8 +17,8 @@
 		"filename of temperature log":"temp_and_cooler.log",
 		"datetime parrern for temp log lines":"yyyy-MM-dd HH:mm"
 	},
-	"web_ui":{
-		"web ui datetime format pattern":"HH:mm:ss",
+	"web ui":{
+		"datetime format pattern":"HH:mm:ss",
 		"path for log folder":"/home/pi/taskerData/logs/",
 		"temperature_history_feed":"temp_and_cooler.log",
 		"log file":"web_ui_updater.log"

@@ -38,7 +38,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 	private static String dateTimeFormatPattern = Defaults.WEBUI_UPDATER_DATE_TIME_FORMAT_PATTERN;
 	
 	
-	private String temperatureLogFile = null;
+	private String temperatureFeedLogFile = null;
 	
 	private String webUiUpdaterLogFile = null;
 	
@@ -55,11 +55,11 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		 *  Read date-time format pattern to show "last update" -info..
 		 */
 		// Get this parameter from config JSON.. 
-		WebUIUpdater.dateTimeFormatPattern = Config.getConfig("web ui datetime format pattern", Defaults.WEBUI_UPDATER_DATE_TIME_FORMAT_PATTERN);
+		WebUIUpdater.dateTimeFormatPattern = Config.getConfig("web ui.datetime format pattern", Defaults.WEBUI_UPDATER_DATE_TIME_FORMAT_PATTERN);
 		sdf = new SimpleDateFormat(WebUIUpdater.dateTimeFormatPattern);
 		
 		
-		String tempHistoryFeed = Config.getConfig("web_ui.temperature_history_feed", Defaults.FILENAME_OF_TEMP_LOG_FILE);
+		String tempHistoryFeed = Config.getConfig("web ui.temperature_history_feed", Defaults.FILENAME_OF_TEMP_LOG_FILE);
 
 		// Get this parameter from config JSON.. 
 		/*
@@ -72,29 +72,28 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		
 		
 		/*
-		 *  Read path of temperature log file..
+		 *  Read path of temperature log feed file..
 		 */
 		// Get this parameter from config JSON.. 
 		//HashMap<String, String> config = Config.readBaseConfig();
 		//String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
 		
-		String tempLogPath = Config.getConfig("web_ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
-		if(tempLogPath.charAt(tempLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
-			tempLogPath += Env.getPathSeparator();
+		String tempLogFeedPath = Config.getConfig("temp logger.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
+		if(tempLogFeedPath.charAt(tempLogFeedPath.length()-1) != Env.getPathSeparator().charAt(0)){
+			tempLogFeedPath += Env.getPathSeparator();
 		}
-		
-		this.temperatureLogFile = tempLogPath + tempHistoryFeed;
+		this.temperatureFeedLogFile = tempLogFeedPath + tempHistoryFeed;
 		
 		
 		/*
 		 *  Read path of generating log file..
 		 */
-		String generationTimeLogPathFromConfig = Config.getConfig("web_ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
+		String generationTimeLogPathFromConfig = Config.getConfig("web ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
 		if(generationTimeLogPathFromConfig.charAt(generationTimeLogPathFromConfig.length()-1) != Env.getPathSeparator().charAt(0)){
-			tempLogPath += Env.getPathSeparator();
+			generationTimeLogPathFromConfig += Env.getPathSeparator();
 		}
-		//TODO check this: ->
-		this.webUiUpdaterLogFile = tempLogPath + Config.getConfig("web_ui.log file", DEFAULT_FILENAME_OF_WEBUI_UPDATER);
+		this.webUiUpdaterLogFile = generationTimeLogPathFromConfig + Config.getConfig("web ui.log file", DEFAULT_FILENAME_OF_WEBUI_UPDATER);
+		
 		
 		/*
 		 *  Get output config where cooler and heater is attached.
@@ -224,7 +223,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 			htmlResult.addAll(tempLines);
 		}else{
 			
-			tempLines = FileHandler.readLines(temperatureLogFile, true);
+			tempLines = FileHandler.readLines(temperatureFeedLogFile, true);
 			String line;
 			for(int i=0; i<tempLines.size(); i++){
 				line = tempLines.get(i);

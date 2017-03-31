@@ -1,8 +1,11 @@
 {
-	"loglevels":{
-		"stdout":"info",
-		"fileout":"warn",
-		"possible_log_levels":"debug, info, warn, error, all"
+	"log":{
+		"path":"/home/pi/taskerData/logs/",
+		"levels":{
+			"stdout":"info",
+			"fileout":"warn",
+			"possible_log_levels":"debug, info, warn, error, all"
+		}
 	},
 	"testkey":"good_value",
 	"multi":{

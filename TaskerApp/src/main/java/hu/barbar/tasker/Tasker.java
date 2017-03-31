@@ -93,8 +93,8 @@ public class Tasker {
 		Config.setConfigSourceJSON(Env.NAME_OF_DATA_FOLDER + Env.getPathSeparator() + Env.BASE_CONFIG_JSON);
 
 		// Read base-parameters from JSON
-		int logLevelStdOut = Log.getLogLevelFromString(Config.getConfig("loglevels.stdout", "info"));
-		int logLevelFiledOut = Log.getLogLevelFromString(Config.getConfig("loglevels.fileout", "warn"));
+		int logLevelStdOut = Log.getLogLevelFromString(Config.getConfig("log.levels.stdout", "info"));
+		int logLevelFiledOut = Log.getLogLevelFromString(Config.getConfig("log.levels.fileout", "warn"));
 
 		//Config.getConfigWithoutDefault("");
 
