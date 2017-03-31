@@ -25,20 +25,27 @@ public class Mailer {
 		mailConfig = FileHandler.readConfig(mailConfigFile);
 		
 		if(mailConfig == null){
-			//TODO handle case when config file can not be read.
 			Log.w("Mailer can not initialized!\n" 
 				 +"Missing mail config: (" + mailConfigFile + ")");
-			return false;
+			configurationAvailable = false;
+			return configurationAvailable;
 		}
 		
-		if((mailConfig.get(Config.KEY_MAIL_SENDER_ACCOUNT) == null) || 
-		   (mailConfig.get(Config.KEY_MAIL_SENDER_P) == null) ){
-			Log.w("Mailer: Email config can not be found.\n");
-			
+		if(mailConfig.get(Config.KEY_MAIL_SENDER_ACCOUNT) == null){
+			Log.w("Mailer can not initialized!\n" 
+					 +"Email account missing.\n");
 			configurationAvailable = false;
-		}else{
-			configurationAvailable = true;
+			return configurationAvailable;
 		}
+		
+		if(mailConfig.get(Config.KEY_MAIL_SENDER_P) == null){
+			Log.w("Mailer can not initialized!\n" 
+					 +"Email pw missing.\n");
+			configurationAvailable = false;
+			return configurationAvailable;
+		}
+			
+		configurationAvailable = true;
 		
 		return configurationAvailable;
 	}
