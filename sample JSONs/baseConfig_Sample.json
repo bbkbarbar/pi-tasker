@@ -17,6 +17,7 @@
 	"web ui":{
 		"datetime format pattern":"HH:mm:ss",
 		"path for log folder":"/home/pi/taskerData/logs/",
+		"path of live web content":"/var/www/html/",
 		"temperature history feed":"temp_and_cooler.log",
 		"log file":"web_ui_updater.log"
 	},

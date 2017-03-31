@@ -11,6 +11,8 @@ public class Env {
 	
 	private static boolean runningOnTargetDeviceCached = false;
 	
+	private static String pathOfWebContent = null;
+	
 	
 	/**
 	 * Name of data folder to store files of tasker application
@@ -58,8 +60,10 @@ public class Env {
 	 * @return path of web UI content  
 	 */
 	public static String getWebContentFolderPath(){
-		//TODO
-		return "/var/www/html/";
+		if(pathOfWebContent == null){
+			pathOfWebContent = Config.get("web ui.path of live web content", Defaults.PATH_OF_LIVE_WEB_CONTENT);
+		}
+		return pathOfWebContent;
 	}
 	
 	/**
