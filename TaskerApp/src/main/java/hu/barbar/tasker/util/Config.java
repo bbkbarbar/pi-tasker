@@ -357,7 +357,54 @@ public class Config {
 		
 	}
 	
-
+	
+	/**
+	 * Get Float parameters from config JSON with specified default value
+	 * @param jsonKey The path of wanted config value (e.g.: loglevels.stdout)
+	 * @param defaultValue to define the return value if specified key could not be found.
+	 * @return a float value what found in JSON under specified key-path <or>
+	 * with the defined default value
+	 */
+	public static float getFloat(String jsonKey, float defaultValue) {
+		if(jsonKey == null){
+			return defaultValue;
+		}
+		Object foundObject = getWithoutDefault(jsonKey);
+		if(foundObject == null){
+			// not found
+			return defaultValue;
+		}
+		try{
+			Float value = Float.valueOf( (foundObject + "" ) );
+			return value;
+		}catch (NumberFormatException nfe) {
+			return defaultValue;
+		}
+	}
+	
+	/**
+	 * Get Float parameters from config JSON with specified default value
+	 * @param jsonKey The path of wanted config value (e.g.: loglevels.stdout)
+	 * @param defaultValue to define the return value if specified key could not be found.
+	 * @return a double value what found in JSON under specified key-path <or>
+	 * with the defined default value
+	 */
+	public static double getDouble(String jsonKey, double defaultValue) {
+		if(jsonKey == null){
+			return defaultValue;
+		}
+		Object foundObject = getWithoutDefault(jsonKey);
+		if(foundObject == null){
+			// not found
+			return defaultValue;
+		}
+		try{
+			Double value = Double.valueOf( (foundObject + "" ) );
+			return value;
+		}catch (NumberFormatException nfe) {
+			return defaultValue;
+		}
+	}
 	
 
 	/**
@@ -413,5 +460,7 @@ public class Config {
 		}
 	}
 
+	
 
+	
 }

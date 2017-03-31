@@ -223,7 +223,7 @@ public class Tasker {
 			 */
 			heaterUsageLog = new UsageLog();
 			//TODO: load energy consumption from config file or json.
-			heaterUsageLog.setConsumpltion(50);
+			heaterUsageLog.setConsumpltion( Config.getFloat("devices.heater.energy consumption in kwh", 0f) );
 			heaterUsageLog.setEnabled(true);
 
 

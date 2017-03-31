@@ -18,6 +18,9 @@
 	"devices":{
 		"fan":{
 			"start boost time in ms":800
+		},
+		"heater":{
+			"energy consumption in kwh":50.1
 		}
 	}
 
