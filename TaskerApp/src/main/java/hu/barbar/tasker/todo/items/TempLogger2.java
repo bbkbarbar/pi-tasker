@@ -2,21 +2,20 @@ package hu.barbar.tasker.todo.items;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
 import hu.barbar.tasker.util.Config;
+import hu.barbar.tasker.util.Defaults;
 import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.TemperatureResult;
 import hu.barbar.util.FileHandler;
 import hu.barbar.util.logger.Log;
 
 public class TempLogger2 extends TempRelatedToDoItemBase {
-
-	private static final String PATTERN_OF_TEMPLOG_LINES = "yyyy-MM-dd HH:mm";
-
+	
 	private String temperatureLogFile = null;
 	
+	//TODO: move this default value to Defaults and load it from config JSON
 	private String DEFAULT_FILENAME_OF_TEMP_LOG_FILE = "temp.log";
 	
 	private SimpleDateFormat sdf = null;
@@ -26,14 +25,16 @@ public class TempLogger2 extends TempRelatedToDoItemBase {
 	public TempLogger2() {
 		super();
 		
-		HashMap<String, String> config = Config.readBaseConfig();
-		String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		// Get this parameter from config JSON..
+		//HashMap<String, String> config = Config.readBaseConfig();
+		//String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		String tempLogPath = Config.getConfig("web_ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
 		if(tempLogPath.charAt(tempLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
 			tempLogPath += Env.getPathSeparator();
 		}
 		this.temperatureLogFile = tempLogPath + DEFAULT_FILENAME_OF_TEMP_LOG_FILE;
 		
-		sdf = new SimpleDateFormat(TempLogger2.PATTERN_OF_TEMPLOG_LINES);
+		sdf = new SimpleDateFormat(Config.getConfig("temp logger.datetime parrern for temp log lines", Defaults.DATETIME_PATTERN_OF_TEMPLOG_LINES));
 		
 	}
 	

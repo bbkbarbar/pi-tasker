@@ -3,12 +3,12 @@ package hu.barbar.tasker.todo.items;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import hu.barbar.tasker.TaskExecutor;
 import hu.barbar.tasker.Tasker;
 import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
 import hu.barbar.tasker.util.Config;
+import hu.barbar.tasker.util.Defaults;
 import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.tasker.util.TemperatureResult;
@@ -24,7 +24,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 
 	//private static final String DEFAULT_FILENAME_OF_TEMP_LOG_FILE = "temp.log";
 
-	private static final String DEFAULT_FILENAME_OF_TEMPERATURE_LOG_FEED_FOR_WEBUI = "temperature.log";
+	private static final String DEFAULT_FILENAME_OF_WEBUI_UPDATER = "web_ui_updater.log";
 	
 	private static final String PART_COOLER_ACTIVE = "<img src=\"res/cooler_active.png\" alt=\"Cooler active\" style=\"width:64px;height:64px;\">";
 	private static final String PART_COOLER_NOT_ACTIVE = "<img src=\"res/cooler_NOT_active.png\" alt=\"Cooler not active\" style=\"width:64px;height:64px;\">";
@@ -33,16 +33,14 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 	
 	private SimpleDateFormat sdf = null;
 	
-	public static final String DEFAULT_DATE_TIME_FORMAT_PATTERN = "yyyy.MM.dd HH:mm:ss";
+	//public static final String DEFAULT_PATH_FOR_LOG_FOLDER = "/home/pi/taskerData/logs/";
 	
-	public static final String DEFAULT_PATH_FOR_LOG_FOLDER = "/home/pi/taskerData/logs/";
-	
-	private static String dateTimeFormatPattern = DEFAULT_DATE_TIME_FORMAT_PATTERN;
+	private static String dateTimeFormatPattern = Defaults.WEBUI_UPDATER_DATE_TIME_FORMAT_PATTERN;
 	
 	
 	private String temperatureLogFile = null;
 	
-	private String generationTimeLogFile = null;
+	private String webUiUpdaterLogFile = null;
 	
 	private UsageLog heaterUsageLog = null;
 	
@@ -57,11 +55,11 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		 *  Read date-time format pattern to show "last update" -info..
 		 */
 		// Get this parameter from config JSON.. 
-		WebUIUpdater.dateTimeFormatPattern = Config.getConfig("web ui datetime format pattern", DEFAULT_DATE_TIME_FORMAT_PATTERN);
+		WebUIUpdater.dateTimeFormatPattern = Config.getConfig("web ui datetime format pattern", Defaults.WEBUI_UPDATER_DATE_TIME_FORMAT_PATTERN);
 		sdf = new SimpleDateFormat(WebUIUpdater.dateTimeFormatPattern);
 		
 		
-		String tempHistoryFeed = Config.getConfig("web_ui.temperature_history_feed", DEFAULT_FILENAME_OF_TEMPERATURE_LOG_FEED_FOR_WEBUI);
+		String tempHistoryFeed = Config.getConfig("web_ui.temperature_history_feed", Defaults.FILENAME_OF_TEMP_LOG_FILE);
 
 		// Get this parameter from config JSON.. 
 		/*
@@ -80,7 +78,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		//HashMap<String, String> config = Config.readBaseConfig();
 		//String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
 		
-		String tempLogPath = Config.getConfig("web_ui.path for log folder", DEFAULT_PATH_FOR_LOG_FOLDER);
+		String tempLogPath = Config.getConfig("web_ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
 		if(tempLogPath.charAt(tempLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
 			tempLogPath += Env.getPathSeparator();
 		}
@@ -91,12 +89,12 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		/*
 		 *  Read path of generating log file..
 		 */
-		String generationTimeLogPathFromConfig = Config.getConfig("web_ui.path for log folder", DEFAULT_PATH_FOR_LOG_FOLDER);
+		String generationTimeLogPathFromConfig = Config.getConfig("web_ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
 		if(generationTimeLogPathFromConfig.charAt(generationTimeLogPathFromConfig.length()-1) != Env.getPathSeparator().charAt(0)){
 			tempLogPath += Env.getPathSeparator();
 		}
 		//TODO check this: ->
-		this.generationTimeLogFile = tempLogPath + DEFAULT_FILENAME_OF_TEMPERATURE_LOG_FEED_FOR_WEBUI;
+		this.webUiUpdaterLogFile = tempLogPath + Config.getConfig("web_ui.log file", DEFAULT_FILENAME_OF_WEBUI_UPDATER);
 		
 		/*
 		 *  Get output config where cooler and heater is attached.
@@ -301,10 +299,10 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		long elapsedTime = endTime - startTime;
 		
 		String line2Log = elapsedTime + "ms ";
-		if(FileHandler.appendToFile(this.generationTimeLogFile, line2Log)){
+		if(FileHandler.appendToFile(this.webUiUpdaterLogFile, line2Log)){
 			// Success, do nothing
 		}else{
-			Log.e("WebUIUpdater :: Error while try to write temp log to file: " + generationTimeLogFile);
+			Log.e("WebUIUpdater :: Error while try to write temp log to file: " + webUiUpdaterLogFile);
 		}
 		
 		

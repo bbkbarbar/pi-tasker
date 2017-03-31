@@ -345,7 +345,7 @@ public class Config {
 	private static Object getElementFromJson(String jsonKey, JSONObject json){
 
 		if(json == null){
-			Log.e("Could not read find key in JSON; JSON object is null!");
+			Log.e("Could not read find key in JSON: \"" + jsonKey + "\"; JSON object is null!");
 			return null;
 		}
 

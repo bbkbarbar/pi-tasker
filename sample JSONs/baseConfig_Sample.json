@@ -4,6 +4,11 @@
 		"fileout":"warn",
 		"possible_log_levels":"debug, info, warn, error, all"
 	},
+	"temp logger":{
+		"path for log folder":"/home/pi/taskerData/logs/",
+		"filename of temperature log":"temp_and_cooler.log",
+		"datetime parrern for temp log lines":"yyyy-MM-dd HH:mm"
+	},
 	"web_ui":{
 		"web ui datetime format pattern":"HH:mm:ss",
 		"path for log folder":"/home/pi/taskerData/logs/",

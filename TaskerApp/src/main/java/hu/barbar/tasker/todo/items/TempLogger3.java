@@ -2,11 +2,11 @@ package hu.barbar.tasker.todo.items;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import hu.barbar.tasker.Tasker;
 import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
 import hu.barbar.tasker.util.Config;
+import hu.barbar.tasker.util.Defaults;
 import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.tasker.util.TemperatureResult;
@@ -15,30 +15,29 @@ import hu.barbar.util.logger.Log;
 
 public class TempLogger3 extends TempRelatedToDoItemBase {
 
-	private static final String PATTERN_OF_TEMPLOG_LINES = "yyyy-MM-dd HH:mm";
-
 	private String temperatureLogFile = null;
-	
-	private String DEFAULT_FILENAME_OF_TEMP_LOG_FILE = "temp_and_cooler.log";
 	
 	private SimpleDateFormat sdf = null;
 	
 	private OutputConfig outputConfigOfCooler = null;
 	
 	
+	
 	public TempLogger3(OutputConfig outputConfigOfCooler) {
 		super();
 		
 		this.outputConfigOfCooler = outputConfigOfCooler;
-		
-		HashMap<String, String> config = Config.readBaseConfig();
-		String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		// Get this parameter from config JSON..
+		//HashMap<String, String> config = Config.readBaseConfig();
+		//String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		String tempLogPath = Config.getConfig("temp logger.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
 		if(tempLogPath.charAt(tempLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
 			tempLogPath += Env.getPathSeparator();
 		}
-		this.temperatureLogFile = tempLogPath + DEFAULT_FILENAME_OF_TEMP_LOG_FILE;
 		
-		sdf = new SimpleDateFormat(TempLogger3.PATTERN_OF_TEMPLOG_LINES);
+		this.temperatureLogFile = tempLogPath + Config.getConfig("temp logger.filename of temperature log", Defaults.FILENAME_OF_TEMP_LOG_FILE);
+		
+		sdf = new SimpleDateFormat(Config.getConfig("temp logger.datetime parrern for temp log lines", Defaults.DATETIME_PATTERN_OF_TEMPLOG_LINES));
 		
 	}
 	
