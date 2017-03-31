@@ -214,6 +214,36 @@ public class Config {
 	}
 
 	
+	
+	/*
+	 *  LOAD PARAMETERS FROM ANY JSON
+	 */
+	
+	public static Object readFromJson(JSONObject json, String jsonKey) {
+		JSONObject jsonContent = FileHandler.readJSON(configSourceJSON);
+		if(jsonContent != null){
+			return getElementFromJson(jsonKey, json);
+		}else{
+			return null;
+		}
+	}
+	
+	public static Object readFromJson(JSONObject json, String jsonKey, Object defaultValue) {
+		JSONObject jsonContent = FileHandler.readJSON(configSourceJSON);
+		if(jsonContent != null){
+			Object result = getElementFromJson(jsonKey, json);
+			if(result != null){
+				return result;
+			}
+		}
+		return defaultValue;
+	}
+	
+	
+	/*
+	 *      LOAD PARAMETERS FROM CONFIG_SOURCE_JSON
+	 */
+	
 
 	/**
 	 * Get parameters from config JSON without default value.
