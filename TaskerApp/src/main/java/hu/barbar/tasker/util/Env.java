@@ -88,6 +88,20 @@ public class Env {
 	}
 	
 	
+	/**
+	 * Add a "\" or a "/" (environment dependently) at the end of folder-path
+	 * @param path
+	 * @return
+	 */
+	public static String guaranteePathSeparatorAtEndOf(String folderPath){
+		if(folderPath.charAt(folderPath.length()-1) != Env.getPathSeparator().charAt(0)){
+			return folderPath + Env.getPathSeparator();
+		}else{
+			return folderPath;
+		}
+	}
+	
+	
 	public static void d(){
 		
 		Map<String, String> env = System.getenv();

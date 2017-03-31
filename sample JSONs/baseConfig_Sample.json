@@ -10,6 +10,7 @@
 	},
 	"temp logger":{
 		"path for log folder":"/home/pi/taskerData/logs/",
+		"filename of basic temperature log":"temp.log",
 		"filename of temperature log":"temp_and_cooler.log",
 		"datetime parrern for temp log lines":"yyyy-MM-dd HH:mm"
 	},
