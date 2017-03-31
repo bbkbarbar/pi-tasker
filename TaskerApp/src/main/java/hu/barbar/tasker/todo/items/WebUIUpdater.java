@@ -59,9 +59,9 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		sdf = new SimpleDateFormat(WebUIUpdater.dateTimeFormatPattern);
 		
 		
-		String tempHistoryFeed = Config.getConfig("web ui.temperature_history_feed", Defaults.FILENAME_OF_TEMP_LOG_FILE);
+		
 
-		// Get this parameter from config JSON.. 
+		// Get this parameter from config JSON..
 		/*
 		HashMap<String, String> conf = Config.readBaseConfig();
 		if(conf.containsKey(Config.KEY_FILENAME_FEED_WEB_UI)){
@@ -69,7 +69,7 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		}else{
 			tempHistoryFeed = DEFAULT_FILENAME_OF_TEMPERATURE_LOG_FEED_FOR_WEBUI;
 		}/**/
-		
+		String tempHistoryFeed = Config.getConfig("web ui.temperature history feed", Defaults.FILENAME_OF_TEMP_LOG_FILE);
 		
 		/*
 		 *  Read path of temperature log feed file..

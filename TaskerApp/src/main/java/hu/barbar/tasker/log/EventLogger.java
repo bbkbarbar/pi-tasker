@@ -11,7 +11,7 @@ import hu.barbar.util.logger.Log;
 
 public class EventLogger {
 
-	private static final String DEFAULT_FILE_NAME = "event.log";
+	private static final String DEFAULT_FILE_NAME_EVENT_LOG = "event.log";
 	
 	private static boolean initialized = false;
 	
@@ -38,7 +38,7 @@ public class EventLogger {
 			return false;
 		}
 
-		String eventLogPath = Config.getConfigStrWithoutDefault("log.path");
+		String eventLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.getConfigStrWithoutDefault("log.path") );
 		if(eventLogPath == null){
 			Log.w("EventLogger can not initialized!\n" 
 				+ "Can not read path for event log.\n");
@@ -48,7 +48,7 @@ public class EventLogger {
 		if(eventLogPath.charAt(eventLogPath.length()-1) != Env.getPathSeparator().charAt(0)){
 			eventLogPath += Env.getPathSeparator();
 		}
-		eventLogFile = eventLogPath + DEFAULT_FILE_NAME;
+		eventLogFile = eventLogPath + DEFAULT_FILE_NAME_EVENT_LOG;
 		
 		
 		sdf = new SimpleDateFormat(DATE_PATTERN_OF_EVENTLOG_LINES);

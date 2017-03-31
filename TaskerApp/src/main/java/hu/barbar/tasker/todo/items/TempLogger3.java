@@ -7,7 +7,6 @@ import hu.barbar.tasker.Tasker;
 import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
 import hu.barbar.tasker.util.Config;
 import hu.barbar.tasker.util.Defaults;
-import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.tasker.util.TemperatureResult;
 import hu.barbar.util.FileHandler;
@@ -28,11 +27,7 @@ public class TempLogger3 extends TempRelatedToDoItemBase {
 		
 		this.outputConfigOfCooler = outputConfigOfCooler;
 		// Get this parameter from config JSON..
-		//HashMap<String, String> config = Config.readBaseConfig();
-		//String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
-		
 		String tempLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.getConfig("temp logger.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
-		
 		this.temperatureLogFile = tempLogPath + Config.getConfig("temp logger.filename of temperature log", Defaults.FILENAME_OF_TEMP_LOG_FILE);
 		
 		sdf = new SimpleDateFormat(Config.getConfig("temp logger.datetime parrern for temp log lines", Defaults.DATETIME_PATTERN_OF_TEMPLOG_LINES));

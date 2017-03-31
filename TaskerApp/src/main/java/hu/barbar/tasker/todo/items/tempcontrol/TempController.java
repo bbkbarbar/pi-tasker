@@ -199,7 +199,7 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 
 	private int minimumCoolerAloneStartValue = DEFAULT_MINIMUM_COOLER_ALONE_START_VALUE;
 	
-	private static final long DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS = 600;
+	private static final int DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS = 1000; // for safety reason (about 600-800ms is absolutely OK)
 	
 	private long fanStartBoostTimeInMs = DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS;
 	
@@ -241,29 +241,10 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 	
 	public TempController(OutputConfig myOutputConfig, JSONObject coolerControllerJson) {
 		super();
+
+		minimumCoolerAloneStartValue = Config.getInt("devices.fan.minimum start value", DEFAULT_MINIMUM_COOLER_ALONE_START_VALUE);
 		
-		HashMap<String, String> conf = Config.readBaseConfig();
-		String configStr = null;
-		if(conf.containsKey(Config.KEY_MIN_COOLER_ALONE_START_VALUE)){
-			configStr = conf.get(Config.KEY_MIN_COOLER_ALONE_START_VALUE);
-			try{
-				minimumCoolerAloneStartValue = Integer.parseInt(configStr);
-			}catch(Exception canGetNumberFormatException){
-				minimumCoolerAloneStartValue = DEFAULT_MINIMUM_COOLER_ALONE_START_VALUE;
-			}
-		}else{
-			minimumCoolerAloneStartValue = DEFAULT_MINIMUM_COOLER_ALONE_START_VALUE;
-		}
-		if(conf.containsKey(Config.KEY_FAN_START_BOOST_TIME_IN_MS)){
-			configStr = conf.get(Config.KEY_FAN_START_BOOST_TIME_IN_MS);
-			try{
-				fanStartBoostTimeInMs = Integer.parseInt(configStr);
-			}catch(Exception canGetNumberFormatException){
-				fanStartBoostTimeInMs = DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS;
-			}
-		}else{
-			fanStartBoostTimeInMs = DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS;
-		}
+		fanStartBoostTimeInMs = Config.getInt("devices.fan.start boost time in ms", DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS);
 		
 		this.outputConfig = myOutputConfig;
 		

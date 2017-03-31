@@ -27,7 +27,7 @@ public class TempLogger extends TempRelatedToDoItemBase {
 		super();
 		
 		HashMap<String, String> config = Config.readBaseConfig();
-		String tempLogPath = FileHandler.guaranteePathSeparatorAtEndOf( config.get(Config.KEY_PATH_OF_LOG_FOLDER) );
+		String tempLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.getConfig("temp logger.path for log folder", "") );
 		this.temperatureLogFile = tempLogPath + DEFAULT_FILENAME_OF_TEMP_LOG_FILE;
 		
 		sdf = new SimpleDateFormat(TempLogger.PATTERN_OF_TEMPLOG_LINES);
