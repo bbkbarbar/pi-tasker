@@ -2,8 +2,7 @@ package hu.barbar.tasker.util;
 
 public class Defaults {
 
-	public static final String LOG_PATH = Env.getDataFolderPath() + "logs" + Env.getPathSeparator();
-	public static final String PATH_FOR_LOG_FOLDER = "/home/pi/taskerData/logs/";
+	public static final String PATH_FOR_LOG_FOLDER = Env.getDataFolderPath() + "logs" + Env.getPathSeparator();
 	public static final String LOG_FILENAME = "tasker.log";
 	
 	public static final String FILENAME_OF_TEMP_LOG_FILE = "temp_and_cooler.log";
