@@ -90,7 +90,8 @@ public class Tasker {
 				+ getTimeStamp(new Date())
 				+ ")\nBuild: " + buildNum + "\n");/**/
 
-		Config.setConfigSourceJSON(Env.NAME_OF_DATA_FOLDER + Env.getPathSeparator() + Env.BASE_CONFIG_JSON);
+		
+		Config.setConfigSourceJSON(Env.getDataFolderPath() + Env.getPathSeparator() + Env.BASE_CONFIG_JSON);
 
 		// Read base-parameters from JSON
 		int logLevelStdOut = Log.getLogLevelFromString(Config.getConfig("log.levels.stdout", "info"));
@@ -272,10 +273,13 @@ public class Tasker {
 			/*
 			 *  Temperature warnings
 			 */
-			// Temporary disabled because of temperature sensor problem
-			myWorker.addTempWarnings(
-					TempWarning.buildInstancesFromJSON("TempWarnings.json")
-			);
+			if(Env.runningOnTargetDevice()){
+				myWorker.addTempWarnings(
+						TempWarning.buildInstancesFromJSON("TempWarnings.json")
+				);
+			}else{
+				//Disable this in dev-env
+			}
 
 
 			myWorker.start();
