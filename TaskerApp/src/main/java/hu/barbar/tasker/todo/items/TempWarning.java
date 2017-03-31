@@ -21,6 +21,8 @@ import hu.barbar.util.logger.Log;
 
 public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSONInterface {
 
+	private static final String NAME = "TempWarning";
+	
 	private static final String DATE_TIME_FORMAT_PATTERN = "yyyy.MM.dd HH:mm";
 
 	private float limitValue = TEMPERATURE_VALUE_UNDEFINED;
@@ -101,6 +103,8 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 	 */
 	public TempWarning(JSONObject json) {
 		super();
+		
+		//TODO: Use Config.readFromJson() method here
 		
 		if(json == null){
 			String errorMessage = "Can not create TempWarning item because JSONObject is null.";
@@ -343,7 +347,6 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 	private void sendWarningEmails(float currentTemp) {
 		
 		if(recipientList != null && recipientList.size() > 0){
-			//TODO
 			
 			for(int i=0; i<recipientList.size(); i++){
 				String to = recipientList.get(i);
@@ -353,13 +356,15 @@ public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSON
 			}
 
 			return;
+		}else{
+			Log.e(NAME + ": Can not send warning emails because recipientList is NULL!");
 		}
 		
 		if(defaultNotificationRecipient != null){
 			sendWarningEmailTo(defaultNotificationRecipient, currentTemp);
 			return;
 		}else{
-			Log.w("TempWarning: Can not send warning email because defaultAddresse is null and list is null too.");
+			Log.e(NAME + ": Can not send warning email because defaultAddresse is null and list is null too.");
 		}
 		
 	}
