@@ -3,7 +3,6 @@ package hu.barbar.tasker;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import org.json.simple.JSONObject;
 
@@ -92,7 +91,7 @@ public class Tasker {
 				+ ")\nBuild: " + buildNum + "\n");/**/
 
 		
-		Config.setConfigSourceJSON(Env.getDataFolderPath() + Env.getPathSeparator() + Env.BASE_CONFIG_JSON);
+		Config.setConfigSourceJSON(Env.getDataFolderPath() + Env.getPathSeparator() + Config.FILENAME_BASE_CONFIG_JSON);
 
 		// Init Logger instace with logging parameters from baseConid JSON
 		Log.init(
@@ -181,9 +180,9 @@ public class Tasker {
 			/*
 			 * Scheduled output events
 			 */
-			OutputEventScheduler scheduledOutputEvents = new OutputEventScheduler(Env.getDataFolderPath() + "scheduledOutputEvents.json");
+			OutputEventScheduler scheduledOutputEvents = new OutputEventScheduler(Env.getDataFolderPath() + Config.FILENAME_SCHEDULED_OUTPUT_EVENT_JSON);
 			myWorker.addToDoItem(scheduledOutputEvents);
-			Log.d("Scheduled output events loaded from \"" + "scheduledOutputEvents.json" + "\"");
+			Log.d("Scheduled output events loaded from \"" + Config.FILENAME_SCHEDULED_OUTPUT_EVENT_JSON + "\"");
 
 
 			/*
@@ -191,13 +190,13 @@ public class Tasker {
 			 */
 
 			CoolerController cc = null;
-			JSONObject json = FileHandler.readJSON(Env.getDataFolderPath() + "coolerController.json");
+			JSONObject json = FileHandler.readJSON(Env.getDataFolderPath() + Config.FILENAME_COOLER_CONTROLLER_JSON);
 			if(JSONHelper.matchingObjectType(json, "CoolerController") > 0){
 				/*
 				 *  Load cooler controller from json
 				 */
 				cc = new CoolerController(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_COOLER), json);
-				Log.d("CoolerController loaded from \"" + "coolerController.json" + "\"");
+				Log.d("CoolerController loaded from \"" + Config.FILENAME_COOLER_CONTROLLER_JSON + "\"");
 			}else{
 				/*
 				 *  Create new cooler controller
@@ -233,13 +232,13 @@ public class Tasker {
 			 */
 
 			HeaterController hc = null;
-			json = FileHandler.readJSON(Env.getDataFolderPath() + "heaterController.json");
+			json = FileHandler.readJSON(Env.getDataFolderPath() + Config.FILENAME_HEATER_CONTROLLER_JSON);
 			if(JSONHelper.matchingObjectType(json, "HeaterController") > 0){
 				/*
 				 *  Load heater controller from json
 				 */
 				hc = new HeaterController(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_HEATER), json);
-				Log.d("HeaterController loaded from \"" + "heaterController.json" + "\"");
+				Log.d("HeaterController loaded from \"" + Config.FILENAME_HEATER_CONTROLLER_JSON + "\"");
 			}else{
 				/*
 				 *  Create new heater controller
@@ -275,7 +274,7 @@ public class Tasker {
 			 */
 			if(Env.runningOnTargetDevice()){
 				myWorker.addTempWarnings(
-						TempWarning.buildInstancesFromJSON("TempWarnings.json")
+						TempWarning.buildInstancesFromJSON(Config.FILENAME_TEMPERATURE_WARNINGS_JSON)
 				);
 			}else{
 				//Disable this in dev-env
@@ -301,8 +300,6 @@ public class Tasker {
 		Log.i(getWorkerInfos());
 		Log.i("\n==============\n");
 
-
-		HashMap<String, OutputConfig> test = Config.readOutputConfigJSON(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON);
 
 	}
 
@@ -479,7 +476,6 @@ public class Tasker {
 							OutputConfig outputConfigForWantedPort = new OutputConfig(OutputConfig.Type.IO, pinNum);
 							int state = Tasker.getOutputState(outputConfigForWantedPort);
 
-							//TODO: separator-t valami common-osztalyban tarolni, onnan hasznalni
 							myServer.sendToClient(new Msg("IO_state " + pinNum + " " + state, Msg.Types.PLAIN_TEXT), clientId);
 						}
 						else{ // invalid pinNumber

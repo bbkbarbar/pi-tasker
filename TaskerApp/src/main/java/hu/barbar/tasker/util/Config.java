@@ -23,12 +23,22 @@ public class Config {
 
 	public static final String FILENAME_MAIL_CONFIG = "mail.conf";
 
-	public static final String FILENAME_BASE_CONFIG = "base.conf";
+	// Not used since build 110
+	//public static final String FILENAME_BASE_CONFIG = "base.conf";
+	
+	public static final String FILENAME_BASE_CONFIG_JSON = "baseConfig.json";
 
 	public static final String FILENAME_PINOUT_CONFIG = "pinout.conf";
 
 	public static final String FILENAME_PINOUT_CONFIG_JSON = "outputConfig.json";
+	
+	public static final String FILENAME_SCHEDULED_OUTPUT_EVENT_JSON = "scheduledOutputEvents.json";
 
+	public static final String FILENAME_COOLER_CONTROLLER_JSON = "coolerController.json";
+	
+	public static final String FILENAME_HEATER_CONTROLLER_JSON = "heaterController.json";
+	
+	public static final String FILENAME_TEMPERATURE_WARNINGS_JSON = "TempWarnings.json";
 
 
 	/**
@@ -38,32 +48,13 @@ public class Config {
 	public static final String KEY_MAIL_SENDER_ACCOUNT = "sender";
 	public static final String KEY_MAIL_SENDER_P = "sp";
 
-	//public static final String KEY_FORMAT_WEBUI_DATE_TIME_FORMAT = "web ui datetime format pattern";
-
-	//public static final String KEY_PATH_OF_LOG_FOLDER = "log folder path";
-
-
 	public static final String KEY_OUTPUT_OF_COOLER = "output of cooler";
 
 	public static final String KEY_OUTPUT_OF_HEATER = "output of heater";
 
 	public static final String KEY_OUTPUT_OF_AIR_PUMP = "output of air pump";
 
-	//public static final String KEY_INPUT_PIN_HUMIDITY = "input pin of humidity sensor";
 
-	//public static final String KEY_FILENAME_TEMP_DATA_LOG = "temperature data log file";
-
-	//public static final Object KEY_FILENAME_GENERATION_TIME_LOG = "web ui generation time log file";
-
-	//public static final Object KEY_FILENAME_IO_LOG = "io log file";
-
-	//public static final Object KEY_FILENAME_EVENT_LOG = "event log file";
-
-	//public static final Object KEY_FILENAME_FEED_WEB_UI = "webui temp history feed";
-
-	//public static final Object KEY_FAN_START_BOOST_TIME_IN_MS = "fan start boost time in ms";
-
-	//public static final Object KEY_MIN_COOLER_ALONE_START_VALUE = "min cooler alone start percentage";
 	
 	public static class JsonKeys {
 		public static final String DEVICE_FAN_START_BOST_TIME_IN_MS = "devices.fan.start boost time in ms";
