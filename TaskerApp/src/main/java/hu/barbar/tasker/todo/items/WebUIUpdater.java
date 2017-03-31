@@ -78,20 +78,14 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		//HashMap<String, String> config = Config.readBaseConfig();
 		//String tempLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
 		
-		String tempLogFeedPath = Config.getConfig("temp logger.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
-		if(tempLogFeedPath.charAt(tempLogFeedPath.length()-1) != Env.getPathSeparator().charAt(0)){
-			tempLogFeedPath += Env.getPathSeparator();
-		}
+		String tempLogFeedPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.getConfig("temp logger.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
 		this.temperatureFeedLogFile = tempLogFeedPath + tempHistoryFeed;
 		
 		
 		/*
 		 *  Read path of generating log file..
 		 */
-		String generationTimeLogPathFromConfig = Config.getConfig("web ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER);
-		if(generationTimeLogPathFromConfig.charAt(generationTimeLogPathFromConfig.length()-1) != Env.getPathSeparator().charAt(0)){
-			generationTimeLogPathFromConfig += Env.getPathSeparator();
-		}
+		String generationTimeLogPathFromConfig = FileHandler.guaranteePathSeparatorAtEndOf( Config.getConfig("web ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
 		this.webUiUpdaterLogFile = generationTimeLogPathFromConfig + Config.getConfig("web ui.log file", DEFAULT_FILENAME_OF_WEBUI_UPDATER);
 		
 		
