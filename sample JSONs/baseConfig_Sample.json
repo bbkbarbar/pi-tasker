@@ -7,11 +7,6 @@
 			"possible_log_levels":"debug, info, warn, error, all"
 		}
 	},
-	"loglevels":{
-		"stdout":"info",
-		"fileout":"warn",
-		"possible_log_levels":"debug, info, warn, error, all"
-	},
 	"temp logger":{
 		"path for log folder":"/home/pi/taskerData/logs/",
 		"filename of temperature log":"temp_and_cooler.log",

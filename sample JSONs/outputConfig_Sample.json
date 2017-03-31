@@ -1,0 +1,26 @@
+{
+	"output config":
+	[
+		{
+			"name":"output of cooler",
+			"channel":"3",
+			"type":"PWM"
+		},
+		{
+			"name":"output of feedback",
+			"pin":"36",
+			"type":"IO"
+		},
+		{
+			"name":"output of heater",
+			"pin":"37",
+			"type":"IO"
+		},
+		{
+			"name":"output of air pump",
+			"pin":"38",
+			"type":"IO",
+			"reversed":true
+		}
+	]
+}
