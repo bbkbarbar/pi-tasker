@@ -1,6 +1,7 @@
 {
 	"log":{
 		"path":"/home/pi/taskerData/logs/",
+		"filename":"tasker.log",
 		"levels":{
 			"stdout":"info",
 			"fileout":"warn",

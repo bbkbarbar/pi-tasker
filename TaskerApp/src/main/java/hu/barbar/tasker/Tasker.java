@@ -28,6 +28,7 @@ import hu.barbar.tasker.todo.items.tempcontrol.HeaterController;
 import hu.barbar.tasker.todo.items.tempcontrol.TempController;
 import hu.barbar.tasker.todo.items.util.TempReader;
 import hu.barbar.tasker.util.Config;
+import hu.barbar.tasker.util.Defaults;
 import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.GPIOHelper;
 import hu.barbar.tasker.util.JSONHelper;
@@ -93,15 +94,14 @@ public class Tasker {
 		
 		Config.setConfigSourceJSON(Env.getDataFolderPath() + Env.getPathSeparator() + Env.BASE_CONFIG_JSON);
 
-		// Read base-parameters from JSON
-		int logLevelStdOut = Log.getLogLevelFromString(Config.getConfig("log.levels.stdout", "info"));
-		int logLevelFiledOut = Log.getLogLevelFromString(Config.getConfig("log.levels.fileout", "warn"));
-
-		//Config.getConfigWithoutDefault("");
-
-
-		//TODO: read name of logfile (and name of log folder) from config
-		Log.init(Env.getDataFolderPath() + "logs" + Env.getPathSeparator(), "tasker.log", logLevelStdOut, logLevelFiledOut);
+		// Init Logger instace with logging parameters from baseConid JSON
+		Log.init(
+				Config.getConfig("log.path", Defaults.LOG_PATH), 
+				Config.getConfig("log.filename", Defaults.LOG_FILENAME), 
+				Log.getLogLevelFromString(Config.getConfig("log.levels.stdout", "info")), 
+				Log.getLogLevelFromString(Config.getConfig("log.levels.fileout", "warn"))
+		);
+		
 		Log.f("Start tasker ("
 				+ ")\nBuild: " + buildNum + "\n");
 
