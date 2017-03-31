@@ -35,7 +35,7 @@ public class TaskExecutor {
 				e.printStackTrace();
 			}
 		}else{
-			Log.d("<<RUN PYTHON SCRIPT>>\n" + cmd);
+			Log.d("<<RUN PYTHON SCRIPT>> : " + cmd);
 			response = "2 23.234 26.027";
 		}
 		
@@ -65,7 +65,7 @@ public class TaskExecutor {
 				e.printStackTrace();
 			}
 		}else{
-			Log.d("<<RUN PYTHON SCRIPT>>\n" + cmd);
+			Log.d("<<RUN PYTHON SCRIPT>> : " + cmd);
 			response = "CPU temp: 11.2 C";
 		}
 		
@@ -75,12 +75,12 @@ public class TaskExecutor {
 	
 	public static String readHumidityOnly(){
 		String response = "_PROBLEM_";
-		int inputPinOfHumiditySensor = -1;
-		try{
-			inputPinOfHumiditySensor = Integer.valueOf(Config.readBaseConfig().get(Config.KEY_INPUT_PIN_HUMIDITY));
-		}catch(Exception e){
-			inputPinOfHumiditySensor = -1;
-		}
+		
+		int DEFAULT_HUMIDITY_SENSOR_INPUT_PIN = -1;
+		
+		@SuppressWarnings("unused")
+		int inputPinOfHumiditySensor = Config.getInt("devices.humidity sensor.input pin", DEFAULT_HUMIDITY_SENSOR_INPUT_PIN);
+		
 		//String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.HUMIDITY_READER_SCRIPT + "-p " + inputPinOfHumiditySensor;
 		String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.HUMIDITY_READER_SCRIPT;
 		if(Env.runningOnTargetDevice()){
@@ -98,7 +98,7 @@ public class TaskExecutor {
 				e.printStackTrace();
 			}
 		}else{
-			Log.d("<<RUN PYTHON SCRIPT>>\n" + cmd);
+			Log.i("<<RUN PYTHON SCRIPT>> : " + cmd);
 			response = "Humidity: 55";
 		}
 		
@@ -151,7 +151,7 @@ public class TaskExecutor {
 				Log.e("Can not execute \"setPwm\" script.");
 			}
 		}else{
-			Log.i("<<RUN PYTHON SCRIPT>>\n" + cmd);
+			Log.i("<<RUN PYTHON SCRIPT>> : " + cmd);
 		}
 		
 		Tasker.pwmOutputStates.setValues(outputContent);
@@ -218,7 +218,7 @@ public class TaskExecutor {
 				e.printStackTrace();
 			}
 		}else{
-			Log.i("<<RUN PYTHON SCRIPT>>\n" + cmd);
+			Log.i("<<RUN PYTHON SCRIPT>> : " + cmd);
 		}
 		
 	}

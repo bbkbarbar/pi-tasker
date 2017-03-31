@@ -24,6 +24,9 @@
 		"fan":{
 			"minimum start value":30,
 			"start boost time in ms":800
+		},
+		"humidity sensor":{
+			"input pin":26
 		}
 	}
 }

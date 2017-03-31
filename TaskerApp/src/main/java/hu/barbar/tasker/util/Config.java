@@ -49,7 +49,7 @@ public class Config {
 
 	public static final String KEY_OUTPUT_OF_AIR_PUMP = "output of air pump";
 
-	public static final String KEY_INPUT_PIN_HUMIDITY = "input pin of humidity sensor";
+	//public static final String KEY_INPUT_PIN_HUMIDITY = "input pin of humidity sensor";
 
 	//public static final String KEY_FILENAME_TEMP_DATA_LOG = "temperature data log file";
 
@@ -61,7 +61,6 @@ public class Config {
 
 	//public static final Object KEY_FILENAME_FEED_WEB_UI = "webui temp history feed";
 
-	//TODO here
 	//public static final Object KEY_FAN_START_BOOST_TIME_IN_MS = "fan start boost time in ms";
 
 	//public static final Object KEY_MIN_COOLER_ALONE_START_VALUE = "min cooler alone start percentage";
@@ -204,18 +203,17 @@ public class Config {
 		return map;
 	}
 
-	//TODO
 	public static HashMap<String, OutputConfig> readOutputConfigFromJSON(boolean forceUpdateConfig){
 
 		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
 			Config.outputConfigs = Config.readOutputConfigJSON(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON);
 			if(forceUpdateConfig){
-				Log.a("Forced re-read pinout config from JSON file.");
+				Log.d("Forced re-read pinout config from JSON file.");
 			}else{
-				Log.a("Read pinout config from JSON file.");
+				Log.d("Read pinout config from JSON file.");
 			}
 		}else{
-			Log.a("Read pinout config from cache.");
+			Log.d("Read pinout config from cache.");
 		}
 
 		return Config.outputConfigs;

@@ -1,7 +1,32 @@
 {
-	"loglevels":{
+	"log":{
+		"path":"/home/pi/taskerData/logs/",
+		"filename":"tasker.log",
+		"levels":{
 		"stdout":"info",
 		"fileout":"warn",
 		"possible_log_levels":"debug, info, warn, error, all"
+	}
+	},
+	"temp logger":{
+		"path for log folder":"/home/pi/taskerData/logs/",
+		"filename of basic temperature log":"temp.log",
+		"filename of temperature log":"temp_and_cooler.log",
+		"datetime parrern for temp log lines":"yyyy-MM-dd HH:mm"
+	},
+	"web ui":{
+		"datetime format pattern":"HH:mm:ss",
+		"path for log folder":"/home/pi/taskerData/logs/",
+		"temperature history feed":"temp_and_cooler.log",
+		"log file":"web_ui_updater.log"
+	},
+	"devices":{
+		"fan":{
+			"minimum start value":30,
+			"start boost time in ms":800
+		},
+		"humidity sensor":{
+			"input pin":26
+		}
 	}
 }
