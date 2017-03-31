@@ -40,7 +40,7 @@ public class Config {
 
 	//public static final String KEY_FORMAT_WEBUI_DATE_TIME_FORMAT = "web ui datetime format pattern";
 
-	public static final String KEY_PATH_OF_LOG_FOLDER = "log folder path";
+	//public static final String KEY_PATH_OF_LOG_FOLDER = "log folder path";
 
 
 	public static final String KEY_OUTPUT_OF_COOLER = "output of cooler";
@@ -51,19 +51,24 @@ public class Config {
 
 	public static final String KEY_INPUT_PIN_HUMIDITY = "input pin of humidity sensor";
 
-	public static final String KEY_FILENAME_TEMP_DATA_LOG = "temperature data log file";
+	//public static final String KEY_FILENAME_TEMP_DATA_LOG = "temperature data log file";
 
-	public static final Object KEY_FILENAME_GENERATION_TIME_LO = "web ui generation time log file";
+	//public static final Object KEY_FILENAME_GENERATION_TIME_LOG = "web ui generation time log file";
 
-	public static final Object KEY_FILENAME_IO_LOG = "io log file";
+	//public static final Object KEY_FILENAME_IO_LOG = "io log file";
 
-	public static final Object KEY_FILENAME_EVENT_LOG = "event log file";
+	//public static final Object KEY_FILENAME_EVENT_LOG = "event log file";
 
 	//public static final Object KEY_FILENAME_FEED_WEB_UI = "webui temp history feed";
 
+	//TODO here
 	public static final Object KEY_FAN_START_BOOST_TIME_IN_MS = "fan start boost time in ms";
 
 	public static final Object KEY_MIN_COOLER_ALONE_START_VALUE = "min cooler alone start percentage";
+	
+	public static class JsonKeys {
+		public static final String DEVICE_FAN_START_BOST_TIME_IN_MS = "devices.fan.start boost time in ms";
+	}
 
 
 	private static String configSourceJSON = null;
@@ -253,6 +258,7 @@ public class Config {
 	public static Object getConfig(String jsonKey, Object defaultValue, boolean forceReadFileAgain) {
 		Object result = getConfigWithoutDefault(jsonKey, forceReadFileAgain);
 		if(result == null){
+			Log.d("Config: Can not find JSON key: \"" + jsonKey + "\". Use default value: " + defaultValue);
 			return defaultValue;
 		}else{
 			return result;
@@ -330,6 +336,33 @@ public class Config {
 		}else{
 			return result;
 		}
+	}
+	
+	/**
+	 * Get Integer parameters from config JSON with specified default value
+	 * @param jsonKey The path of wanted config value (e.g.: loglevels.stdout)
+	 * @param defaultValue to define the return value if specified key could not be found. 
+	 * @return an integer value what found in JSON under specified key-path <or>
+	 * with the defined default value
+	 */
+	public static int getInt(String jsonKey, int defaultValue) {
+		
+		if(jsonKey == null){
+			return defaultValue;
+		}
+		
+		Object foundObject = getConfigWithoutDefault(jsonKey);
+		if(foundObject == null){
+			return defaultValue;
+		}
+		
+		try{
+			Integer value = Integer.valueOf( (foundObject + "" ) );
+			return value;
+		}catch (NumberFormatException nfe) {
+			return defaultValue;
+		}
+		
 	}
 	
 

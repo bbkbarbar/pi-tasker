@@ -17,7 +17,12 @@
 	"web ui":{
 		"datetime format pattern":"HH:mm:ss",
 		"path for log folder":"/home/pi/taskerData/logs/",
-		"temperature_history_feed":"temp_and_cooler.log",
+		"temperature history feed":"temp_and_cooler.log",
 		"log file":"web_ui_updater.log"
+	},
+	"devices":{
+		"fan":{
+			"start boost time in ms":800
+		}
 	}
 }
