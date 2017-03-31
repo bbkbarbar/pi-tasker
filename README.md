@@ -26,10 +26,10 @@ Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/
 #### Client can control:
 | Item           | Control type               | Scheduled | Sensor based control | Exceptional control | Src                      |
 | :------------- | :------------------------: | :-------: | :------------------: | :-----------------: | :----------------------: |
-| Airpump        | On/Off                     | ?         | -                    | X                   | 230VAC                   |
-| Filter         | On/Off                     | ?         | -                    | X                   | 230VAC                   |
-| Water heater   | On/Off                     | -         | X                    | X                   | 230VAC                   |
-| Water cooler   | Gradual speed control (pwm)| -         | X                    | X                   | 230VAC->12VDC - 1ch pwm  |
+| Airpump        | On/Off                     | X         | -                    | X                   | 230VAC                   |
+| Filter         | On/Off                     | X         | -                    | X                   | 230VAC                   |
+| Water heater   | On/Off                     | X         | X                    | X                   | 230VAC                   |
+| Water cooler   | Gradual speed control (pwm)| X         | X                    | X                   | 230VAC->12VDC - 1ch pwm  |
 | Light          | On/Off, 3ch RGB color      | X         | -                    | X                   | 230VAC->12VDC - 3ch pwm  |
 
 Note: System can handle further pwm output (in fact unlimited number / just depends on how much devices do you have from [Serial PWM Driver](https://bbkbarbar.github.io/Serial_PWM_Driver_with_OLED)). 
