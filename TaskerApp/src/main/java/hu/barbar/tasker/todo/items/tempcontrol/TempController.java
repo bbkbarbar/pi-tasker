@@ -242,9 +242,9 @@ public abstract class TempController extends TempRelatedToDoItemBase implements 
 	public TempController(OutputConfig myOutputConfig, JSONObject coolerControllerJson) {
 		super();
 
-		minimumCoolerAloneStartValue = Config.getInt("devices.fan.minimum start value", DEFAULT_MINIMUM_COOLER_ALONE_START_VALUE);
+		minimumCoolerAloneStartValue = Config.getInt(Config.JsonKeys.DEVICE_FAN_MIN_COOLER_START_VALUE, DEFAULT_MINIMUM_COOLER_ALONE_START_VALUE);
 		
-		fanStartBoostTimeInMs = Config.getInt("devices.fan.start boost time in ms", DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS);
+		fanStartBoostTimeInMs = Config.getInt(Config.JsonKeys.DEVICE_FAN_START_BOST_TIME_IN_MS, DEFAULT_DELAY_TO_WAIT_FOR_SPIN_UP_COOLER_IN_MS);
 		
 		this.outputConfig = myOutputConfig;
 		

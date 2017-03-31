@@ -64,10 +64,11 @@ public class Config {
 	//TODO here
 	//public static final Object KEY_FAN_START_BOOST_TIME_IN_MS = "fan start boost time in ms";
 
-	public static final Object KEY_MIN_COOLER_ALONE_START_VALUE = "min cooler alone start percentage";
+	//public static final Object KEY_MIN_COOLER_ALONE_START_VALUE = "min cooler alone start percentage";
 	
 	public static class JsonKeys {
 		public static final String DEVICE_FAN_START_BOST_TIME_IN_MS = "devices.fan.start boost time in ms";
+		public static final String DEVICE_FAN_MIN_COOLER_START_VALUE = "devices.fan.minimum start value";
 	}
 
 
