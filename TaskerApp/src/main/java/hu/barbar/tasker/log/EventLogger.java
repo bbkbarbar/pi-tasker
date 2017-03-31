@@ -38,7 +38,7 @@ public class EventLogger {
 			return false;
 		}
 
-		String eventLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		String eventLogPath = Config.getConfigStrWithoutDefault("log.path");
 		if(eventLogPath == null){
 			Log.w("EventLogger can not initialized!\n" 
 				+ "Can not read path for event log.\n");

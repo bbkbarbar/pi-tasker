@@ -37,7 +37,7 @@ public class IOLogger {
 			return false;
 		}
 		
-		String ioLogPath = config.get(Config.KEY_PATH_OF_LOG_FOLDER);
+		String ioLogPath = Config.getConfigStrWithoutDefault("log.path");
 		if(ioLogPath == null){
 			Log.w("IOLogger can not initialized!\n" 
 				+ "Can not read path for IO log.\n");

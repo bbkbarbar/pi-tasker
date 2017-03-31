@@ -1,4 +1,7 @@
 {
+	"log":{
+		"path":"/home/pi/taskerData/logs/"
+	},
 	"loglevels":{
 		"stdout":"info",
 		"fileout":"warn",
@@ -12,6 +15,7 @@
 	"web_ui":{
 		"web ui datetime format pattern":"HH:mm:ss",
 		"path for log folder":"/home/pi/taskerData/logs/",
-		"temperature_history_feed":"temp_and_cooler.log"
+		"temperature_history_feed":"temp_and_cooler.log",
+		"log file":"web_ui_updater.log"
 	}
 }
