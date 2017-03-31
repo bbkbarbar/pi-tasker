@@ -14,9 +14,6 @@ public class TempLogger2 extends TempRelatedToDoItemBase {
 	
 	private String temperatureLogFile = null;
 	
-	//TODO: move this default value to Defaults and load it from config JSON
-	private String DEFAULT_FILENAME_OF_TEMP_LOG_FILE = "temp.log";
-	
 	private SimpleDateFormat sdf = null;
 	
 	
@@ -26,7 +23,7 @@ public class TempLogger2 extends TempRelatedToDoItemBase {
 		
 		// Get this parameter from config JSON..
 		String tempLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.get("web ui.path for log folder", Defaults.PATH_FOR_LOG_FOLDER) );
-		this.temperatureLogFile = tempLogPath + DEFAULT_FILENAME_OF_TEMP_LOG_FILE;
+		this.temperatureLogFile = tempLogPath + Config.get("temp logger.filename of basic temperature log", Defaults.FILENAME_OF_BASIC_TEMP_LOG_FILE);
 		
 		sdf = new SimpleDateFormat(Config.get("temp logger.datetime parrern for temp log lines", Defaults.DATETIME_PATTERN_OF_TEMPLOG_LINES));
 		
