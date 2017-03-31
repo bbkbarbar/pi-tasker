@@ -1,16 +1,12 @@
 package hu.barbar.PiTasker.util.usagelog;
 
-import static org.junit.Assert.*;
-
-import java.util.Date;
+import static org.junit.Assert.assertEquals;
 
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
 import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.tasker.util.OutputState;
-import hu.barbar.tasker.util.usagelog.UsageLog;
-import hu.barbar.tasker.util.usagelog.UsageLogItem;
 import junit.framework.TestSuite;
 
 public class OutputStateTest extends TestSuite {

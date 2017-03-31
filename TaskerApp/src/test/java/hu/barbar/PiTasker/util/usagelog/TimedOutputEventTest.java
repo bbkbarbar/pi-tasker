@@ -1,16 +1,17 @@
 package hu.barbar.PiTasker.util.usagelog;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
 import hu.barbar.tasker.todo.items.TimedOutputEvent;
-import hu.barbar.tasker.util.OutputConfig;
 import hu.barbar.util.FileHandler;
 import junit.framework.TestSuite;
 
+@SuppressWarnings("unchecked")
 public class TimedOutputEventTest extends TestSuite {
 	
 	/*

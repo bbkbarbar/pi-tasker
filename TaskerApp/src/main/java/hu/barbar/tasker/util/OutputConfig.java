@@ -80,6 +80,7 @@ public class OutputConfig {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public JSONObject getAsJsonObject(String name){
 		
 		if(name == null || name.trim().length() == 0){

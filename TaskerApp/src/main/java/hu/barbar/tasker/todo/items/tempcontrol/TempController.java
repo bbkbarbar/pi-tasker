@@ -1,7 +1,6 @@
 package hu.barbar.tasker.todo.items.tempcontrol;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;

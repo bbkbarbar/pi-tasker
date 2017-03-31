@@ -1,17 +1,16 @@
 package hu.barbar.tasker.todo.items;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import hu.barbar.tasker.util.OutputConfig.Type;
 import hu.barbar.tasker.util.OutputState;
 import hu.barbar.util.logger.Log;
-import hu.barbar.tasker.util.OutputConfig.Type;
 
 public class TimedOutputEvent implements Serializable {
 
@@ -133,6 +132,7 @@ public class TimedOutputEvent implements Serializable {
 	}
 
 	// TODO: delete the old version of this function after successful tests of the new version on target device too..
+	/*
 	private static int getZuluTimeOLD(long timeInMs){
 		
 		Calendar cal = Calendar.getInstance();
@@ -149,5 +149,6 @@ public class TimedOutputEvent implements Serializable {
 		return (hours*100) + (minutes);
 		
 	}
+	/**/
 
 }

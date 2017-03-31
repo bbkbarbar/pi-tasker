@@ -6,7 +6,6 @@ import java.util.Date;
 import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
 import hu.barbar.tasker.util.Config;
 import hu.barbar.tasker.util.Defaults;
-import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.TemperatureResult;
 import hu.barbar.util.FileHandler;
 import hu.barbar.util.logger.Log;
