@@ -3,10 +3,10 @@
 		"path":"/home/pi/taskerData/logs/",
 		"filename":"tasker.log",
 		"levels":{
-		"stdout":"info",
-		"fileout":"warn",
-		"possible_log_levels":"debug, info, warn, error, all"
-	}
+			"stdout":"info",
+			"fileout":"warn",
+			"possible_log_levels":"debug, info, warn, error, all"
+		}
 	},
 	"temp logger":{
 		"path for log folder":"/home/pi/taskerData/logs/",
