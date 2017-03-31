@@ -2,11 +2,9 @@ package hu.barbar.tasker.todo.items;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import hu.barbar.tasker.todo.items.util.TempRelatedToDoItemBase;
 import hu.barbar.tasker.util.Config;
-import hu.barbar.tasker.util.Env;
 import hu.barbar.tasker.util.TemperatureResult;
 import hu.barbar.util.FileHandler;
 import hu.barbar.util.logger.Log;
@@ -26,7 +24,8 @@ public class TempLogger extends TempRelatedToDoItemBase {
 	public TempLogger() {
 		super();
 		
-		HashMap<String, String> config = Config.readBaseConfig();
+		// Not used since build 110
+		//HashMap<String, String> config = Config.readBaseConfig();
 		String tempLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.get("temp logger.path for log folder", "") );
 		this.temperatureLogFile = tempLogPath + DEFAULT_FILENAME_OF_TEMP_LOG_FILE;
 		

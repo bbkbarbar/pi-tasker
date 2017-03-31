@@ -2,7 +2,6 @@ package hu.barbar.tasker.log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import hu.barbar.tasker.util.Config;
 import hu.barbar.tasker.util.Env;
@@ -30,6 +29,8 @@ public class EventLogger {
 	 */
 	public static boolean initialize(){
 		
+		// Not used since build 110
+		/*
 		HashMap<String, String> config = Config.readBaseConfig();
 		if(config == null){
 			Log.w("EventLogger can not initialized!\n" 
@@ -37,6 +38,7 @@ public class EventLogger {
 			initialized = false;
 			return false;
 		}
+		*/
 
 		String eventLogPath = FileHandler.guaranteePathSeparatorAtEndOf( Config.getStringWithoutDefault("log.path") );
 		if(eventLogPath == null){

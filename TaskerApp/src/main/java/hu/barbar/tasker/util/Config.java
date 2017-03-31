@@ -86,9 +86,11 @@ public class Config {
 		return configResult;
 	}
 
+	// Remove since not used anymore (since build 110)
+	/*
 	public static HashMap<String, String> readBaseConfig(){
 		return readBaseConfig(Env.getDataFolderPath() + Config.FILENAME_BASE_CONFIG);
-	}
+	}/**/
 
 	public static OutputConfig getOutputConfig(String key){
 

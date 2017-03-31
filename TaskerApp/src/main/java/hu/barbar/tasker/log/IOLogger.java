@@ -2,7 +2,6 @@ package hu.barbar.tasker.log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import hu.barbar.tasker.util.Config;
 import hu.barbar.tasker.util.Env;
@@ -29,13 +28,15 @@ public class IOLogger {
 	 */
 	public static boolean initialize() {
 		
+		// Not used since build 110
+		/*
 		HashMap<String, String> config = Config.readBaseConfig();
 		if(config == null){
 			Log.w("IOLogger can not initialized!\n" 
 				+ "Can not read BaseConfig\n");
 			initialized = false;
 			return false;
-		}
+		}*/
 		
 		String ioLogPath = Config.getStringWithoutDefault("log.path");
 		if(ioLogPath == null){
