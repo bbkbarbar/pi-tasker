@@ -12,6 +12,7 @@ import junit.framework.TestSuite;
 
 public class EnvTest extends TestSuite {
 
+	private boolean debugMode = false;
 	
 	@Before
 	public void before(){
@@ -20,7 +21,9 @@ public class EnvTest extends TestSuite {
 
 	@Test
 	public void fixPathSeparators_from_win_on_win_Test(){
-		System.out.println("Run fixPathSeparator test on Windows.");
+		if(debugMode)
+			System.out.println("Run fixPathSeparator test on Windows.");
+		
 		Env.setOSMock(Env.OsName.WINDOWS);
 		String originalPath = "alma\\korte\\";
 		String modified = Env.fixPathSeparators(originalPath);
@@ -29,7 +32,9 @@ public class EnvTest extends TestSuite {
 	
 	@Test
 	public void fixPathSeparators_from_linux_on_win_Test(){
-		System.out.println("Run fixPathSeparator test on Windows.");
+		if(debugMode)
+			System.out.println("Run fixPathSeparator test on Windows.");
+		
 		Env.setOSMock(Env.OsName.WINDOWS);
 		String originalPath = "alma/korte/";
 		String modified = Env.fixPathSeparators(originalPath);
@@ -38,7 +43,9 @@ public class EnvTest extends TestSuite {
 	
 	@Test
 	public void fixPathSeparators_from_win_on_linux_Test(){
-		System.out.println("Run fixPathSeparator test on linux.");
+		if(debugMode)
+			System.out.println("Run fixPathSeparator test on linux.");
+		
 		Env.setOSMock(Env.OsName.LINUX);
 		String originalPath = "alma\\korte\\";
 		String modified = Env.fixPathSeparators(originalPath);
@@ -47,7 +54,9 @@ public class EnvTest extends TestSuite {
 	
 	@Test
 	public void fixPathSeparators_from_linux_on_linux_Test(){
-		System.out.println("Run fixPathSeparator test on linux.");
+		if(debugMode)
+			System.out.println("Run fixPathSeparator test on linux.");
+		
 		Env.setOSMock(Env.OsName.LINUX);
 		String originalPath = "alma/korte/";
 		String modified = Env.fixPathSeparators(originalPath);
@@ -63,7 +72,8 @@ public class EnvTest extends TestSuite {
 	@After
 	public void after(){
 		Env.setOSMock(Env.OsName.NO_MOCK_USED);
-		System.out.println("Env mocking disabled.");
+		if(debugMode)
+			System.out.println("Env mocking disabled.");
 	}
 	
 }
