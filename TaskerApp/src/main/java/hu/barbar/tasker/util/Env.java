@@ -7,6 +7,14 @@ import hu.barbar.util.logger.Log;
 
 public class Env {
 	
+	static class OsName {
+		public static final int NO_MOCK_USED = 0,
+								LINUX = 1,
+								WINDOWS = 2;
+	}
+	
+	private static int mockOS = 0;
+	
 	public static boolean DEBUG_NEEDED = true;
 	
 	private static boolean runningOnTargetDeviceCached = false;
@@ -21,17 +29,37 @@ public class Env {
 	public static final String NAME_OF_DATA_FOLDER = "taskerData";
 
 	
+	static void setOSMock(int osID){
+		if(osID == OsName.LINUX){
+			Env.mockOS = OsName.LINUX;
+		}else
+		if(osID == OsName.WINDOWS){
+			Env.mockOS = OsName.WINDOWS;
+		}else{
+			Env.mockOS = OsName.NO_MOCK_USED;
+		}
+	}
+	
 	
 	/**
 	 * @return true if app running on target device (with linux OS)
 	 */
 	public static boolean runningOnTargetDevice(){
-		if(runningOnTargetDeviceCached){
+		if(mockOS == OsName.LINUX){
 			return true;
+		}else
+		if(mockOS == OsName.WINDOWS){
+			return false;
 		}else{
-			Env.runningOnTargetDeviceCached = (System.getProperty("os.name").contains("Linux")); 
+
+			if(runningOnTargetDeviceCached){
+				return true;
+			}else{
+				Env.runningOnTargetDeviceCached = (System.getProperty("os.name").contains("Linux")); 
+			}
+			return Env.runningOnTargetDeviceCached;
+			
 		}
-		return Env.runningOnTargetDeviceCached;
 	}
 	
 	/**
@@ -86,6 +114,41 @@ public class Env {
 					Log.w("Directory CAN NOT BE CREATED");
 				}
 			}
+		}
+	}
+	
+	
+	/**
+	 * Change separators in given path according to the current OS.
+	 * <br> ("\" to "/") in linux, or ("/" to "\") in windows.
+	 * @param path the original path
+	 * @return the path with appropirate separators 
+	 */
+	public static String fixPathSeparators(String path){
+		
+		if(path == null){
+			return null;
+		}
+		
+		String res = "";
+		if(Env.runningOnTargetDevice()){
+			for(int i=0; i<path.length(); i++){
+				if(path.charAt(i) == '\\'){
+					res += '/';
+				}else{
+					res += path.charAt(i);
+				}
+			}
+			return res;
+		}else{
+			for(int i=0; i<path.length(); i++){
+				if(path.charAt(i) == '/'){
+					res += '\\';
+				}else{
+					res += path.charAt(i);
+				}
+			}
+			return res;
 		}
 	}
 	
