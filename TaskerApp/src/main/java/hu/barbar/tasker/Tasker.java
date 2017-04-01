@@ -90,8 +90,11 @@ public class Tasker {
 				+ getTimeStamp(new Date())
 				+ ")\nBuild: " + buildNum + "\n");/**/
 
+			
+		//+ Env.getPathSeparator()
+		//System.out.println("JSON config: |" + Env.getDataFolderPath()  + Config.FILENAME_BASE_CONFIG_JSON + "|");
 		
-		Config.setConfigSourceJSON(Env.getDataFolderPath() + Env.getPathSeparator() + Config.FILENAME_BASE_CONFIG_JSON);
+		Config.setConfigSourceJSON(Env.getDataFolderPath() + Config.FILENAME_BASE_CONFIG_JSON);
 
 		// Init Logger instace with logging parameters from baseConid JSON
 		Log.init(
