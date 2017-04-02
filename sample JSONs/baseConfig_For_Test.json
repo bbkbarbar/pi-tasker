@@ -32,7 +32,30 @@
 			{
 				"name":"cooler",
 				"type":"PWM",
-				"channel":38
+				"channel":3
+			},
+			{
+				"name":"some other output",
+				"type":"IO",
+				"pin":37
+			}
+		],
+		"outputs with missing fields":[
+			{
+				"_description":"missing name",
+				"type":"IO",
+				"pin":38,
+				"reversed":"yes"
+			},
+			{
+				"_description":"missing type",
+				"name":"cooler",
+				"channel":3
+			},
+			{
+				"_description":"missing pin and channel",
+				"name":"some other output",
+				"type":"IO"
 			}
 		],
 		"an empty array":[]

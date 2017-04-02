@@ -3,6 +3,7 @@ package hu.barbar.tasker.util;
 import org.json.simple.JSONObject;
 
 import hu.barbar.util.logger.Log;
+import javafx.util.Pair;
 
 public class OutputConfig {
 	
@@ -11,6 +12,11 @@ public class OutputConfig {
 	public static final int INVALID = -2;
 	
 	public static final String TYPENAME_PWM = "pwm";
+	
+	public static final String TYPENAME_IO = "io";
+	
+	public static final String TYPENAME_UNDEFINED = "UNDEFINED";
+	public static final String TYPENAME_INVALID = "INVALID";
 	
 	public static final String CONSTANT_OF_REVERSED_USEAGE = "reversed";
 
@@ -35,11 +41,11 @@ public class OutputConfig {
 		}
 		
 		public static int getFromString(String text){
-			if(text.equalsIgnoreCase("IO")){
+			if(text.equalsIgnoreCase(TYPENAME_IO)){
 				return IO;
 			}
 			else
-			if(text.equalsIgnoreCase("PWM")){
+			if(text.equalsIgnoreCase(TYPENAME_PWM)){
 				return PWM;
 			}
 			else{
@@ -52,12 +58,12 @@ public class OutputConfig {
 				case UNDEFINED:
 					return "UNDEFINED";
 				case IO:
-					return "IO";
+					return TYPENAME_IO;
 				case PWM:
-					return "PWM";
+					return TYPENAME_PWM;
 					
 				default:
-					return "INVALID";
+					return TYPENAME_INVALID;
 			}
 		}
 		
@@ -216,6 +222,100 @@ public class OutputConfig {
 		
 	}
 
+	public static Pair<String, OutputConfig> createInstaceFromJson(JSONObject json){
+		
+		if(json == null){
+			return null;
+		}
+		String line = OutputConfig.getLineFrom(json);
+		
+		if(line == null){
+			//TODO warning here
+			return null;
+		}
+		if(!line.contains("=")){
+			//TODO warning here
+			return null;
+		}
+		
+		String[] parts = line.split("=");
+		if(parts.length != 2){
+			//TODO Warning here
+			return null;
+		}
+		
+		OutputConfig oc = new OutputConfig(parts[1]);
+		
+		return new Pair(parts[0], oc);
+	}
+	
+	/**
+	 * Create line from JSONOject to initialize OutputConfig Object
+	 * @param json JSONObject what contains 1 OutputConfig element.
+	 * @return a String from OutputConfig element what can be used for constructor of OutputConfig class.
+	 * <br> in case of null parameter it returns null;<br>
+	 * <b>Sample output:</b>  
+	 */
+	public static String getLineFrom(JSONObject json){
+		
+		if(json == null){
+			return null;
+		}
+		
+		if(
+			json.containsKey("name") &&
+			json.containsKey("type") &&
+			(json.containsKey("pin") || json.containsKey("channel"))
+		){
+			// Contains all mandatory fields
+			String dataType = (String) json.get("type");
+			if( (!dataType.equalsIgnoreCase(TYPENAME_PWM)) &&(!dataType.equalsIgnoreCase(TYPENAME_IO))){
+				dataType = TYPENAME_INVALID;
+			}
+			
+			String dataPin = "UNDEFINED";
+			if(json.containsKey("pin")){
+				long p = (Long) json.get("pin");
+				dataPin = "" + p;
+			}else{
+				if(json.containsKey("channel")){
+					long ch = (Long) json.get("channel");
+					dataPin = "" + ch;
+				}
+			}
+			
+			boolean isReversed = false;
+			if(json.containsKey("reversed")){
+				String reversed = (String)json.get("reversed");
+				if(reversed.equalsIgnoreCase("no")){
+					isReversed = false;
+				}else{
+					isReversed = true;
+				}
+			}
+			
+			//Example output: "PWM 3" or "IO 37" or "IO 38 reversed"
+			return json.get("name") + "=" + dataType.toUpperCase() + " " + dataPin + (isReversed?" reversed":"");
+			
+		}else{
+			// Do not contains at least 1 of mandatory fields
+			Log.w("OutputConfig can not built from JSON object: " + json);
+			String missingMandatoryFields = "";
+			if(!json.containsKey("name")){
+				missingMandatoryFields += "name, ";
+			}
+			if(!json.containsKey("type")){
+				missingMandatoryFields += "type, ";
+			}
+			if(!json.containsKey("pin") && !json.containsKey("channel")){
+				missingMandatoryFields += "pin or channel";
+			}
+			Log.w("Mandatory field are missing: " + missingMandatoryFields +"\n");
+			return null;
+		}
+		
+	}
+	
 	
 	public int getType() {
 		return this.type;
