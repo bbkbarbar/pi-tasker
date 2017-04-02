@@ -246,7 +246,6 @@ public class ConfigTest extends TestSuite {
 	/*
 	 * Read outputConfigs from INI
 	 */
-	
 	@Test
 	public void readOutputConfigFronINI_Test(){
 		HashMap<String,OutputConfig> res = Config.readOutputConfigFromIni(true, pinputConfIniFilePath);
@@ -254,8 +253,8 @@ public class ConfigTest extends TestSuite {
 		assertTrue((res.size() > 2));
 		String completeOutputConfig = res.toString();
 		//System.out.println("res: " + completeOutputConfig);
-		assertTrue(completeOutputConfig.contains("output of air pump=Type: IO  Pin: 38 Reversed"));
-		assertTrue(completeOutputConfig.contains("output of cooler=Type: PWM Channel: 3"));
+		assertTrue(completeOutputConfig.contains("output of air pump=Type: io  Pin: 38 Reversed"));
+		assertTrue(completeOutputConfig.contains("utput of cooler=Type: pwm Channel: 3"));
 	}
 	
 	
