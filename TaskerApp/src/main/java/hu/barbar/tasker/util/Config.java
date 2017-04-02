@@ -136,12 +136,12 @@ public class Config {
 		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
 			Config.outputConfigs = TaskerFilehandler.readOutputConfig(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG);
 			if(forceUpdateConfig){
-				Log.a("Forced re-read pinout config from file.");
+				Log.d("Forced re-read pinout config from file.");
 			}else{
-				Log.a("Read pinout config from file.");
+				Log.d("Read pinout config from file.");
 			}
 		}else{
-			Log.a("Read pinout config from cache.");
+			Log.d("Read pinout config from cache.");
 		}
 
 		return Config.outputConfigs;
