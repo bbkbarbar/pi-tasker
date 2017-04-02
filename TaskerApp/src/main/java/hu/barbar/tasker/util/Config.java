@@ -132,9 +132,16 @@ public class Config {
 	}
 
 	public static HashMap<String, OutputConfig> readOutputConfigFromIni(boolean forceUpdateConfig){
+		return readOutputConfigFromIni(
+				forceUpdateConfig,
+				Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG
+		);
+	}
+	
+	public static HashMap<String, OutputConfig> readOutputConfigFromIni(boolean forceUpdateConfig, String pathForPinoutIni){
 
 		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
-			Config.outputConfigs = TaskerFilehandler.readOutputConfig(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG);
+			Config.outputConfigs = TaskerFilehandler.readOutputConfig(pathForPinoutIni);
 			if(forceUpdateConfig){
 				Log.d("Forced re-read pinout config from file.");
 			}else{
@@ -146,6 +153,18 @@ public class Config {
 
 		return Config.outputConfigs;
 
+	}
+	
+	
+	//TODO fix javadoc link for an other class
+	/**
+	 * Read output config elements from an array in config json.
+	 * @param forceUpdateConfig specify if need to re-read config json before read values
+	 * @return a HashMap of {@link hu.barbar.tasker.util.OutputConfig OutputConfig}  objects
+	 */
+	public static HashMap<String, OutputConfig> readOutputConfigFromJson(boolean forceUpdateConfig){
+		//TODO HERE: implement me!
+		return null;
 	}
 
 

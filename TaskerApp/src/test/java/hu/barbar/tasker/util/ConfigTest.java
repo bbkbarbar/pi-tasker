@@ -2,11 +2,15 @@ package hu.barbar.tasker.util;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.HashMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import junit.framework.TestSuite;
@@ -14,6 +18,7 @@ import junit.framework.TestSuite;
 public class ConfigTest extends TestSuite {
 
 	private static String configJsonFilePath = Env.fixPathSeparators("..\\sample JSONs\\baseConfig_For_Test.json");
+	private static String pinputConfIniFilePath =  Env.fixPathSeparators("..\\sample JSONs\\pinout_for_Test.conf");
 
 	JSONObject json = null;
 
@@ -236,6 +241,33 @@ public class ConfigTest extends TestSuite {
 		JSONArray result = Config.getJSONArray(jsonKeyForArray);
 		assertEquals(0, result.size());
 		assertEquals(emptyArray, result);
+	}
+	
+	/*
+	 * Read outputConfigs from INI
+	 */
+	
+	@Test
+	public void readOutputConfigFronINI_Test(){
+		HashMap<String,OutputConfig> res = Config.readOutputConfigFromIni(true, pinputConfIniFilePath);
+		assertFalse(res == null);
+		assertTrue((res.size() > 2));
+		String completeOutputConfig = res.toString();
+		//System.out.println("res: " + completeOutputConfig);
+		assertTrue(completeOutputConfig.contains("output of air pump=Type: IO  Pin: 38 Reversed"));
+		assertTrue(completeOutputConfig.contains("output of cooler=Type: PWM Channel: 3"));
+	}
+	
+	
+	/*
+	 *  Read outputConfigs from JSON
+	 */
+	
+	@Ignore
+	@Test
+	public void readOutputConfigFromJson_Test(){
+		//TODO implement me
+		HashMap<String, OutputConfig> res = Config.readOutputConfigFromJson(true);
 	}
 	
 }
