@@ -336,8 +336,8 @@ public class Config {
 	 * @return a String from JSON <br>
 	 * or NULL if it could not be find.
 	 */
-	public static String get(String jsonKey, String defaultValue) {
-		return get(jsonKey, defaultValue, false);
+	public static String getString(String jsonKey, String defaultValue) {
+		return getString(jsonKey, defaultValue, false);
 	}
 	
 	
@@ -351,7 +351,7 @@ public class Config {
 	 * @return an String object from JSON <br>
 	 * or with the specified default value if could not found the specified key.
 	 */
-	public static String get(String jsonKey, String defaultValue, boolean forceReadFileAgain) {
+	public static String getString(String jsonKey, String defaultValue, boolean forceReadFileAgain) {
 		String result = (String) getWithoutDefault(jsonKey, forceReadFileAgain);
 		if(result == null){
 			return defaultValue;
@@ -434,6 +434,31 @@ public class Config {
 		}catch (NumberFormatException nfe) {
 			return defaultValue;
 		}
+	}
+	
+	
+	/**
+	 * Read Array object from config JSON.
+	 * @param jsonKey The path of wanted config value (e.g.: devices.outputs)
+	 * @return a JSONArray object for further processing
+	 * <br> or null if specified key does not exits
+	 */
+	public static JSONArray getJSONArray(String jsonKey){
+		return getJSONArray(jsonKey, false);
+	}
+	
+	/**
+	 * Read Array object from config JSON.
+	 * @param jsonKey The path of wanted config value (e.g.: devices.outputs)
+	 * @param forceReadFileAgain If this is true, than it will always read JSON file again before find specified value <br>
+	 * otherwise it will read it first, and will use that data for all getConfig calls later...
+	 * @return a JSONArray object for further processing
+	 * <br> or null if specified key does not exits
+	 */
+	public static JSONArray getJSONArray(String jsonKey, boolean forceReadFileAgain){
+		JSONArray arr = (JSONArray) get(jsonKey, null, forceReadFileAgain);
+		
+		return null;
 	}
 	
 

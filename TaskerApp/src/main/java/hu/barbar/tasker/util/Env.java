@@ -80,7 +80,7 @@ public class Env {
 	 * @return path of data folder (named as value of NAME_OF_DATA_FOLDER) 
 	 */
 	public static String getDataFolderPath(){
-		//return getUserHomeDir() + getPathSeparator() + NAME_OF_DATA_FOLDER + getPathSeparator();  //TODO: <- not works when app started with superuser rights
+		//return getUserHomeDir() + getPathSeparator() + NAME_OF_DATA_FOLDER + getPathSeparator();  // <- not works when app started with superuser rights
 		return (runningOnTargetDevice()?( "/home/pi/" + NAME_OF_DATA_FOLDER + getPathSeparator() ):(getUserHomeDir() + getPathSeparator() + NAME_OF_DATA_FOLDER + getPathSeparator()));
 	}
 	
@@ -89,7 +89,7 @@ public class Env {
 	 */
 	public static String getWebContentFolderPath(){
 		if(pathOfWebContent == null){
-			pathOfWebContent = Config.get("web ui.path of live web content", Defaults.PATH_OF_LIVE_WEB_CONTENT);
+			pathOfWebContent = Config.getString("web ui.path of live web content", Defaults.PATH_OF_LIVE_WEB_CONTENT);
 		}
 		return pathOfWebContent;
 	}

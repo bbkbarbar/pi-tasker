@@ -21,7 +21,20 @@
 		},
 		"heater":{
 			"energy consumption in kwh":50.1
-		}
+		},
+		"outputs":[
+			{
+				"name":"alma",
+				"type":"IO",
+				"pin":38,
+				"reversed":"yes"
+			},
+			{
+				"name":"cooler",
+				"type":"PWM",
+				"channel":38
+			}
+		]
 	}
 
 }

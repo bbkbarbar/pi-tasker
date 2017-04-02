@@ -98,10 +98,10 @@ public class Tasker {
 
 		// Init Logger instace with logging parameters from baseConid JSON
 		Log.init(
-				FileHandler.guaranteePathSeparatorAtEndOf( Config.get("log.path", Defaults.PATH_FOR_LOG_FOLDER) ), 
-				Config.get("log.filename", Defaults.LOG_FILENAME), 
-				Log.getLogLevelFromString(Config.get("log.levels.stdout", "info")), 
-				Log.getLogLevelFromString(Config.get("log.levels.fileout", "warn"))
+				FileHandler.guaranteePathSeparatorAtEndOf( Config.getString("log.path", Defaults.PATH_FOR_LOG_FOLDER) ), 
+				Config.getString("log.filename", Defaults.LOG_FILENAME), 
+				Log.getLogLevelFromString(Config.getString("log.levels.stdout", "info")), 
+				Log.getLogLevelFromString(Config.getString("log.levels.fileout", "warn"))
 		);
 		
 		Log.f("Start tasker ("
