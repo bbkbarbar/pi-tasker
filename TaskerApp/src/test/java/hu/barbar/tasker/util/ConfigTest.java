@@ -198,28 +198,44 @@ public class ConfigTest extends TestSuite {
 	
 	
 	/*
-	 *  getDouble
+	 *  getJSONArray
 	 */
 	
 	@Test
 	public void readJSONArrayFromConfigJSON_Test(){
-		//TODO HERE!!!!!!!!!!!
 		String jsonKeyForArray = "devices.outputs";
-		JSONArray res = Config.getJSONArray(jsonKeyForArray);
-		System.out.println(res);
+		JSONArray arr = Config.getJSONArray(jsonKeyForArray);
+		
+		System.out.println(arr);
+		
+		for(int i=0; i<arr.size(); i++){
+			JSONObject obj = (JSONObject) arr.get(i);
+			assertTrue(obj.containsKey("name"));
+			assertTrue(obj.containsKey("pin") || obj.containsKey("channel"));
+			assertTrue(obj.containsKey("type"));
+		}
+		
 	}
 	
 	@Test
 	public void readJSONArrayFromConfigJSON_NULL_Test(){
-		//TODO HERE!!!!!!!!!!!
-		String jsonKeyForArray = "devices.outputs";
+		String jsonKeyForArray = null;
+		assertEquals(null, Config.getJSONArray(jsonKeyForArray));
 	}
 	
 	@Test
 	public void readJSONArrayFromConfigJSON_Key_not_found_Test(){
 		String jsonKeyForArray = "non-existing.key";
-		JSONArray res = Config.getJSONArray(jsonKeyForArray);
-		assertEquals(null, res);
+		assertEquals(null, Config.getJSONArray(jsonKeyForArray));
+	}
+	
+	@Test
+	public void readJSONArrayFromConfigJSON_Empty_array_found_Test(){
+		String jsonKeyForArray = "devices.an empty array";
+		JSONArray emptyArray = new JSONArray();
+		JSONArray result = Config.getJSONArray(jsonKeyForArray);
+		assertEquals(0, result.size());
+		assertEquals(emptyArray, result);
 	}
 	
 }

@@ -456,10 +456,13 @@ public class Config {
 	 * <br> or null if specified key does not exits
 	 */
 	public static JSONArray getJSONArray(String jsonKey, boolean forceReadFileAgain){
+		if(jsonKey == null){
+			return null;
+		}
 		JSONArray arr = (JSONArray) get(jsonKey, null, forceReadFileAgain);
-		
-		return null;
+		return arr;
 	}
+
 	
 
 	/**

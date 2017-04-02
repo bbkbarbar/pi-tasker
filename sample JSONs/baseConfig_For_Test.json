@@ -24,7 +24,7 @@
 		},
 		"outputs":[
 			{
-				"name":"alma",
+				"name":"some output",
 				"type":"IO",
 				"pin":38,
 				"reversed":"yes"
@@ -34,7 +34,8 @@
 				"type":"PWM",
 				"channel":38
 			}
-		]
+		],
+		"an empty array":[]
 	}
 
 }
