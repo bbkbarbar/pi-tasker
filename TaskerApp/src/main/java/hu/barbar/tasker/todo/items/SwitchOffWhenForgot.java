@@ -9,10 +9,10 @@ import hu.barbar.util.logger.Log;
 /**
  *  A ToDoItem to define rules (from json file) to switch OFF peripherals <br> 
  *  when it reaches the specified temperature.  <br>
- *  It is a safety function for those case when user forgot <br> 
- *  to turn of heater or cooler what he manually turned on earlier.  
+ *  It is a safety function for those case when user turns on heater or cooler manually <br> 
+ *  but forgets to turn it off..  
  * 
- * @author Barbar
+ * @author Andras
  */
 public class SwitchOffWhenForgot extends TempRelatedToDoItemBase {
 
@@ -20,7 +20,7 @@ public class SwitchOffWhenForgot extends TempRelatedToDoItemBase {
 	protected int observedSensor = TempReader.SENSOR_WATER;
 	
 	
-	//TODO !!!!!!!!! folytani itt !!!!!!!!
+	//TODO !!!!!!!!! Implement this function !!!!!!!!
 	public SwitchOffWhenForgot(int observerSensor, JSONObject rule) {
 		
 		/*

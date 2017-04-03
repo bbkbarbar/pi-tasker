@@ -19,6 +19,13 @@ import hu.barbar.util.FileHandler;
 import hu.barbar.util.Mailer;
 import hu.barbar.util.logger.Log;
 
+/**
+ * Class to represent Temperature warning object.
+ * <br>This object observes a specified temperature sensor
+ * <br>and it can send warning messages via email.
+ * 
+ * @author Andras
+ */
 public class TempWarning extends TempRelatedToDoItemBase implements ToDoItemJSONInterface {
 
 	private static final String NAME = "TempWarning";
