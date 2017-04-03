@@ -2,8 +2,8 @@ package hu.barbar.tasker.util;
 
 import org.json.simple.JSONObject;
 
+import hu.barbar.util.Pair;
 import hu.barbar.util.logger.Log;
-import javafx.util.Pair;
 
 public class OutputConfig {
 	

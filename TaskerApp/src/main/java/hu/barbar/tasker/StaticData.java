@@ -2,6 +2,6 @@ package hu.barbar.tasker;
 
 public class StaticData {
 	
-	public static final int BUILD_NUM = 111;
+	public static final int BUILD_NUM = 112;
 	
 }

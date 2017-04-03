@@ -8,14 +8,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import hu.barbar.util.FileHandler;
+import hu.barbar.util.Pair;
 import hu.barbar.util.TaskerFilehandler;
 import hu.barbar.util.logger.Log;
-import javafx.util.Pair;
 
 public class Config {
 
 
-	public static final boolean READ_OUTPUT_CONFIGS_FROM_JSON = false;
+	public static final boolean READ_OUTPUT_CONFIGS_FROM_JSON = true;
 
 
 	/**
@@ -113,15 +113,20 @@ public class Config {
 
 	public static HashMap<String, OutputConfig> readOutputConfig(){
 		if(READ_OUTPUT_CONFIGS_FROM_JSON){
-			return readOutputConfigFromJSON(false);
+			Log.d("Read output configs from JSON");
+			return readOutputConfigFromJson(false);
 		}else{
+			Log.d("Read output configs from INI");
 			return readOutputConfigFromIni();
 		}
 	}
 
 	public static HashMap<String, OutputConfig> readOutputConfig(boolean forceUpdateConfig){
 		if(READ_OUTPUT_CONFIGS_FROM_JSON){
-			return readOutputConfigFromJSON(false);
+			if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
+				Config.outputConfigs = readOutputConfigFromJson(true); 
+			}
+			return Config.outputConfigs;
 		}else{
 			return readOutputConfigFromIni(forceUpdateConfig);
 		}
@@ -175,6 +180,7 @@ public class Config {
 		for(int i=0; i<arr.size(); i++){
 			Pair<String,OutputConfig> pair = OutputConfig.createInstaceFromJson((JSONObject) arr.get(i));
 			result.put(pair.getKey(), pair.getValue());
+			Log.d("OutputConfig from json: \"" + pair.getKey() + "\" - \"" + pair.getValue().toString() + "\"");
 		}
 		
 		return result;
@@ -206,6 +212,7 @@ public class Config {
 
 	}
 
+	/*
 	public static HashMap<String, OutputConfig> readOutputConfigJSON(String filename){
 		HashMap<String, OutputConfig> map = new HashMap<String, OutputConfig>();
 
@@ -226,11 +233,13 @@ public class Config {
 		}
 
 		return map;
-	}
+	}/**/
 
+	/**
 	public static HashMap<String, OutputConfig> readOutputConfigFromJSON(boolean forceUpdateConfig){
 
 		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
+			//Config.outputConfigs = Config.readOutputConfigJSON(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON);
 			Config.outputConfigs = Config.readOutputConfigJSON(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON);
 			if(forceUpdateConfig){
 				Log.d("Forced re-read pinout config from JSON file.");
@@ -244,6 +253,7 @@ public class Config {
 		return Config.outputConfigs;
 
 	}
+	/**/
 
 	
 	

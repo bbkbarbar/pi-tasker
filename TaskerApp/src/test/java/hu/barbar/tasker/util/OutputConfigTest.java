@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
-import javafx.util.Pair;
+import hu.barbar.util.Pair;
 import junit.framework.TestSuite;
 
 public class OutputConfigTest extends TestSuite {

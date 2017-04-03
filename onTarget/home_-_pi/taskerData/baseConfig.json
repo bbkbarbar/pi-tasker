@@ -31,6 +31,29 @@
 		},
 		"heater":{
 			"energy consumption in kwh":50.0
-		}
+		},
+		"outputs":[
+			{
+				"name":"output of cooler",
+				"type":"PWM",
+				"channel":3
+			},
+			{
+				"name":"output of heater",
+				"type":"IO",
+				"pin":37
+			},
+			{
+				"name":"output of air pump",
+				"type":"IO",
+				"pin":38,
+				"reversed":"yes"
+			},
+			{
+				"name":"output of feedback",
+				"type":"IO",
+				"pin":36
+			}
+		]
 	}
 }
