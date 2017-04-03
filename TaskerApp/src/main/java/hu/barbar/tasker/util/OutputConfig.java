@@ -5,6 +5,15 @@ import org.json.simple.JSONObject;
 import hu.barbar.util.Pair;
 import hu.barbar.util.logger.Log;
 
+/**
+ * Class to store output configuration elements.
+ * <br> An output configuration element contains:
+ * <br> the type of that (IO or PWM output)
+ * <br> the pin or channel of output (pin for IO or channel for PWM output)
+ * <br> in case of IO output it can be reversed..
+ * 
+ * @author Andras
+ */
 public class OutputConfig {
 	
 	public static final int UNDEFINED = -1;
@@ -246,7 +255,7 @@ public class OutputConfig {
 		
 		OutputConfig oc = new OutputConfig(parts[1]);
 		
-		return new Pair(parts[0], oc);
+		return new Pair<String, OutputConfig>(parts[0], oc);
 	}
 	
 	/**

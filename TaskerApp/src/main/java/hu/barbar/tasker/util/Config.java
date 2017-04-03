@@ -155,8 +155,6 @@ public class Config {
 
 	}
 	
-	
-	//TODO fix javadoc link for an other class
 	/**
 	 * Read output config elements from an array in config json.
 	 * <br> Note: Need to call {@link #setConfigSourceJSON(String) setConfigSourceJSON} method once before using..
@@ -164,7 +162,6 @@ public class Config {
 	 * @return a HashMap of {@link hu.barbar.tasker.util.OutputConfig OutputConfig}  objects
 	 */
 	public static HashMap<String, OutputConfig> readOutputConfigFromJson(boolean forceUpdateConfig){
-		//TODO HERE: implement me!
 		JSONArray arr = Config.getJSONArray("devices.outputs", forceUpdateConfig);
 		if(arr == null){
 			return null;
