@@ -239,17 +239,19 @@ public class OutputConfig {
 		String line = OutputConfig.getLineFrom(json);
 		
 		if(line == null){
-			//TODO warning here
+			Log.w("Can not create OutputConfig instace from json object.\nLine from json objact is NULL!");
 			return null;
 		}
 		if(!line.contains("=")){
-			//TODO warning here
+			Log.w("Can not create OutputConfig instace from json object.\nLine from json objact does not contains \"=\" sign.\n"
+					+ "It should separete the name (key) and the value (OutputConfig instance).");
 			return null;
 		}
 		
 		String[] parts = line.split("=");
-		if(parts.length != 2){
-			//TODO Warning here
+		if(parts.length < 2){
+			Log.w("Can not create OutputConfig instace from json object.\nLine from json objact does not contains anything after the \"=\" sign.\n"
+					+ "It should contains the value (OutputConfig instance) after the \"=\" sign.");
 			return null;
 		}
 		
