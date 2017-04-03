@@ -87,12 +87,6 @@ public class Config {
 		return configResult;
 	}
 
-	// Remove since not used anymore (since build 110)
-	/*
-	public static HashMap<String, String> readBaseConfig(){
-		return readBaseConfig(Env.getDataFolderPath() + Config.FILENAME_BASE_CONFIG);
-	}/**/
-
 	public static OutputConfig getOutputConfig(String key){
 
 		if(Config.outputConfigs == null){
@@ -212,50 +206,6 @@ public class Config {
 
 	}
 
-	/*
-	public static HashMap<String, OutputConfig> readOutputConfigJSON(String filename){
-		HashMap<String, OutputConfig> map = new HashMap<String, OutputConfig>();
-
-		JSONObject json = FileHandler.readJSON(filename);
-		if(json.containsKey("output config")){
-			JSONArray array = (JSONArray) json.get("output config");
-			for(int i=0; i<array.size(); i++){
-				JSONObject jsonItem = (JSONObject) array.get(i);
-
-				if(jsonItem.containsKey("name")){
-					String name = (String)jsonItem.get("name");
-					OutputConfig oc = new OutputConfig(jsonItem);
-					map.put(name, oc);
-					Log.d("Output config loaded from JSON:\n \"" + name + "\" > " + oc.toString());
-				}
-
-			}
-		}
-
-		return map;
-	}/**/
-
-	/**
-	public static HashMap<String, OutputConfig> readOutputConfigFromJSON(boolean forceUpdateConfig){
-
-		if(forceUpdateConfig || Config.outputConfigs == null || Config.outputConfigs.size() == 0){
-			//Config.outputConfigs = Config.readOutputConfigJSON(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON);
-			Config.outputConfigs = Config.readOutputConfigJSON(Env.getDataFolderPath() + Config.FILENAME_PINOUT_CONFIG_JSON);
-			if(forceUpdateConfig){
-				Log.d("Forced re-read pinout config from JSON file.");
-			}else{
-				Log.d("Read pinout config from JSON file.");
-			}
-		}else{
-			Log.d("Read pinout config from cache.");
-		}
-
-		return Config.outputConfigs;
-
-	}
-	/**/
-
-	
 	
 	/*
 	 *  LOAD PARAMETERS FROM ANY JSON
