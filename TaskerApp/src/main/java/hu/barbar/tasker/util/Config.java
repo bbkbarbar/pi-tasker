@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import hu.barbar.util.FileHandler;
 import hu.barbar.util.TaskerFilehandler;
 import hu.barbar.util.logger.Log;
+import javafx.util.Pair;
 
 public class Config {
 
@@ -165,7 +166,18 @@ public class Config {
 	 */
 	public static HashMap<String, OutputConfig> readOutputConfigFromJson(boolean forceUpdateConfig){
 		//TODO HERE: implement me!
-		return null;
+		JSONArray arr = Config.getJSONArray("devices.outputs", forceUpdateConfig);
+		if(arr == null){
+			return null;
+		}
+		
+		HashMap<String, OutputConfig> result = new HashMap<String, OutputConfig>();
+		for(int i=0; i<arr.size(); i++){
+			Pair<String,OutputConfig> pair = OutputConfig.createInstaceFromJson((JSONObject) arr.get(i));
+			result.put(pair.getKey(), pair.getValue());
+		}
+		
+		return result;
 	}
 
 

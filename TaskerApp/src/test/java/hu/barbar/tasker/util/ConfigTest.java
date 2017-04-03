@@ -10,9 +10,9 @@ import java.util.HashMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import hu.barbar.util.FileHandler;
 import junit.framework.TestSuite;
 
 public class ConfigTest extends TestSuite {
@@ -26,6 +26,7 @@ public class ConfigTest extends TestSuite {
 	@Before
 	public void before(){
 		//System.out.println(FileHandler.readJSON(configJsonFilePath));
+		assertTrue(FileHandler.fileExists(configJsonFilePath));
 		Config.setConfigSourceJSON(configJsonFilePath);
 	}
 
@@ -211,7 +212,7 @@ public class ConfigTest extends TestSuite {
 		String jsonKeyForArray = "devices.outputs";
 		JSONArray arr = Config.getJSONArray(jsonKeyForArray);
 		
-		System.out.println(arr);
+		//System.out.println(arr);
 		
 		for(int i=0; i<arr.size(); i++){
 			JSONObject obj = (JSONObject) arr.get(i);
@@ -251,10 +252,10 @@ public class ConfigTest extends TestSuite {
 		HashMap<String,OutputConfig> res = Config.readOutputConfigFromIni(true, pinputConfIniFilePath);
 		assertFalse(res == null);
 		assertTrue((res.size() > 2));
-		String completeOutputConfig = res.toString();
-		//System.out.println("res: " + completeOutputConfig);
-		assertTrue(completeOutputConfig.contains("output of air pump=Type: io  Pin: 38 Reversed"));
-		assertTrue(completeOutputConfig.contains("utput of cooler=Type: pwm Channel: 3"));
+		//System.out.println("res: " + res.toString());
+		assertEquals("Type: io  Pin: 38 Reversed", res.get("output of air pump").toString());
+		assertEquals("Type: pwm Channel: 3", res.get("output of cooler").toString());
+		
 	}
 	
 	
@@ -262,11 +263,13 @@ public class ConfigTest extends TestSuite {
 	 *  Read outputConfigs from JSON
 	 */
 	
-	@Ignore
 	@Test
 	public void readOutputConfigFromJson_Test(){
-		//TODO implement me
 		HashMap<String, OutputConfig> res = Config.readOutputConfigFromJson(true);
+		assertFalse(null == res);
+		assertEquals("Type: io  Pin: 38 Reversed", res.get("some output").toString());
+		assertEquals("Type: pwm Channel: 3", res.get("cooler").toString());
+		assertEquals("Type: io  Pin: 37", res.get("some other output").toString());
 	}
 	
 }
