@@ -32,7 +32,7 @@ Temperature warning rules described in [JSON file](https://github.com/bbkbarbar/
 | Water cooler   | Gradual speed control (pwm)| X         | X                    | X                   | 230VAC->12VDC - 1ch pwm  |
 | Light          | On/Off, 3ch RGB color      | X         | -                    | X                   | 230VAC->12VDC - 3ch pwm  |
 
-Note: System can handle further pwm output (in fact unlimited number / just depends on how much devices do you have from [Serial PWM Driver](https://bbkbarbar.github.io/Serial_PWM_Driver_with_OLED)). 
+Note: System can handle further pwm output (in fact unlimited number / just depends on how much devices do you have from [Serial PWM Driver](https://bbkbarbar.github.io/Serial_PWM_Driver_with_OLED)).
 
 [For furher information follow t link](https://bbkbarbar.github.io/Serial_PWM_Driver_with_OLED/#further_channels)
 
@@ -54,6 +54,12 @@ Note: System can handle further pwm output (in fact unlimited number / just depe
  - Run deploy script (deploy.sh)
  - Copy release to user's folder
  - run first with run.sh with name of copied release as parameter (./run.sh t102.jar)
+
+## Wireing
+  Planned connection modul, to make connection clean:
+  ![](https://github.com/bbkbarbar/pi-tasker/raw/master/Circuits/Connector_module.png)
+  Note: Pi Zero has some GND and VCC pins in GPIO port, but more external module need to get power from Pi. Previously I tried to give energy for a module from output of an other, but this makes the connections complex.<br>
+  So I'm planning to create a "connector" module (something like above), to make connections clean and clear.
 
 
 ## ToDo list:
