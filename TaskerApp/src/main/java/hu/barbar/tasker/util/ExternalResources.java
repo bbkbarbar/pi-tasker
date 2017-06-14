@@ -8,7 +8,9 @@ public class ExternalResources {
 
 	public static final String IO_OUTPUT_SCRIPT = "io_output.py";
 
-	public static final String TEMPERATURE_READER_SCRIPT = "getTemp_mock.py";
+	//public static final String TEMPERATURE_READER_SCRIPT = "getTemp_mock.py";
+	
+	public static final String TEMPERATURE_READER_SCRIPT = "getTemp_new_water_only.py";
 
 	public static final String CPU_TEMPERATURE_READER_SCRIPT = "get_cpu_temp.py";
 	

@@ -17,7 +17,9 @@ public class TaskExecutor {
 	public static String readTemp(String param){
 		
 		String response = "_PROBLEM_";
-		String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.TEMPERATURE_READER_SCRIPT + " -s -1";
+		//String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.TEMPERATURE_READER_SCRIPT + " -s -1";
+		//For new temp-reader script (what can use only 1 sensor now):
+		String cmd = "python " + ExternalResources.SCRIPT_PATH + ExternalResources.TEMPERATURE_READER_SCRIPT;
 		if(Env.runningOnTargetDevice()){
 			try {
 				Process p = Runtime.getRuntime().exec(cmd);
