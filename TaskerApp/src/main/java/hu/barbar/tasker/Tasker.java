@@ -172,11 +172,13 @@ public class Tasker {
 
 			myWorker = new Worker(30);
 
+			/*
 			TempOnColors toc = new TempOnColors();
 			toc.setServer(myServer);
 			toc.setValidityOfMeteringResult(10);
-			toc.setEnabled(true);
+			toc.setEnabled(false);
 			myWorker.addToDoItem(toc);
+			/**/
 
 
 			/*
