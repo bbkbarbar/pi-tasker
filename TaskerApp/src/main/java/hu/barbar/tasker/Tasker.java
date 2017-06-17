@@ -175,8 +175,7 @@ public class Tasker {
 			TempOnColors toc = new TempOnColors();
 			toc.setServer(myServer);
 			toc.setValidityOfMeteringResult(10);
-			// Temporary disabled because of temperature sensor problem
-			toc.setEnabled(false);
+			toc.setEnabled(true);
 			myWorker.addToDoItem(toc);
 
 
@@ -216,7 +215,6 @@ public class Tasker {
 							rules
 				);
 			}
-			// Temporary disabled because of temperature sensor problem
 			cc.setEnabled(true);
 			myWorker.addToDoItem(cc);
 
@@ -257,8 +255,7 @@ public class Tasker {
 				hc.setEnabled(true);
 			}
 			hc.setUsageLog(heaterUsageLog);
-			// Temporary disabled because of temperature sensor problem
-			hc.setEnabled(false);
+			hc.setEnabled(true);
 			myWorker.addToDoItem(hc);
 
 
@@ -268,7 +265,7 @@ public class Tasker {
 			WebUIUpdater webupdater = new WebUIUpdater();
 			webupdater.setValidityOfMeteringResult(15);
 			webupdater.setHeaterUsageLog(heaterUsageLog);
-			webupdater.setEnabled(false);
+			webupdater.setEnabled(true);
 			myWorker.addToDoItem(webupdater);
 
 
