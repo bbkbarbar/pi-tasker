@@ -20,6 +20,10 @@ public class HeaterController extends TempController {
 
 	@Override
 	protected boolean isValueExceedLimit(float value, float limit) {
+		// If value equals 0.00 it probably is a measurement problem so...
+		if(value == 0.0f){
+			return false;
+		}
 		// In HeaterController "exceeds" means value is lower than limit..
 		return (value < limit);
 	}

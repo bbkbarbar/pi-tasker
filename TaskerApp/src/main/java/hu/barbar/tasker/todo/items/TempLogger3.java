@@ -60,6 +60,11 @@ public class TempLogger3 extends TempRelatedToDoItemBase {
 		
 		float airTemp = readTemperature().getTempOfAir();
 		float waterTemp = readTemperature().getTempOfWater();
+		if(waterTemp == 0.0f){
+			Log.w("TempLogger3 (ToDoItem: "
+					+ getId()
+					+ ") Suspected temperature measurement problem (water temp equals: " + waterTemp + "°C");
+		}
 		float coolerStateinRange = -1;
 		if(outputConfigOfCooler.getType() == OutputConfig.Type.IO){
 			if(Tasker.getOutputState(outputConfigOfCooler) > 0){
@@ -76,7 +81,7 @@ public class TempLogger3 extends TempRelatedToDoItemBase {
 		
 		if( TemperatureResult.isValueInvalid(airTemp) ||
 			TemperatureResult.isValueInvalid(waterTemp) ){
-			Log.w("TempLogger2 (ToDoItem: "
+			Log.w("TempLogger3 (ToDoItem: "
 					+ getId()
 					+ ") Invalid temp value has been read: air: " + airTemp  + " water: " + waterTemp);
 			return;
@@ -93,7 +98,7 @@ public class TempLogger3 extends TempRelatedToDoItemBase {
 		if(FileHandler.appendToFile(this.temperatureLogFile, line)){
 			// Success, do nothing
 		}else{
-			Log.e("TempLogger2 :: Error while try to write temp log to file: " + temperatureLogFile);
+			Log.e("TempLogger3 :: Error while try to write temp log to file: " + temperatureLogFile);
 		}
 		
 	}
