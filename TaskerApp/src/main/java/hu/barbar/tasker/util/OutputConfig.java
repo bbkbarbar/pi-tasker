@@ -31,7 +31,7 @@ public class OutputConfig {
 
 	public static final boolean DEFAULT_VALUE_OF_REVERSED = false;
 	
-	public static final int PWM_MAX_VALUE = 4096;
+	public static final int PWM_MAX_VALUE = 4095;
 	
 	public static class Type {
 		

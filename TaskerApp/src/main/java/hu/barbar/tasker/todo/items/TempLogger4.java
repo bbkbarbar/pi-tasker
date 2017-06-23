@@ -74,7 +74,7 @@ public class TempLogger4 extends TempRelatedToDoItemBase {
 			}
 		}else
 		if(outputConfigOfCooler.getType() == OutputConfig.Type.PWM){
-			coolerStateinPct = ((Tasker.getOutputState(outputConfigOfCooler)*100) / OutputConfig.PWM_MAX_VALUE);
+			coolerStateinPct = (int) (((Tasker.getOutputState(outputConfigOfCooler)*100) / OutputConfig.PWM_MAX_VALUE) + 0.5f);
 		}
 		
 		
