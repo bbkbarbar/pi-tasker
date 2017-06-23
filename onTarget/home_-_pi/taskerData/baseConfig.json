@@ -12,7 +12,10 @@
 		"path for log folder":"/home/pi/taskerData/logs/",
 		"filename of basic temperature log":"temp.log",
 		"filename of temperature log":"temp_and_cooler.log",
-		"datetime parrern for temp log lines":"yyyy-MM-dd HH:mm"
+		"path for log csv":"/home/pi/taskerData/logs/",
+		"filename of temperature log csv":"temp_and_cooler.csv",
+		"datetime parrern for temp log lines":"yyyy-MM-dd HH:mm",
+		"datetime pattern for temp log csv":"yyyy-MM-dd HH:mm:ss"
 	},
 	"web ui":{
 		"datetime format pattern":"HH:mm:ss",

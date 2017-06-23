@@ -1,2 +1,5 @@
 build 113:
 	Add new python script to read at least the water temperature for cooler control function.
+
+build 115:
+	Add TempLogger4 to log temperature files and cooler state where cooler state is in range of 0-100(%).

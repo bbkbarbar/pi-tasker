@@ -19,6 +19,7 @@ import hu.barbar.tasker.todo.Worker;
 import hu.barbar.tasker.todo.items.OutputEventScheduler;
 import hu.barbar.tasker.todo.items.TempLogger2;
 import hu.barbar.tasker.todo.items.TempLogger3;
+import hu.barbar.tasker.todo.items.TempLogger4;
 import hu.barbar.tasker.todo.items.TempOnColors;
 import hu.barbar.tasker.todo.items.TempWarning;
 import hu.barbar.tasker.todo.items.WebUIUpdater;
@@ -166,6 +167,10 @@ public class Tasker {
 			TempLogger3 tlWithCoolerState = new TempLogger3(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_COOLER));
 			tlWithCoolerState.setValidityOfMeteringResult(15);
 			logWorker.addToDoItem(tlWithCoolerState);
+
+			TempLogger4 tlWithCoolerStateInPct = new TempLogger4(Config.readOutputConfig(false).get(Config.KEY_OUTPUT_OF_COOLER));
+			tlWithCoolerStateInPct.setValidityOfMeteringResult(15);
+			logWorker.addToDoItem(tlWithCoolerStateInPct);
 
 			logWorker.start();
 
