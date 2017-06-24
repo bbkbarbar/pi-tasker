@@ -63,7 +63,7 @@ public class TempLogger4 extends TempRelatedToDoItemBase {
 		if(waterTemp == 0.0f){
 			Log.w("TempLogger4 (ToDoItem: "
 					+ getId()
-					+ ") Suspected temperature measurement problem (water temp equals: " + waterTemp + "°C");
+					+ ") Suspected temperature measurement problem (water temp equals: " + waterTemp + "°C)");
 		}
 		int coolerStateinPct = -1;
 		if(outputConfigOfCooler.getType() == OutputConfig.Type.IO){
@@ -94,10 +94,12 @@ public class TempLogger4 extends TempRelatedToDoItemBase {
 				";" +
 				Integer.toString(coolerStateinPct);
 		
-		if(FileHandler.appendToFile(this.temperatureLogFile, line)){
-			// Success, do nothing
-		}else{
-			Log.e("TempLogger4 :: Error while try to write temp log to file: " + temperatureLogFile);
+		if(waterTemp != 0.0f){
+			if(FileHandler.appendToFile(this.temperatureLogFile, line)){
+				// Success, do nothing
+			}else{
+				Log.e("TempLogger4 :: Error while try to write temp log to file: " + temperatureLogFile);
+			}
 		}
 		
 	}
