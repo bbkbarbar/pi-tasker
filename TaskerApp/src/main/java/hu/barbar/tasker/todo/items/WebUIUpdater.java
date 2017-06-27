@@ -112,6 +112,12 @@ public class WebUIUpdater extends TempRelatedToDoItemBase {
 		 *  Read temp 
 		 */
 		TemperatureResult t = readTemperature();
+		if(t == null){
+			Log.w(getClassTitle() + " (ToDoItem: "
+					+ getId()
+					+ ") Suspected temperature measurement problem (temperature result is null.)");
+			return;
+		}
 		String airTempToShow = null;
 		if( TemperatureResult.isValueValid(t.getTempOfAir()) ){
 			airTempToShow = String.format("%.2f", t.getTempOfAir());

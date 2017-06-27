@@ -58,8 +58,15 @@ public class TempLogger3 extends TempRelatedToDoItemBase {
 		// "2016-07-12 12:29, 26.76, 25.01, 26.00\n" + 	//where 25.60 means 25 + 12% (which means 0.6 in range of 25..30)
 		String line = "\"" + sdf.format(new Date());
 		
-		float airTemp = readTemperature().getTempOfAir();
-		float waterTemp = readTemperature().getTempOfWater();
+		TemperatureResult tr = readTemperature();
+		if(tr == null){
+			Log.w("TempLogger3 (ToDoItem: "
+					+ getId()
+					+ ") Suspected temperature measurement problem (temperature result is null.)");
+			return;
+		}
+		float airTemp = tr.getTempOfAir();
+		float waterTemp = tr.getTempOfWater();
 		if(waterTemp == 0.0f){
 			Log.w("TempLogger3 (ToDoItem: "
 					+ getId()
