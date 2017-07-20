@@ -32,7 +32,7 @@
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":352},
-				{"channel":1,"value":240},
+				{"channel":1,"value":150},
 				{"channel":2,"value":32}
 			]
 		},
@@ -41,7 +41,7 @@
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":432},
-				{"channel":1,"value":272},
+				{"channel":1,"value":202},
 				{"channel":2,"value":48}
 			]
 		},
@@ -50,7 +50,7 @@
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":512},
-				{"channel":1,"value":272},
+				{"channel":1,"value":202},
 				{"channel":2,"value":48}
 			]
 		},
@@ -59,7 +59,7 @@
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":608},
-				{"channel":1,"value":288},
+				{"channel":1,"value":238},
 				{"channel":2,"value":48}
 			]
 		},
@@ -68,7 +68,7 @@
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":688},
-				{"channel":1,"value":352},
+				{"channel":1,"value":288},
 				{"channel":2,"value":64}
 			]
 		},
@@ -77,7 +77,7 @@
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":784},
-				{"channel":1,"value":400},
+				{"channel":1,"value":350},
 				{"channel":2,"value":64}
 			]
 		},
@@ -86,7 +86,7 @@
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":864},
-				{"channel":1,"value":512},
+				{"channel":1,"value":482},
 				{"channel":2,"value":64}
 			]
 		},
@@ -104,7 +104,7 @@
 			"type":"pwm",
 			"pwmStates":[
 				{"channel":0,"value":1088},
-				{"channel":1,"value":656},
+				{"channel":1,"value":570},
 				{"channel":2,"value":112}
 			]
 		},
@@ -112,8 +112,8 @@
 			"time":639,
 			"type":"pwm",
 			"pwmStates":[
-				{"channel":0,"value":1152},
-				{"channel":1,"value":720},
+				{"channel":0,"value":1252},
+				{"channel":1,"value":650},
 				{"channel":2,"value":160}
 			]
 		},
@@ -121,8 +121,8 @@
 			"time":641,
 			"type":"pwm",
 			"pwmStates":[
-				{"channel":0,"value":1264},
-				{"channel":1,"value":1024},
+				{"channel":0,"value":1464},
+				{"channel":1,"value":824},
 				{"channel":2,"value":240}
 			]
 		},
@@ -130,18 +130,53 @@
 			"time":643,
 			"type":"pwm",
 			"pwmStates":[
-				{"channel":0,"value":1376},
-				{"channel":1,"value":1376},
+				{"channel":0,"value":1776},
+				{"channel":1,"value":1276},
 				{"channel":2,"value":416}
 			]
 		},
-
+		{
+			"time":800,
+			"type":"pwm",
+			"pwmStates":[
+				{"channel":0,"value":2524},
+				{"channel":1,"value":1788},
+				{"channel":2,"value":904}
+			]
+		},
+		{
+			"time":900,
+			"type":"pwm",
+			"pwmStates":[
+				{"channel":0,"value":3572},
+				{"channel":1,"value":1990},
+				{"channel":2,"value":1392}
+			]
+		},
 		{
 			"time":0625,
 			"type":"io",
 			"desctription":"levego ON - reggel",
 			"ioStates":[
 				{"pin":38,"value":0}
+			]
+		},
+		{
+			"time":1900,
+			"type":"pwm",
+			"pwmStates":[
+				{"channel":0,"value":2224},
+				{"channel":1,"value":1288},
+				{"channel":2,"value":904}
+			]
+		},
+		{
+			"time":2030,
+			"type":"pwm",
+			"pwmStates":[
+				{"channel":0,"value":1376},
+				{"channel":1,"value":1076},
+				{"channel":2,"value":416}
 			]
 		},
 		{
