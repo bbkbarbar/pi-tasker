@@ -207,7 +207,7 @@ public class Config {
 	/*
 	 *  LOAD PARAMETERS FROM ANY JSON
 	 */
-	
+
 	public static Object readFromJson(JSONObject json, String jsonKey) {
 		JSONObject jsonContent = FileHandler.readJSON(configSourceJSON);
 		if(jsonContent != null){

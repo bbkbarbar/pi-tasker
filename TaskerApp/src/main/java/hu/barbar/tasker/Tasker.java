@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import hu.barbar.tasker.todo.items.*;
 import org.json.simple.JSONObject;
 
 import hu.barbar.comm.server.MultiThreadServer;
@@ -16,13 +17,6 @@ import hu.barbar.comm.util.tasker.StateMsg;
 import hu.barbar.tasker.log.EventLogger;
 import hu.barbar.tasker.log.IOLogger;
 import hu.barbar.tasker.todo.Worker;
-import hu.barbar.tasker.todo.items.OutputEventScheduler;
-import hu.barbar.tasker.todo.items.TempLogger2;
-import hu.barbar.tasker.todo.items.TempLogger3;
-import hu.barbar.tasker.todo.items.TempLogger4;
-import hu.barbar.tasker.todo.items.TempOnColors;
-import hu.barbar.tasker.todo.items.TempWarning;
-import hu.barbar.tasker.todo.items.WebUIUpdater;
 import hu.barbar.tasker.todo.items.tempcontrol.CoolerController;
 import hu.barbar.tasker.todo.items.tempcontrol.HeaterController;
 import hu.barbar.tasker.todo.items.tempcontrol.TempController;
@@ -45,7 +39,7 @@ public class Tasker {
 
 	private static final int buildNum = StaticData.BUILD_NUM;
 
-	public static final boolean DEBUG_MODE = false;
+	public static final boolean DEBUG_MODE = true;
 
 	public static final int DEFAULT_PORT = (DEBUG_MODE? 10710 : 10713);
 
@@ -291,10 +285,14 @@ public class Tasker {
 			myWorker.start();
 		}
 
-		/*
-		Worker myWorker2 = new Worker("Check anyting one per an hour", 3600);
-		TempExceeds te2 = new TempExceeds("Temperature < 15.0C", 15f, TempExceeds.DIRECTION_DECREASING, 1.0f);
-		myWorker2.addToDoItem(te2);
+		Worker myWorker2 = new Worker("Read DHT values from IoT device and update ThingSpeak", 30);
+
+		//TempExceeds te2 = new TempExceeds("Temperature < 15.0C", 15f, TempExceeds.DIRECTION_DECREASING, 1.0f);
+		//myWorker2.addToDoItem(te2);
+
+		IoTDataDispatcher wdp = new IoTDataDispatcher("DHT_test_channel");
+		myWorker2.addToDoItem(wdp);
+
 		myWorker2.start();
 		/**/
 
@@ -771,7 +769,7 @@ public class Tasker {
 
 
 	/**
-	 * @param outputConfigOfCooler
+	 * @param outputConfig
 	 * @return 1 || 0 if output type is IO or <br>
 	 *         the decimal value in 12bit if output type is PWM or <br>
 	 *         OutputConfig.INVALID (-2) if outputConfig type of instance is NOT equals Type.PWM or Type.IO,

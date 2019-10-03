@@ -13,5 +13,7 @@ public class Defaults {
 	
 	public static final String WEBUI_UPDATER_DATE_TIME_FORMAT_PATTERN = "yyyy.MM.dd HH:mm:ss";
 	public static final String PATH_OF_LIVE_WEB_CONTENT = "/var/www/html/";
+
+	public static final int THINGSPEAK_CHANNEL_ID_UNDEFINED = -36;
 	
 }

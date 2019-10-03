@@ -59,6 +59,28 @@
 			}
 		],
 		"an empty array":[]
+	},
+	"thingSpeak":{
+		"DHT_test_channel":{
+			"channelId": 876121,
+			"write api key": "1AH7O44C2M1ELPU8",
+			"IoT url" : "http://localhost:8083",
+			"IoT path" : "/pure",
+			"fields":[
+				{
+					"fieldId": 2,
+					"value_name": "humidity" 
+				},
+				{
+					"fieldId": 1,
+					"value_name": "heatIndex" 
+				},
+				{
+					"fieldId": 3,
+					"value_name": "tempC" 
+				}
+			]
+		}
 	}
 
 }

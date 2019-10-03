@@ -16,6 +16,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <build>
@@ -86,19 +88,19 @@
     <dependency>
     	<groupId>hu.barbar</groupId>
     	<artifactId>comm.server.multithread</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
+    	<version>1.0.1-SNAPSHOT</version>
     </dependency>
 
     <dependency>
     	<groupId>hu.barbar.util</groupId>
     	<artifactId>logger</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
+    	<version>1.0.0</version>
     </dependency>
 
     <dependency>
     	<groupId>hu.barbar.util</groupId>
     	<artifactId>filehandler</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
+    	<version>1.0.0</version>
     </dependency>
 
     <dependency>
@@ -106,6 +108,62 @@
     	<artifactId>comm.util.tasker</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
+
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>4.1.1</version>
+      <scope>test</scope>
+    </dependency>-->
+
+
+    <!--  Get data from web-interface of IoT device(s)  -->
+    <!--  RestAssured -->
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured-->
+        <dependency>
+          <groupId>io.rest-assured</groupId>
+          <artifactId>rest-assured</artifactId>
+          <version>3.3.0</version>
+        </dependency>
+	
+	    <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+	    <dependency>
+	        <groupId>com.googlecode.json-simple</groupId>
+	        <artifactId>json-simple</artifactId>
+	        <version>1.1.1</version>
+	    </dependency>
+	    
+	    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+
+    <!--  Send data to ThingSpeak  -->
+        <!-- https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java -->
+        <dependency>
+          <groupId>hu.barbar</groupId>
+          <artifactId>thingspeak-client</artifactId>
+          <version>1.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java -->
+        <dependency>
+          <groupId>com.mashape.unirest</groupId>
+          <artifactId>unirest-java</artifactId>
+          <version>1.3.4</version>
+        </dependency>
 
   </dependencies>
 </project>
