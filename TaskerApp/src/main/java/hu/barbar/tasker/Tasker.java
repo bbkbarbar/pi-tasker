@@ -285,12 +285,16 @@ public class Tasker {
 			myWorker.start();
 		}
 
-		Worker myWorker2 = new Worker("Read DHT values from IoT device and update ThingSpeak", 30);
+		String tsChannelName = "Nappali";
+
+		int tsChannelUpdateFreq = Config.getInt("IoT data dispatcher.worker update frequency", 30);
+		Worker myWorker2 = new Worker("Read DHT values from IoT device and update ThingSpeak (" + tsChannelUpdateFreq + "s)", tsChannelUpdateFreq);
 
 		//TempExceeds te2 = new TempExceeds("Temperature < 15.0C", 15f, TempExceeds.DIRECTION_DECREASING, 1.0f);
 		//myWorker2.addToDoItem(te2);
 
-		IoTDataDispatcher wdp = new IoTDataDispatcher("DHT_test_channel");
+		//IoTDataDispatcher wdp = new IoTDataDispatcher("DHT_test_channel");
+		IoTDataDispatcher wdp = new IoTDataDispatcher(tsChannelName);
 		myWorker2.addToDoItem(wdp);
 
 		myWorker2.start();
