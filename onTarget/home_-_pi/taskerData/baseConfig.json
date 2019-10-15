@@ -63,46 +63,6 @@
 		"worker update frequency": 60
 	},
 	"thingSpeak":{
-		"DHT_test_channel":{
-			"channelId": 876121,
-			"write api key": "1AH7O44C2M1ELPU8",
-			"IoT url" : "http://localhost:8083",
-			"IoT path" : "/pure",
-			"fields":[
-				{
-					"fieldId": 2,
-					"value_name": "humidity" 
-				},
-				{
-					"fieldId": 1,
-					"value_name": "heatIndex" 
-				},
-				{
-					"fieldId": 3,
-					"value_name": "tempC" 
-				}
-			]
-		},
-		"Nappali_bad":{
-			"channelId": 691949,
-			"write api key": "0IN79L3E7A1HC0AM",
-			"IoT url" : "192.168.1.108",
-			"IoT path" : "/pure",
-			"fields":[
-				{
-					"fieldId": 2,
-					"value_name": "humidity" 
-				},
-				{
-					"fieldId": 1,
-					"value_name": "heatIndex" 
-				},
-				{
-					"fieldId": 3,
-					"value_name": "tempC" 
-				}
-			]
-		},
 		"Nappali":{
 			"channelId": 882704,
 			"TS name": "DHT - Nappali",
@@ -121,6 +81,81 @@
 				{
 					"fieldId": 3,
 					"value_name": "tempC" 
+				}
+			]
+		},
+		"Udvar":{
+			"channelId": 884147,
+			"TS name": "DHT - Udvar,",
+			"write api key": "EH4W8K9GQ3WYOX16", 
+			"IoT url" : "http://192.168.1.109:80",
+			"IoT path" : "/pure"
+		},
+		"Homersekletek":{
+			"--TS name": "DHT",
+			"--channelId": 876121,
+			"--write api key": "1AH7O44C2M1ELPU8",
+			"TS name": "Test channel",
+			"channelId": 873877,
+			"write api key": "ALJG8URCXIFUSU5I",
+			"IoT devices": [
+				{
+					"name": "Nappali",
+					"url" : "http://192.168.1.108:80",
+					"path" : "/pure",
+					"fields": [
+						{
+							"fieldId": 1,
+							"value_name": "tempC" 
+						},
+						{
+							"fieldId": 2,
+							"value_name": "humidity" 
+						}
+					],
+					"calculated fields":[
+						{
+							"name":"air_density",
+							"from":[
+								{
+									"value_name":"tempC"
+								},
+								{
+									"value_name":"humidity"
+								}
+							],
+							"fieldId": 5
+						}
+					]
+				},
+				{
+					"name": "Udvar",
+					"url" : "http://192.168.1.109:80",
+					"path" : "/pure",
+					"fields": [
+						{
+							"fieldId": 3,
+							"value_name": "tempC" 
+						},
+						{
+							"fieldId": 4,
+							"value_name": "humidity" 
+						}
+					],
+					"calculated fields":[
+						{
+							"name":"air_density",
+							"from":[
+								{
+									"value_name":"tempC"
+								},
+								{
+									"value_name":"humidity"
+								}
+							],
+							"fieldId": 6
+						}
+					]
 				}
 			]
 		}
