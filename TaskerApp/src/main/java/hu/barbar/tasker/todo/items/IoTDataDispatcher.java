@@ -32,27 +32,32 @@ public class IoTDataDispatcher extends IoTDataReader {
 	public IoTDataDispatcher(String TSChannelName) {
 		super();
 
-		this.tsChannelName = TSChannelName;
-		this.channelId = Config.getInt("thingSpeak." + tsChannelName + ".channelId", THINGSPEAK_CHANNEL_ID_OF_DTH_TEST_CHANNEL);
-		this.apiWriteKey = Config.getString("thingSpeak." + tsChannelName + ".write api key", "UNDEFINED_API_KEY");
+		if( Config.getInt("thingSpeak." + TSChannelName + ".channelId", -100) == -100 ){
+			this.enabled = false;
+		}else {
 
-		this.iotUrl =  Config.getString("thingSpeak." + tsChannelName + ".IoT url", "UNDEFINED_URL_FOR_IOT_DEVICE");
-		this.iotPath = Config.getString("thingSpeak." + tsChannelName + ".IoT path", "UNDEFINED_PATH_FOR_IOT_DEVICE");
+			this.tsChannelName = TSChannelName;
+			this.channelId = Config.getInt("thingSpeak." + tsChannelName + ".channelId", THINGSPEAK_CHANNEL_ID_OF_DTH_TEST_CHANNEL);
+			this.apiWriteKey = Config.getString("thingSpeak." + tsChannelName + ".write api key", "UNDEFINED_API_KEY");
 
-		Log.i("ThingSpeak updater initialzed:");
-		Log.i("\tName: " + this.tsChannelName);
-		Log.i("\tChannelId: " + this.channelId);
-		Log.i("\tIoT url: " + this.iotUrl);
-		Log.i("\tIoT path: " + this.iotPath);
-		/*
-		System.out.println("TS channel name: " + TSChannelName);
-		System.out.println("TS channelID: " + this.channelId);
-		System.out.println("TS apiWriteKey: " + this.apiWriteKey);
-		/**/
+			this.iotUrl = Config.getString("thingSpeak." + tsChannelName + ".IoT url", "UNDEFINED_URL_FOR_IOT_DEVICE");
+			this.iotPath = Config.getString("thingSpeak." + tsChannelName + ".IoT path", "UNDEFINED_PATH_FOR_IOT_DEVICE");
 
-		//fields = Config.getJSONArray("thingSpeak." + tsChannelName + ".fields");
+			Log.i("ThingSpeak dispatcher initialzed:");
+			Log.i("\tName: " + this.tsChannelName);
+			Log.i("\tChannelId: " + this.channelId);
+			Log.i("\tIoT url: " + this.iotUrl);
+			Log.i("\tIoT path: " + this.iotPath);
+			/*
+			System.out.println("TS channel name: " + TSChannelName);
+			System.out.println("TS channelID: " + this.channelId);
+			System.out.println("TS apiWriteKey: " + this.apiWriteKey);
+			/**/
 
-		// TODO initialize this function
+			//fields = Config.getJSONArray("thingSpeak." + tsChannelName + ".fields");
+
+			// TODO initialize this function
+		}
 	}
 
 	@Override
@@ -62,7 +67,6 @@ public class IoTDataDispatcher extends IoTDataReader {
 		try {
 			JSONObject values = (JSONObject) this.readJSONDataFromIoTDevice().get("values");
 			//System.out.println(values.toJSONString());
-
 
 			if(values.containsKey("tempC")){
 				//Log.i("Homerseklet: " + values.get("tempC"));
@@ -78,12 +82,6 @@ public class IoTDataDispatcher extends IoTDataReader {
 			}
 			/**/
 
-			//Entry entry = new Entry();
-			/*
-			entry.setField(1, (String) values.get("heatIndex"));
-			entry.setField(2, (String) values.get("humidity"));
-			entry.setField(3, (String) values.get("tempC"));
-			/**/
 			/*
 			if(values.containsKey("heatIndex")) {
 				String s = (String) values.get("heatIndex");
@@ -93,23 +91,8 @@ public class IoTDataDispatcher extends IoTDataReader {
 					entry.setField(1, s);
 				}
 			}
-			if(values.containsKey("humidity")) {
-				String s = (String) values.get("humidity");
-				if(s.equalsIgnoreCase("nan")){
-
-				}else {
-					entry.setField(2, s);
-				}
-			}
-			if(values.containsKey("tempC")) {
-				String s = (String) values.get("tempC");
-				if(s.equalsIgnoreCase("nan")){
-
-				}else {
-					entry.setField(3, s);
-				}
-			}
 			/**/
+
 
 		}catch (ParseException e) {
 			Log.w("Parse exception occured:");
@@ -136,7 +119,7 @@ public class IoTDataDispatcher extends IoTDataReader {
 			Log.w(e.toString());
 		}
 		if(tsUpdateDone){
-			Log.i("TS update successful!");
+			Log.d("TS update successful!");
 		}
 	}
 
